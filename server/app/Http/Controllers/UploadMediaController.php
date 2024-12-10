@@ -23,9 +23,7 @@ class UploadMediaController extends Controller
             ]);
 
             if ($request->hasFile('video') && $request->file('video')->isValid()) {
-
                 $fileName = $request->file('video')->getClientOriginalName();
-
                 $destinationPath = resource_path('videos');
 
                 if (!File::exists($destinationPath)) {
@@ -43,7 +41,6 @@ class UploadMediaController extends Controller
             return response()->json([
                 'message' => 'Invalid video file.',
             ], 400);
-
         } catch (\Exception $e) {
             Log::error('Video upload failed: ' . $e->getMessage());
 

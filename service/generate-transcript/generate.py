@@ -1,20 +1,16 @@
-from moviepy import VideoFileClip
 import sys
-import speech_recognition as sr
 import os
+import warnings
+from moviepy import VideoFileClip
 from pydub import AudioSegment
 from pydub.silence import split_on_silence
 from datetime import datetime
+import speech_recognition as sr
 import shutil
 
-r = sr.Recognizer()
+warnings.filterwarnings("ignore", message="Couldn't find ffmpeg or avconv")
 
-timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
-base_folder = f"output-{timestamp}"
-audio_folder = os.path.join(base_folder, "audio-chunks")
-video_folder = os.path.join(base_folder, "video-chunks")
-os.makedirs(audio_folder, exist_ok=True)
-os.makedirs(video_folder, exist_ok=True)
+r = sr.Recognizer()
 
 def transcribe_audio(path):
     with sr.AudioFile(path) as source:
@@ -22,8 +18,8 @@ def transcribe_audio(path):
         text = r.recognize_google(audio_listened)
     return text
 
-def get_large_audio_transcription_on_silence(path):
-    sound = AudioSegment.from_file(path)  
+def get_large_audio_transcription_on_silence(audio_path, temp_folder):
+    sound = AudioSegment.from_file(audio_path)
     chunks = split_on_silence(sound,
         min_silence_len=500,
         silence_thresh=sound.dBFS-14,
@@ -31,60 +27,92 @@ def get_large_audio_transcription_on_silence(path):
     )
     whole_text = ""
     for i, audio_chunk in enumerate(chunks, start=1):
-        chunk_filename = os.path.join(audio_folder, f"chunk{i}.wav")
-        audio_chunk.export(chunk_filename, format="wav")
+        chunk_filename = os.path.join(temp_folder, f"chunk_{i}.wav")
         try:
+            audio_chunk.export(chunk_filename, format="wav")
             text = transcribe_audio(chunk_filename)
-        except sr.UnknownValueError as e:
-            print("Error:", str(e))
+        except sr.UnknownValueError:
+            text = ""
+        except Exception as e:
+            text = ""
+            print(f"Error processing chunk {i}: {e}")
         else:
             text = f"{text.capitalize()}. "
-            print(chunk_filename, ":", text)
             whole_text += text
     return whole_text
 
-def split_video_into_chunks(video_path, chunk_duration=60):
+def split_video_into_chunks(video_path, chunk_duration=60, temp_folder="temp_video"):
     video = VideoFileClip(video_path)
     duration = int(video.duration)
 
     video_chunks = []
     for start_time in range(0, duration, chunk_duration):
         end_time = min(start_time + chunk_duration, duration)
-        chunk_path = os.path.join(video_folder, f"chunk_{start_time}_{end_time}.mp4")
-        video.subclipped(start_time, end_time).write_videofile(chunk_path, codec="libx264")
-        video_chunks.append(chunk_path)
+        chunk_filename = os.path.join(temp_folder, f"chunk_{start_time}_{end_time}.mp4")
+        try:
+            video.subclipped(start_time, end_time).write_videofile(chunk_filename, codec="libx264", audio_codec="aac")
+            video_chunks.append(chunk_filename)
+        except Exception as e:
+            print(f"Error splitting video at {start_time}-{end_time}: {e}")
     return video_chunks
 
-def generate_transcript_for_video(video_path):
+def main(video_path):
+    server_resource_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../server/resources/transcripts"))
+    timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
+    transcript_dir = os.path.join(server_resource_path, timestamp)
 
-    video_chunks = split_video_into_chunks(video_path)
+    os.makedirs(transcript_dir, exist_ok=True)
 
-    full_transcription = ""
-
-    for video_chunk in video_chunks:
-        print(f"Processing chunk: {video_chunk}")
-        chunk_audio_path = os.path.join(audio_folder, f"{os.path.basename(video_chunk)}.wav")
-
-        video = VideoFileClip(video_chunk)
-        video.audio.write_audiofile(chunk_audio_path)
-        
-        transcription = get_large_audio_transcription_on_silence(chunk_audio_path)
-        full_transcription += transcription
-
-    return full_transcription
-
-if __name__ == '__main__':
-    video_path = sys.argv[1]
-
-    if not os.path.exists(video_path):
-        print(f"Video file not found: {video_path}")
-        sys.exit(1)
-
-    transcription = generate_transcript_for_video(video_path)
-    
-    print(transcription)
+    temp_video_folder = os.path.join(transcript_dir, "temp_video")
+    temp_audio_folder = os.path.join(transcript_dir, "temp_audio")
+    os.makedirs(temp_video_folder, exist_ok=True)
+    os.makedirs(temp_audio_folder, exist_ok=True)
 
     try:
-        shutil.rmtree(base_folder)
-    except OSError as e:
-        print(f"Error: {e} : {e.strerror}")
+        # Split video into 1-minute chunks
+        video_chunks = split_video_into_chunks(video_path, 60, temp_video_folder)
+
+        full_transcript = ""
+
+        for video_chunk in video_chunks:
+            # Extract audio from video chunk
+            audio_filename = os.path.join(temp_audio_folder, os.path.basename(video_chunk) + ".wav")
+            try:
+                video = VideoFileClip(video_chunk)
+                video.audio.write_audiofile(audio_filename)
+                video.close()
+            except Exception as e:
+                print(f"Error extracting audio from {video_chunk}: {e}")
+                continue
+
+            # Transcribe the audio
+            try:
+                transcript = get_large_audio_transcription_on_silence(audio_filename, temp_audio_folder)
+                full_transcript += transcript
+            except Exception as e:
+                print(f"Error transcribing audio for {audio_filename}: {e}")
+
+        # Save the complete transcript
+        transcript_file = os.path.join(transcript_dir, "transcript.txt")
+        with open(transcript_file, "w", encoding="utf-8") as f:
+            f.write(full_transcript)
+        
+        # Print relative path for integration
+        relative_path = os.path.relpath(transcript_file, server_resource_path)
+        print(f"transcripts/{relative_path}")
+
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+    finally:
+        # Clean up temporary files
+        try:
+            if os.path.exists(temp_video_folder):
+                shutil.rmtree(temp_video_folder)
+            if os.path.exists(temp_audio_folder):
+                shutil.rmtree(temp_audio_folder)
+        except Exception as e:
+            print(f"Error cleaning up temporary files: {e}")
+
+if __name__ == "__main__":
+    video_path = sys.argv[1]
+    main(video_path)
