@@ -2,64 +2,63 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\GenerateTranscriptModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Routing\Controller;
+use App\Models\GenerateTranscriptModel;
 
 class GenerateTranscriptController extends Controller
 {
     /**
-     * Generate transcript from video.
+     * Generate transcript from video file.
      *
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function generateTranscript(Request $request)
     {
+        set_time_limit(0);
         $request->validate([
             'name' => 'required|string',
-            'speed' => 'required|numeric|between:0.5,2.0',
         ]);
 
-        $videoName = $request->input('name');
-        $videoSpeed = $request->input('speed');
-        $videoPath = resource_path("videos/$videoName");
-
-        if (!file_exists($videoPath)) {
-            return response()->json([
-                'message' => 'Video file not found.',
-            ], 404);
-        }
-
-        $outputBasePath = resource_path('transcripts');
-
         try {
-            $transcriptFolder = (new GenerateTranscriptModel())->processVideoToText(
-                $videoPath, 
-                $outputBasePath, 
-                $videoSpeed
-            );
+            $videoName = $request->query('name');
+            $videoPath = resource_path("videos/$videoName");
 
-            $transcriptPath = resource_path("{$transcriptFolder}/raw_transcript.txt");
+            Log::info("Requested video: $videoName. Video path: $videoPath");
 
-            Log::info("Transcript generation successful, store in {$transcriptPath}");
+            if (!file_exists($videoPath)) {
+                Log::warning("Video file not found: $videoPath");
 
-            if (!file_exists($transcriptPath)) {
                 return response()->json([
-                    'message' => 'Transcript file not found after processing.',
+                    'message' => 'Video file not found.',
+                ], 404);
+            }
+
+            $outputFolderName = GenerateTranscriptModel::generateTranscript($videoPath, $videoName);
+
+            $transcriptFilePath = resource_path("transcripts/$outputFolderName/raw_transcript.txt");
+
+            if (!file_exists($transcriptFilePath)) {
+                Log::error("Transcript file not found: $transcriptFilePath");
+
+                return response()->json([
+                    'message' => 'Transcript generation failed. Transcript file not found.',
                 ], 500);
             }
 
-            Log::info('Transcript generation successful.');
+            $transcriptContent = file_get_contents($transcriptFilePath);
+
             return response()->json([
                 'message' => 'Transcript generated successfully.',
-                'path' => $transcriptFolder,
-                'transcript' => file_get_contents($transcriptPath),
+                'path' => $outputFolderName,
+                'transcript' => $transcriptContent,
             ], 200);
-
         } catch (\Exception $e) {
-            Log::error('Transcript generation failed: ' . $e->getMessage());
+            Log::error('Transcript generation failed for video: ' . $request->query('name'));
+            Log::error('Error message: ' . $e->getMessage());
+
             return response()->json([
                 'message' => 'An error occurred while generating the transcript.',
             ], 500);

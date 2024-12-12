@@ -26,7 +26,7 @@ class ImproveTranscriptModel extends Model
      */
     public function improveTranscript(string $transcriptPath): string
     {
-        $rawTranscriptFile = resource_path("{$transcriptPath}/raw_transcript.txt");
+        $rawTranscriptFile = resource_path("transcripts/{$transcriptPath}/raw_transcript.txt");
 
         if (!file_exists($rawTranscriptFile)) {
             throw new \Exception("Transcript file not found: $rawTranscriptFile");
@@ -59,7 +59,8 @@ class ImproveTranscriptModel extends Model
             // Make the API call
             $response = Http::withHeaders([
                 'Content-Type' => 'application/json',
-            ])->post($this->geminiApiUrl . '?key=' . $this->apiKey, $payload);
+            ])->timeout(3600)
+              ->post($this->geminiApiUrl . '?key=' . $this->apiKey, $payload);
 
             // Log raw response for debugging
             Log::info('Gemini API Success');
@@ -74,7 +75,7 @@ class ImproveTranscriptModel extends Model
             if (isset($responseBody['candidates'][0]['content']['parts'][0]['text'])) {
                 $content = $responseBody['candidates'][0]['content']['parts'][0]['text'];
             
-                $transcriptFilePath = resource_path("{$transcriptPath}/transcript.txt");
+                $transcriptFilePath = resource_path("transcripts/{$transcriptPath}/transcript.txt");
 
                 $directory = dirname($transcriptFilePath);
 

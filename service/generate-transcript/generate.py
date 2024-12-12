@@ -1,28 +1,61 @@
 import sys
 import os
-import warnings
-from moviepy import VideoFileClip
+import shutil
+import random
+import string
+from datetime import datetime
+
+# Set ffmpeg and ffprobe paths relative to the script
+ffmpeg_bin_folder = os.path.join(os.path.dirname(__file__), "ffmpeg", "bin")
+ffmpeg_path = os.path.join(ffmpeg_bin_folder, "ffmpeg.exe")
+ffprobe_path = os.path.join(ffmpeg_bin_folder, "ffprobe.exe")
+
+# Add ffmpeg to PATH
+os.environ["PATH"] = f"{ffmpeg_bin_folder};" + os.environ.get("PATH", "")
+
+# Debug PATH
+print("PATH environment variable:", os.environ.get("PATH"))
+
+# Import pydub and moviepy after setting the environment
 from pydub import AudioSegment
 from pydub.silence import split_on_silence
-from datetime import datetime
 import speech_recognition as sr
-import shutil
+import moviepy as mp
+from moviepy import VideoFileClip
 
-warnings.filterwarnings("ignore", message="Couldn't find ffmpeg or avconv")
+# Set the paths in moviepy
+mp.ffmpeg_tools.ffmpeg_executable = ffmpeg_path
 
+# Set the paths in pydub
+AudioSegment.converter = ffmpeg_path
+AudioSegment.ffprobe = ffprobe_path
+
+# Print paths for debugging
+print(f"MoviePy FFmpeg Path: {mp.ffmpeg_tools.ffmpeg_executable}")
+print(f"Pydub FFmpeg Path: {AudioSegment.converter}")
+print(f"Pydub FFprobe Path: {AudioSegment.ffprobe}")
+
+# Initialize the speech recognizer
 r = sr.Recognizer()
 
+def generate_random_string(length=24):
+    """Generate a random string of lowercase letters and digits."""
+    return ''.join(random.choices(string.ascii_lowercase + string.digits, k=length))
+
 def transcribe_audio(path):
+    """Transcribe audio using Google Speech Recognition."""
     with sr.AudioFile(path) as source:
         audio_listened = r.record(source)
         text = r.recognize_google(audio_listened)
     return text
 
 def get_large_audio_transcription_on_silence(audio_path, temp_folder):
+    """Transcribe large audio files by splitting them into smaller chunks."""
     sound = AudioSegment.from_file(audio_path)
-    chunks = split_on_silence(sound,
+    chunks = split_on_silence(
+        sound,
         min_silence_len=500,
-        silence_thresh=sound.dBFS-14,
+        silence_thresh=sound.dBFS - 14,
         keep_silence=500,
     )
     whole_text = ""
@@ -42,6 +75,7 @@ def get_large_audio_transcription_on_silence(audio_path, temp_folder):
     return whole_text
 
 def split_video_into_chunks(video_path, chunk_duration=60, temp_folder="temp_video"):
+    """Split a video into smaller chunks."""
     video = VideoFileClip(video_path)
     duration = int(video.duration)
 
@@ -56,15 +90,15 @@ def split_video_into_chunks(video_path, chunk_duration=60, temp_folder="temp_vid
             print(f"Error splitting video at {start_time}-{end_time}: {e}")
     return video_chunks
 
-def main(video_path):
-    server_resource_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../server/resources/transcripts"))
+def main(video_path, output_path):
+    # Generate a unique temporary folder name
     timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
-    transcript_dir = os.path.join(server_resource_path, timestamp)
+    random_string = generate_random_string()
+    temp_folder = os.path.join(os.path.dirname(__file__), f"{timestamp}-{random_string}")
+    temp_video_folder = os.path.join(temp_folder, "temp_video")
+    temp_audio_folder = os.path.join(temp_folder, "temp_audio")
 
-    os.makedirs(transcript_dir, exist_ok=True)
-
-    temp_video_folder = os.path.join(transcript_dir, "temp_video")
-    temp_audio_folder = os.path.join(transcript_dir, "temp_audio")
+    # Create directories
     os.makedirs(temp_video_folder, exist_ok=True)
     os.makedirs(temp_audio_folder, exist_ok=True)
 
@@ -88,31 +122,32 @@ def main(video_path):
             # Transcribe the audio
             try:
                 transcript = get_large_audio_transcription_on_silence(audio_filename, temp_audio_folder)
+                print(transcript)
                 full_transcript += transcript
             except Exception as e:
                 print(f"Error transcribing audio for {audio_filename}: {e}")
 
         # Save the complete transcript
-        transcript_file = os.path.join(transcript_dir, "transcript.txt")
-        with open(transcript_file, "w", encoding="utf-8") as f:
+        with open(output_path, "w", encoding="utf-8") as f:
             f.write(full_transcript)
-        
-        # Print relative path for integration
-        relative_path = os.path.relpath(transcript_file, server_resource_path)
-        print(f"transcripts/{relative_path}")
+
+        # Return the folder name
+        print(os.path.basename(temp_folder))
 
     except Exception as e:
         print(f"Unexpected error: {e}")
     finally:
         # Clean up temporary files
         try:
-            if os.path.exists(temp_video_folder):
-                shutil.rmtree(temp_video_folder)
-            if os.path.exists(temp_audio_folder):
-                shutil.rmtree(temp_audio_folder)
+            if os.path.exists(temp_folder):
+                shutil.rmtree(temp_folder)
         except Exception as e:
             print(f"Error cleaning up temporary files: {e}")
 
 if __name__ == "__main__":
+    if len(sys.argv) != 3:
+        print("Usage: python generate.py <video_path> <output_path>")
+        sys.exit(1)
     video_path = sys.argv[1]
-    main(video_path)
+    output_path = sys.argv[2]
+    main(video_path, output_path)

@@ -10,6 +10,7 @@ class ImproveTranscriptController
 {
     public function improve(Request $request)
     {
+        set_time_limit(0);
         $request->validate([
             'path' => 'required|string'
         ]);
