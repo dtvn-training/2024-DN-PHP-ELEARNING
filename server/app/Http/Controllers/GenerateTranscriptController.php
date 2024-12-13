@@ -11,7 +11,12 @@ class GenerateTranscriptController extends Controller
 {
     /**
      * Generate transcript from video file.
-     *
+     * "en-US": "English"
+     * "vi-VN": "Vietnamese"
+     * "es-ES": "Spanish"
+     * "fr-FR": "French"
+     * "de-DE": "German"
+     * 
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
@@ -20,10 +25,13 @@ class GenerateTranscriptController extends Controller
         set_time_limit(0);
         $request->validate([
             'name' => 'required|string',
+            'language'=> 'required|string',
         ]);
 
         try {
             $videoName = $request->query('name');
+            $language = $request->query('language');
+
             $videoPath = resource_path("videos/$videoName");
 
             Log::info("Requested video: $videoName. Video path: $videoPath");
@@ -36,7 +44,7 @@ class GenerateTranscriptController extends Controller
                 ], 404);
             }
 
-            $outputFolderName = GenerateTranscriptModel::generateTranscript($videoPath, $videoName);
+            $outputFolderName = GenerateTranscriptModel::generateTranscript($videoPath, $videoName, $language);
 
             $transcriptFilePath = resource_path("transcripts/$outputFolderName/raw_transcript.txt");
 

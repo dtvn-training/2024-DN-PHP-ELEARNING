@@ -11,13 +11,19 @@ class GenerateTranscriptModel
 {
     /**
      * Run the Python script to generate a transcript for a given video.
+     * "en-US": "English"
+     * "vi-VN": "Vietnamese"
+     * "es-ES": "Spanish"
+     * "fr-FR": "French"
+     * "de-DE": "German"
      *
      * @param string $videoPath
      * @param string $videoName
+     * @param string $language
      * @return string|null
      * @throws \Exception
      */
-    public static function generateTranscript($videoPath, $videoName)
+    public static function generateTranscript($videoPath, $videoName, $language = "en-US")
     {
         $baseName = pathinfo($videoName, PATHINFO_FILENAME);
         $timestamp = now()->format('Ymd-His');
@@ -42,7 +48,7 @@ class GenerateTranscriptModel
         Log::info("File writable: " . (is_writable($outputFilePath) ? 'Yes' : 'No'));
 
         // Prepare the command to execute the Python script using shell_exec
-        $command = "python \"$pythonScriptPath\" \"$videoPath\" \"$outputFilePath\"";
+        $command = "python \"$pythonScriptPath\" \"$videoPath\" \"$outputFilePath\" \"$language\"";
 
         // Log the command
         Log::info("Executing Python command: $command");

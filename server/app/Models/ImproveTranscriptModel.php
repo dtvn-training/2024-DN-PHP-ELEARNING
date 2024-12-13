@@ -19,12 +19,12 @@ class ImproveTranscriptModel extends Model
 
     /**
      * Improve the given transcript using Gemini API.
-     *
+     * 
      * @param string $transcriptPath
      * @return string Improved transcript
      * @throws \Exception
      */
-    public function improveTranscript(string $transcriptPath): string
+    public function improveTranscript(string $transcriptPath, string $prompt): string
     {
         $rawTranscriptFile = resource_path("transcripts/{$transcriptPath}/raw_transcript.txt");
 
@@ -37,19 +37,14 @@ class ImproveTranscriptModel extends Model
         if (empty($transcriptContent)) {
             throw new \Exception("Transcript content is empty.");
         }
-
-        $prompt = "
-        Improve the following text while maintaining the same length and depth as the original content. 
-        Ensure all information is preserved and corrected, avoiding any addition or omission. 
-        Structure the text professionally in Markdown format. Avoid adding introductions, conclusions, or extra commentary. 
-        Here is the text:\n\n\"{$transcriptContent}\"
-        ";
         
         $payload = [
             'contents' => [
                 [
                     'parts' => [
-                        ['text' => $prompt]
+                        ['text' => "$prompt
+                        Structure the text professionally in Markdown format. Avoid adding introductions, conclusions, or extra commentary.
+                        Here is the text:\n\n\"{$transcriptContent}\""]
                     ]
                 ]
             ]
@@ -57,10 +52,11 @@ class ImproveTranscriptModel extends Model
 
         try {
             // Make the API call
+            Log::info("Gemini API with prompt: $prompt");
             $response = Http::withHeaders([
                 'Content-Type' => 'application/json',
             ])->timeout(3600)
-              ->post($this->geminiApiUrl . '?key=' . $this->apiKey, $payload);
+              ->post("$this->geminiApiUrl?key=$this->apiKey", $payload);
 
             // Log raw response for debugging
             Log::info('Gemini API Success');

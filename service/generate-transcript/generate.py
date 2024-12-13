@@ -4,53 +4,49 @@ import shutil
 import random
 import string
 from datetime import datetime
+from concurrent.futures import ThreadPoolExecutor
 
-# Set ffmpeg and ffprobe paths relative to the script
 ffmpeg_bin_folder = os.path.join(os.path.dirname(__file__), "ffmpeg", "bin")
 ffmpeg_path = os.path.join(ffmpeg_bin_folder, "ffmpeg.exe")
 ffprobe_path = os.path.join(ffmpeg_bin_folder, "ffprobe.exe")
 
-# Add ffmpeg to PATH
 os.environ["PATH"] = f"{ffmpeg_bin_folder};" + os.environ.get("PATH", "")
 
-# Debug PATH
-print("PATH environment variable:", os.environ.get("PATH"))
-
-# Import pydub and moviepy after setting the environment
 from pydub import AudioSegment
 from pydub.silence import split_on_silence
 import speech_recognition as sr
 import moviepy as mp
 from moviepy import VideoFileClip
 
-# Set the paths in moviepy
 mp.ffmpeg_tools.ffmpeg_executable = ffmpeg_path
-
-# Set the paths in pydub
 AudioSegment.converter = ffmpeg_path
 AudioSegment.ffprobe = ffprobe_path
 
-# Print paths for debugging
-print(f"MoviePy FFmpeg Path: {mp.ffmpeg_tools.ffmpeg_executable}")
-print(f"Pydub FFmpeg Path: {AudioSegment.converter}")
-print(f"Pydub FFprobe Path: {AudioSegment.ffprobe}")
-
-# Initialize the speech recognizer
 r = sr.Recognizer()
 
+SUPPORTED_LANGUAGES = {
+    "en-US": "English",
+    "vi-VN": "Vietnamese",
+    "es-ES": "Spanish",
+    "fr-FR": "French",
+    "de-DE": "German",
+}
+
 def generate_random_string(length=24):
-    """Generate a random string of lowercase letters and digits."""
     return ''.join(random.choices(string.ascii_lowercase + string.digits, k=length))
 
-def transcribe_audio(path):
-    """Transcribe audio using Google Speech Recognition."""
+def transcribe_audio(path, language="en-US"):
     with sr.AudioFile(path) as source:
         audio_listened = r.record(source)
-        text = r.recognize_google(audio_listened)
+        try:
+            text = r.recognize_google(audio_listened, language=language)
+        except sr.UnknownValueError:
+            text = ""
+        except sr.RequestError as e:
+            text = f"Error: {e}"
     return text
 
-def get_large_audio_transcription_on_silence(audio_path, temp_folder):
-    """Transcribe large audio files by splitting them into smaller chunks."""
+def get_large_audio_transcription_on_silence(audio_path, temp_folder, language="en-US"):
     sound = AudioSegment.from_file(audio_path)
     chunks = split_on_silence(
         sound,
@@ -63,19 +59,15 @@ def get_large_audio_transcription_on_silence(audio_path, temp_folder):
         chunk_filename = os.path.join(temp_folder, f"chunk_{i}.wav")
         try:
             audio_chunk.export(chunk_filename, format="wav")
-            text = transcribe_audio(chunk_filename)
-        except sr.UnknownValueError:
-            text = ""
+            text = transcribe_audio(chunk_filename, language)
         except Exception as e:
             text = ""
-            print(f"Error processing chunk {i}: {e}")
         else:
             text = f"{text.capitalize()}. "
             whole_text += text
     return whole_text
 
 def split_video_into_chunks(video_path, chunk_duration=60, temp_folder="temp_video"):
-    """Split a video into smaller chunks."""
     video = VideoFileClip(video_path)
     duration = int(video.duration)
 
@@ -87,67 +79,66 @@ def split_video_into_chunks(video_path, chunk_duration=60, temp_folder="temp_vid
             video.subclipped(start_time, end_time).write_videofile(chunk_filename, codec="libx264", audio_codec="aac")
             video_chunks.append(chunk_filename)
         except Exception as e:
-            print(f"Error splitting video at {start_time}-{end_time}: {e}")
+            pass
     return video_chunks
 
-def main(video_path, output_path):
-    # Generate a unique temporary folder name
+def process_video_chunk(video_chunk, temp_audio_folder, language="en-US"):
+    """Process a single video chunk: extract audio and transcribe it."""
+    audio_filename = os.path.join(temp_audio_folder, os.path.basename(video_chunk) + ".wav")
+    try:
+        video = VideoFileClip(video_chunk)
+        video.audio.write_audiofile(audio_filename)
+        video.close()
+    except Exception as e:
+        return ""  # Return empty string on failure
+    
+    try:
+        transcript_text = get_large_audio_transcription_on_silence(audio_filename, temp_audio_folder, language)
+    except Exception as e:
+        transcript_text = ""
+    
+    return transcript_text  # Return the transcription text
+
+def main(video_path, output_path, language="en-US"):
     timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
     random_string = generate_random_string()
     temp_folder = os.path.join(os.path.dirname(__file__), f"{timestamp}-{random_string}")
     temp_video_folder = os.path.join(temp_folder, "temp_video")
     temp_audio_folder = os.path.join(temp_folder, "temp_audio")
 
-    # Create directories
     os.makedirs(temp_video_folder, exist_ok=True)
     os.makedirs(temp_audio_folder, exist_ok=True)
 
     try:
-        # Split video into 1-minute chunks
         video_chunks = split_video_into_chunks(video_path, 60, temp_video_folder)
 
-        full_transcript = ""
+        # Use ThreadPoolExecutor to process chunks concurrently
+        with ThreadPoolExecutor(max_workers=1) as executor:
+            # Submit tasks and collect results from each thread
+            results = list(executor.map(lambda chunk: process_video_chunk(chunk, temp_audio_folder, language), video_chunks))
 
-        for video_chunk in video_chunks:
-            # Extract audio from video chunk
-            audio_filename = os.path.join(temp_audio_folder, os.path.basename(video_chunk) + ".wav")
-            try:
-                video = VideoFileClip(video_chunk)
-                video.audio.write_audiofile(audio_filename)
-                video.close()
-            except Exception as e:
-                print(f"Error extracting audio from {video_chunk}: {e}")
-                continue
+        # Join the final transcript text
+        final_transcript = "".join([t for t in results if t])
 
-            # Transcribe the audio
-            try:
-                transcript = get_large_audio_transcription_on_silence(audio_filename, temp_audio_folder)
-                print(transcript)
-                full_transcript += transcript
-            except Exception as e:
-                print(f"Error transcribing audio for {audio_filename}: {e}")
-
-        # Save the complete transcript
+        # Write the final transcript to the output file
         with open(output_path, "w", encoding="utf-8") as f:
-            f.write(full_transcript)
-
-        # Return the folder name
-        print(os.path.basename(temp_folder))
+            f.write(final_transcript)
 
     except Exception as e:
-        print(f"Unexpected error: {e}")
+        pass
     finally:
-        # Clean up temporary files
         try:
             if os.path.exists(temp_folder):
                 shutil.rmtree(temp_folder)
         except Exception as e:
-            print(f"Error cleaning up temporary files: {e}")
+            pass
 
 if __name__ == "__main__":
-    if len(sys.argv) != 3:
-        print("Usage: python generate.py <video_path> <output_path>")
+    if len(sys.argv) < 3:
         sys.exit(1)
+
     video_path = sys.argv[1]
     output_path = sys.argv[2]
-    main(video_path, output_path)
+    language = sys.argv[3] if len(sys.argv) > 3 and sys.argv[3] in SUPPORTED_LANGUAGES else "en-US"
+
+    main(video_path, output_path, language)

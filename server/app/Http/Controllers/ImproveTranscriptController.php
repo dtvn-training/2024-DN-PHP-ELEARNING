@@ -11,20 +11,28 @@ class ImproveTranscriptController
     public function improve(Request $request)
     {
         set_time_limit(0);
+
         $request->validate([
             'path' => 'required|string'
         ]);
 
         $transcriptPath = $request->input('path');
+        $prompt = $request->input('prompt', '');
 
         try {
             $model = new ImproveTranscriptModel();
-            $improvedTranscript = $model->improveTranscript($transcriptPath);
+            $prePrompt = "Improve the following text while maintaining the same length and depth as the original content. Avoiding any addition or omission.";
+
+            $improvedTranscript = $model->improveTranscript(
+                $transcriptPath, 
+                $prompt || $prompt == "" ? $prompt : $prePrompt 
+            );
 
             return response()->json([
                 'message' => 'Transcript improved successfully.',
                 'improved_transcript' => $improvedTranscript,
             ], 200);
+
         } catch (\Exception $e) {
             Log::error('Improvement failed: ' . $e->getMessage());
             return response()->json([

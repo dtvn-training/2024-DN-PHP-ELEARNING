@@ -6,13 +6,17 @@ import "./UploadVideo.css";
 function UploadVideo() {
     const [videoFile, setVideoFile] = useState(null);
     const [previewUrl, setPreviewUrl] = useState(null);
+    const [language, setLanguage] = useState("en-US"); // Default language set to English
     const [transcript, setTranscript] = useState(null);
     const [improvedTranscript, setImprovedTranscript] = useState(null);
-    const [uploadedVideoPath, setUploadedVideoPath] = useState(null); // Save uploaded video path
+    const [uploadedVideoPath, setUploadedVideoPath] = useState(null);
+    const [videoName, setVideoName] = useState(null);
+    const [transcriptPath, setTranscriptPath] = useState(null);
+    const [prompt, setPrompt] = useState("");
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState("");
 
-    const MAX_FILE_SIZE = 100 * 1024 * 1024; // 100 MB
+    const MAX_FILE_SIZE = 100 * 1024 * 1024;
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
@@ -33,11 +37,9 @@ function UploadVideo() {
         setTimeout(() => {
             setVideoFile(file);
             setPreviewUrl(URL.createObjectURL(file));
-
-            // Reset states for new upload
             setTranscript(null);
             setImprovedTranscript(null);
-            setUploadedVideoPath(null); // Clear previous video path
+            setUploadedVideoPath(null);
             setMessage("");
         }, 100);
 
@@ -71,9 +73,8 @@ function UploadVideo() {
 
             setMessage("Video uploaded successfully!");
             const videoPath = response.data.path;
-            setUploadedVideoPath(videoPath); // Save the uploaded video path
-            const videoName = videoPath.split("/").pop();
-            fetchTranscript(videoName);
+            setUploadedVideoPath(videoPath);
+            setVideoName(videoPath.split("/").pop());
         } catch (error) {
             setMessage(
                 error.response?.data?.message ||
@@ -84,18 +85,18 @@ function UploadVideo() {
         }
     };
 
-    const fetchTranscript = async (videoName) => {
+    const fetchTranscript = async () => {
         setLoading(true);
         setMessage("Generating transcript...");
 
         try {
             const response = await axios.get(
-                `http://localhost:8000/api/transcript?name=${videoName}&speed=1.0`
+                `http://localhost:8000/api/transcript?name=${videoName}&language=${language}`
             );
 
             setTranscript(response.data.transcript);
+            setTranscriptPath(response.data.path);
             setMessage("Transcript generated successfully.");
-            fetchImprovedTranscript(response.data.path);
         } catch (error) {
             setMessage(
                 error.response?.data?.message ||
@@ -106,13 +107,17 @@ function UploadVideo() {
         }
     };
 
-    const fetchImprovedTranscript = async (transcriptPath) => {
+    const fetchImprovedTranscript = async () => {
         setLoading(true);
         setMessage("Improving transcript...");
 
         try {
+            const sentPrompt = prompt?.trim() || prompt.trim() !== '' ?
+                `Improve transcript, keep the origin language, ${prompt}`
+                : `Improve the following text while maintaining the same length and depth as the original content. Keep the origin language,`;
+
             const response = await axios.get(
-                `http://localhost:8000/api/transcript/improve?path=${transcriptPath}`
+                `http://localhost:8000/api/transcript/improve?prompt=${encodeURIComponent(sentPrompt)}&path=${transcriptPath}`
             );
 
             setImprovedTranscript(response.data.improved_transcript);
@@ -121,28 +126,6 @@ function UploadVideo() {
             setMessage(
                 error.response?.data?.message ||
                 "Error improving transcript. Showing raw transcript instead."
-            );
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    const handleReGenerateTranscript = async () => {
-        if (!uploadedVideoPath) {
-            setMessage("No uploaded video to re-generate transcript.");
-            return;
-        }
-
-        setLoading(true);
-        setMessage("Re-generating transcript...");
-
-        try {
-            const videoName = uploadedVideoPath.split("/").pop();
-            fetchTranscript(videoName);
-        } catch (error) {
-            setMessage(
-                error.response?.data?.message ||
-                "Error re-generating transcript. Please try again."
             );
         } finally {
             setLoading(false);
@@ -163,30 +146,69 @@ function UploadVideo() {
                 </div>
             )}
 
-            <button onClick={handleUpload} disabled={loading}>
-                {loading ? "Processing..." : "Upload and Generate Transcript"}
-            </button>
+            {previewUrl && !uploadedVideoPath && (
+                <button onClick={handleUpload} disabled={loading}>
+                    {loading ? "Processing..." : "Upload Video"}
+                </button>
+            )}
 
-            {uploadedVideoPath && (
-                <button
-                    onClick={handleReGenerateTranscript}
-                    disabled={loading}
-                    className="re-generate-btn"
-                >
-                    {loading ? "Re-generating..." : "Re-generate Transcript"}
+            {uploadedVideoPath && !transcript && (
+                <>
+                    <div className="language-dropdown">
+                        <label htmlFor="language-select">Choose Language:</label>
+                        <select
+                            id="language-select"
+                            value={language}
+                            onChange={(e) => setLanguage(e.target.value)}
+                        >
+                            <option value="en-US">English</option>
+                            <option value="vi-VN">Vietnamese</option>
+                            <option value="es-ES">Spanish</option>
+                            <option value="fr-FR">French</option>
+                            <option value="de-DE">German</option>
+                        </select>
+                    </div>
+                    <button onClick={fetchTranscript} disabled={loading}>
+                        {loading ? "Processing..." : "Generate Transcript"}
+                    </button>
+                </>
+            )}
+
+            {transcript && (
+                <>
+                    <input
+                        type="text"
+                        placeholder="Enter prompt (optional)"
+                        value={prompt}
+                        onChange={(e) => setPrompt(e.target.value)}
+                    />
+                </>
+            )}
+
+            {transcript && !improvedTranscript && (
+                <>
+                    <button onClick={fetchImprovedTranscript} disabled={loading}>
+                        {loading ? "Processing..." : "Improve Transcript"}
+                    </button>
+                </>
+            )}
+
+            {improvedTranscript && (
+                <button onClick={fetchImprovedTranscript} disabled={loading}>
+                    {loading ? "Re-improving..." : "Re-Improve Transcript"}
                 </button>
             )}
 
             {message && <p className="message">{message}</p>}
 
-            {improvedTranscript || transcript ? (
+            {(improvedTranscript || transcript) && (
                 <div className="transcript-container">
                     <h3>Transcript</h3>
                     <ReactMarkdown>
                         {improvedTranscript || transcript || "No transcript available."}
                     </ReactMarkdown>
                 </div>
-            ) : null}
+            )}
         </div>
     );
 }
