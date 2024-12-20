@@ -15,10 +15,12 @@ function UploadVideo() {
     const [prompt, setPrompt] = useState("");
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState("");
+    const SERVER_HOST = import.meta.env.VITE_SERVER_HOST || "http://127.0.0.1:8000/";
 
     const MAX_FILE_SIZE = 100 * 1024 * 1024;
 
     const handleFileChange = (event) => {
+        console.log('using ' + SERVER_HOST)
         const file = event.target.files[0];
 
         if (!file) return;
@@ -62,7 +64,7 @@ function UploadVideo() {
 
         try {
             const response = await axios.post(
-                "http://localhost:8000/api/media/upload",
+                `${SERVER_HOST}api/media/upload`,
                 formData,
                 {
                     headers: {
@@ -91,7 +93,7 @@ function UploadVideo() {
 
         try {
             const response = await axios.get(
-                `http://localhost:8000/api/transcript?name=${videoName}&language=${language}`
+                `${SERVER_HOST}api/transcript?name=${videoName}&language=${language}`
             );
 
             setTranscript(response.data.transcript);
@@ -117,7 +119,7 @@ function UploadVideo() {
                 : `Improve the following text while maintaining the same length and depth as the original content. Keep the origin language,`;
 
             const response = await axios.get(
-                `http://localhost:8000/api/transcript/improve?prompt=${encodeURIComponent(sentPrompt)}&path=${transcriptPath}`
+                `${SERVER_HOST}api/transcript/improve?prompt=${encodeURIComponent(sentPrompt)}&path=${transcriptPath}`
             );
 
             setImprovedTranscript(response.data.improved_transcript);

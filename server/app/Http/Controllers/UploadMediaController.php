@@ -18,6 +18,8 @@ class UploadMediaController extends Controller
     public function uploadVideo(Request $request)
     {
         try {
+            set_time_limit(0);
+
             $request->validate([
                 'video' => 'required|file|mimes:mp4,avi,mov,flv|max:102400', // 100MB max
             ]);
