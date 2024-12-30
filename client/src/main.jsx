@@ -4,6 +4,8 @@ import './main.css';
 
 import Layout from './Layout.jsx';
 
+import Login from './pages/authentication/Login.jsx';
+
 // Import page here
 
 const Router = () => {
@@ -11,7 +13,7 @@ const Router = () => {
         <Routes>
             <Route path="/" element={<Layout />}>
 
-                {/* Import page with route here */}
+                <Route path='auth/login' element={<Login />}></Route>
 
             </Route>
         </Routes>
