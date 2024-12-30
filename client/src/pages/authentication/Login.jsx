@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./Login.css";
 import serverAPI from "ServerAPI";
@@ -81,8 +81,8 @@ const Login = () => {
                     </div>
                 ) : (
                     <form className="login-form" onSubmit={handleLogin}>
-                        <h1 className="login-logo">EduLearn</h1>
-                        <p className="login-subtitle">Access your educational resources</p>
+                        <h1 className="login-logo">E-Learning</h1>
+                        <p className="login-subtitle">Welcome to E-Learning System!</p>
                         <div className="login-input-group">
                             <label htmlFor="account" className="login-label">
                                 Account
@@ -121,7 +121,7 @@ const Login = () => {
                     </form>
                 )}
                 <p className="login-footer">
-                    New to EduLearn? <a className="sign-up-button" onClick={() => {navigate('/auth/signup')}}>Sign up</a>
+                    New to E-Learning? <a className="sign-up-button" onClick={() => {navigate('/auth/signup')}}>Sign up</a>
                 </p>
             </div>
         </div>

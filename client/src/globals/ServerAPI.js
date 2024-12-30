@@ -1,6 +1,5 @@
 import axios from "axios";
 
-// Create Axios instance
 const serverAPI = axios.create({
     baseURL: `${import.meta.env.VITE_SERVER_DOMAIN}/api`,
     withCredentials: true,
@@ -9,7 +8,7 @@ const serverAPI = axios.create({
 serverAPI.interceptors.request.use(
     async (config) => {
         if (!document.cookie.includes("XSRF-TOKEN")) {
-            await axios.get(`${import.meta.env.VITE_SERVER_DOMAIN}/sanctum/csrf-cookie`, {
+            await axios.get(`${import.meta.env.VITE_SERVER_DOMAIN}/api/csrf-cookie`, {
                 withCredentials: true,
             });
         }
