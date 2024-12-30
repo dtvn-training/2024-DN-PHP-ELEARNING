@@ -9,24 +9,26 @@ class LoginModel
 {
     /**
      * Verify account and password, and return the authentication ID (aid).
-     *
-     * @param string $account
-     * @param string $password
-     * @return int|null
      */
     public function authenticate(string $account, string $password): ?int
     {
-        // Fetch user record by account
         $user = DB::table('authentications')
+            ->select(['authentication_id', 'password'])
             ->where('account', $account)
             ->where('authentication_state', true)
             ->where('deleted_flag', false)
             ->first();
 
-        if ($user && Hash::check($password, $user->password)) {
-            return $user->authentication_id;
+        if (
+            $user
+            && property_exists($user, 'password')
+            && property_exists($user, 'authentication_id')
+            && (is_string($user->password)
+                && Hash::check($password, $user->password))
+        ) {
+            return is_numeric($user->authentication_id) ? (int) $user->authentication_id : null;
         }
-        
+
         return null;
     }
 }

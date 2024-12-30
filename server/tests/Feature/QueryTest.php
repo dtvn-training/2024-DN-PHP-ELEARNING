@@ -12,10 +12,8 @@ class QueryTest extends BaseTestCase
 
     /**
      * Test the full lifecycle: create authentication, create user, read user, update user, delete user, and delete authentication.
-     *
-     * @return void
      */
-    public function test_user_authentication_crud()
+    public function test_user_authentication_crud(): void
     {
         // Step 1: Create Authentication
         $authentication = DB::table('authentications')->insertGetId([
@@ -28,7 +26,6 @@ class QueryTest extends BaseTestCase
             'updated_at' => now(),
         ]);
 
-        $this->assertNotNull($authentication, 'Authentication record should be created.');
         echo "1. Authentication created with ID: $authentication\n";
 
         // Step 2: Create User linked to Authentication
@@ -46,13 +43,13 @@ class QueryTest extends BaseTestCase
             'updated_at' => now(),
         ]);
 
-        $this->assertNotNull($user, 'User record should be created.');
         echo "2. User created with ID: $user\n";
 
         // Step 3: Read User
         $retrievedUser = DB::table('users')->where('user_id', $user)->first();
-        $this->assertEquals('test', $retrievedUser->user_first_name, 'User first name should match.');
-        $this->assertEquals('test', $retrievedUser->user_last_name, 'User last name should match.');
+        $this->assertNotNull($retrievedUser, 'User record should exist.');
+        $this->assertEquals('test', $retrievedUser->user_first_name ?? null, 'User first name should match.');
+        $this->assertEquals('test', $retrievedUser->user_last_name ?? null, 'User last name should match.');
         echo "3. User retrieved: " . json_encode($retrievedUser) . "\n";
 
         // Step 4: Update User
@@ -63,8 +60,9 @@ class QueryTest extends BaseTestCase
         ]);
 
         $updatedUser = DB::table('users')->where('user_id', $user)->first();
-        $this->assertEquals('Jane', $updatedUser->user_first_name, 'User first name should be updated.');
-        $this->assertEquals('Smith', $updatedUser->user_last_name, 'User last name should be updated.');
+        $this->assertNotNull($updatedUser, 'Updated user record should exist.');
+        $this->assertEquals('Jane', $updatedUser->user_first_name ?? null, 'User first name should be updated.');
+        $this->assertEquals('Smith', $updatedUser->user_last_name ?? null, 'User last name should be updated.');
         echo "4. User updated: " . json_encode($updatedUser) . "\n";
 
         // Step 5: Delete User

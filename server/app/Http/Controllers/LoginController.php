@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use App\Models\LoginModel;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Validation\ValidationException;
 
 class LoginController
 {
-    protected $loginModel;
+    protected LoginModel $loginModel;
 
     public function __construct()
     {
@@ -20,8 +20,7 @@ class LoginController
     /**
      * Handle login requests.
      *
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function login(Request $request)
     {
@@ -31,8 +30,8 @@ class LoginController
                 'password' => 'required|string|max:1000',
             ]);
 
-            $account = $request->input('account');
-            $password = $request->input('password');
+            $account = $request->string('account');
+            $password = $request->string('password');
 
             $aid = $this->loginModel->authenticate($account, $password);
 

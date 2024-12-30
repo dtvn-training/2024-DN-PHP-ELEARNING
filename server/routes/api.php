@@ -7,9 +7,7 @@ use App\Http\Controllers\LogoutController;
 use App\Http\Middleware\EnsureLoggedIn;
 use Illuminate\Support\Facades\Log;
 
-Route::get('test', function () {
-    return response()->json(['message' => 'API is working']);
-});
+Route::get('test', fn() => response()->json(['message' => 'API is working']));
 
 Route::get('csrf-cookie', function () {
     try {
@@ -29,10 +27,10 @@ Route::get('auth/status', function () {
     }
 });
 
-Route::middleware([EnsureLoggedOut::class])->group(function () {
+Route::middleware([EnsureLoggedOut::class])->group(function (): void {
     Route::post('auth/login', [LoginController::class, 'login']);
 });
 
-Route::middleware([EnsureLoggedIn::class])->group(function () {
+Route::middleware([EnsureLoggedIn::class])->group(function (): void {
     Route::post('auth/logout', [LogoutController::class, 'logout']);
 });

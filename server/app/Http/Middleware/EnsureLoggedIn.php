@@ -10,14 +10,13 @@ class EnsureLoggedIn
     /**
      * Handle an incoming request.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \Closure $next
      * @return mixed
      */
     public function handle(Request $request, Closure $next)
     {
-        if ($request->session()->has('aid'))
+        if ($request->session()->has('aid')) {
             return $next($request);
+        }
 
         return response()->json(['message' => 'Unauthorized.'], 401);
     }
