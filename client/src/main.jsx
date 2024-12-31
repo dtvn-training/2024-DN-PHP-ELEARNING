@@ -3,15 +3,14 @@ import { createRoot } from 'react-dom/client';
 import './main.css';
 
 import Layout from './Layout.jsx';
-
-// Import page here
+import Home from './pages/Home.jsx';
 
 const Router = () => {
     return (
         <Routes>
             <Route path="/" element={<Layout />}>
 
-                {/* Import page with route here */}
+                <Route path="/" element={<Home />} />
 
             </Route>
         </Routes>
