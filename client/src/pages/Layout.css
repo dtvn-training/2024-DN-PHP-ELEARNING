@@ -1,17 +1,23 @@
+/* General Layout */
 .layout-container {
     min-height: 98vh;
     padding: 0;
     margin: 0;
     display: flex;
+    flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    flex-direction: column;
 }
 
+.layout-container main {
+    width: 100%;
+}
+
+/* Header Section */
 .layout-container header {
+    width: 100%;
     padding: 0;
     margin: 0;
-    width: 100%;
     background-color: #002244;
     display: flex;
     justify-content: center;
@@ -29,12 +35,14 @@
     max-width: auto;
     max-height: 60px;
     padding: 5px 0px;
+    cursor: pointer;
 }
 
 .page-icon:hover {
     cursor: pointer;
 }
 
+/* Navigation Bar */
 .layout-container header ul {
     list-style: none;
     display: flex;
@@ -67,14 +75,23 @@
     color: #00ff80;
 }
 
-.layout-container main {
-    width: 100%;
+/* Menu Toggle Button */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: #00ff80;
+    font-size: 24px;
+    cursor: pointer;
+    max-height: 32px;
+    margin-right: 10px;
 }
 
+/* Footer Section */
 .layout-container footer {
+    width: 100%;
     padding: 0;
     margin: 0;
-    width: 100%;
     background-color: #002244;
     display: flex;
     justify-content: center;
@@ -87,7 +104,6 @@
     flex-direction: column;
     justify-content: center;
     background-color: #002244;
-    padding: 20px;
 }
 
 .section-container {
@@ -121,7 +137,7 @@
 }
 
 .footer-icon {
-    width: 120px;
+    width: 90px;
 }
 
 .footer-list {
@@ -130,23 +146,23 @@
     margin: 0;
 }
 
-.footer-list li {
-    margin: 10px 0;
+.footer-list li a,
+.footer-icon {
+    margin: 5px;
+    padding: 5px;
     font-size: 14px;
     color: #bbb;
+    text-decoration: none;
 }
 
-.footer-list li i {
-    margin-right: 8px;
-    color: #ffcc00;
+.footer-list li a:hover,
+.footer-icon:hover {
+    cursor: pointer;
+    color: #f6ff7d;
+    border-radius: 8px;
 }
 
-.app-buttons img {
-    width: 120px;
-    margin: 5px;
-}
-
-/* Social Media Links */
+/* Social Media */
 .social-media {
     display: flex;
     justify-content: center;
@@ -170,19 +186,10 @@
     background-color: #3b5998;
 }
 
-.social-btn.twitter {
-    background-color: #1da1f2;
-}
-
 .social-btn.linkedin {
     background-color: #0077b5;
 }
 
-.social-btn.youtube {
-    background-color: #ff0000;
-}
-
-/* Footer Bottom */
 .footer-bottom {
     text-align: center;
     font-size: 14px;
@@ -191,4 +198,73 @@
 
 .footer-bottom span {
     color: #ffcc00;
+}
+
+/* Responsive Design */
+@media (max-width: 780px) {
+    .nav-bar {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        right: 0px;
+        background-color: #002244;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        z-index: 1000;
+    }
+
+    .nav-bar.open {
+        display: flex;
+    }
+
+    .nav-bar ul {
+        align-items: center;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        text-align: right;
+    }
+
+    .nav-bar.open ul li {
+        padding: 5px 20px;
+        color: #00ff80;
+        font-size: 18px;
+    }
+
+    .nav-bar ul li:hover {
+        color: #d0ff00;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav-bar {
+        display: none;
+    }
+
+    .nav-bar.open {
+        display: flex;
+    }
+
+    .nav-bar ul {
+        flex-direction: column;
+    }
+
+    .nav-bar ul li {
+        margin: 0;
+    }
+
+    .footer-title {
+        font-size: 16px;
+    }
+
+    .footer-list li {
+        font-size: 12px;
+    }
+
+    .social-btn {
+        font-size: 12px;
+    }
 }

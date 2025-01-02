@@ -1,3 +1,4 @@
+/* Home Container */
 .home-container {
     max-width: 100%;
     display: flex;
@@ -7,6 +8,7 @@
     background-color: rgba(7, 82, 126, 0.85);
 }
 
+/* Introduce Section */
 .introduce-box {
     width: 900px;
     height: 450px;
@@ -39,6 +41,8 @@
     font-weight: 600;
     padding: 10px;
     font-size: 16px;
+    border: none;
+    border-radius: 4px;
 }
 
 .introduce-box-left button:hover {
@@ -53,6 +57,7 @@
     width: 300px;
 }
 
+/* Information Section */
 .information-box {
     width: 100%;
     background-color: rgb(240, 244, 255);
@@ -60,6 +65,7 @@
     background-repeat: no-repeat;
     display: flex;
     justify-content: center;
+    padding: 20px 0;
 }
 
 .information {
@@ -68,7 +74,7 @@
 }
 
 .information h4 {
-    padding: 30px;
+    padding: 10px;
     margin: 0px;
     text-align: center;
     font-size: 30px;
@@ -78,8 +84,11 @@
     padding: 0px 30px;
     margin: 0px;
     text-align: center;
+    font-size: 18px;
+    line-height: 1.5;
 }
 
+/* Info Cards */
 .info-wrapper {
     margin: 0 auto;
     text-align: center;
@@ -110,7 +119,7 @@
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    margin: 10px;
+    margin: 5px;
     text-align: center;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -149,6 +158,7 @@
     line-height: 1.5;
 }
 
+/* Responsive Design */
 @media (max-width: 920px) {
     .introduce-box {
         width: 100%;
@@ -160,33 +170,40 @@
     }
 
     .introduce-box-left {
-        margin: 40px 10px;
-        justify-content: center;
-        align-items: center;
+        margin: 20px 10px;
+    }
+
+    .introduce-box-left h4 {
+        font-size: 26px;
+    }
+
+    .introduce-box-left p {
+        font-size: 16px;
+    }
+
+    .introduce-box-left button {
+        font-size: 14px;
+        padding: 8px;
     }
 
     .introduce-box-right {
         display: none;
     }
 
-    .introduce-box-left h4 {
+    .info-title {
         font-size: 22px;
     }
 
-    .introduce-box-left p {
-        font-size: 14px;
-    }
-
-    .info-feature-card {
-        padding: 15px;
-    }
-
-    .info-title {
-        font-size: 20px;
-    }
-
     .info-description {
-        font-size: 14px;
+        font-size: 15px;
+    }
+
+    .info-feature-title {
+        font-size: 16px;
+    }
+
+    .info-feature-description {
+        font-size: 13px;
     }
 
     .info-icon {
@@ -202,11 +219,11 @@
 
 @media (max-width: 480px) {
     .introduce-box-left h4 {
-        font-size: 20px;
+        font-size: 22px;
     }
 
     .introduce-box-left p {
-        font-size: 12px;
+        font-size: 14px;
     }
 
     .introduce-box-left button {
@@ -215,10 +232,18 @@
     }
 
     .info-title {
-        font-size: 18px;
+        font-size: 20px;
     }
 
     .info-description {
+        font-size: 14px;
+    }
+
+    .info-feature-title {
+        font-size: 15px;
+    }
+
+    .info-feature-description {
         font-size: 12px;
     }
 
