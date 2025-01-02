@@ -1,16 +1,16 @@
 .login-container {
     display: flex;
     justify-content: center;
-    height: 100vh;
-    background-color: #589e4f;
+    background-color: rgba(7, 82, 126, 0.85);
     background-size: cover;
+    height: 600px;
 }
 
 .login-card {
     width: 300px;
     height: fit-content;
     padding: 20px 40px;
-    margin: 50px;
+    margin: 60px;
     border-radius: 10px;
     background-color: #ffffff;
     box-shadow: 0 4px 15px rgba(18, 24, 30, 0.3);

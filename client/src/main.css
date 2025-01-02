@@ -1,6 +1,12 @@
 body,
 html {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  padding: 0px;
-  margin: 0px;
+    font-family: 'Poppins', system-ui, Avenir, Helvetica, Arial, sans-serif;
+    padding: 0px;
+    margin: 0px;
+    background-image: url(http://localhost:5173/layout/bg.png);
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-width: 250px;
 }
