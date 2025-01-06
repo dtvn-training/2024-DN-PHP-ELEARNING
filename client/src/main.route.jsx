@@ -1,8 +1,8 @@
 // src/Router.jsx
 import { Routes, Route } from 'react-router-dom';
 
-import Layout from './pages/Layout.jsx';
-import Home from './pages/Home.jsx';
+import Layout from './pages/layout/Layout.jsx';
+import Home from './pages/home/Home.jsx';
 
 const Router = () => {
     return (

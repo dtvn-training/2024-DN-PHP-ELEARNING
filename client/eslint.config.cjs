@@ -41,6 +41,7 @@ module.exports = [
             'no-debugger': 'error',
             eqeqeq: ['error', 'always'],
             curly: ['error', 'all'],
+            'eol-last': ['error', 'always'],
         },
     },
 ];

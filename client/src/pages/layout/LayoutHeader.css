@@ -1,0 +1,149 @@
+:root {
+    --color-primary: #002244;
+    --color-accent: #00ff80;
+    --color-hover: #d0ff00;
+    --color-login: #fbff00;
+    --color-shadow: rgba(0, 0, 0, 0.1);
+}
+
+/* Header Section */
+.layout-container header {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    background-color: var(--color-primary);
+    display: flex;
+    justify-content: center;
+}
+
+.header-content {
+    width: 1200px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--color-primary);
+}
+
+.image-button-homepage {
+    width: 150px;
+    height: 64px;
+    padding: 5px 0px;
+    cursor: pointer;
+    background-image: url('/layout/icon-elearning-full.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    background-color: transparent;
+    transition: transform 0.3s ease;
+}
+
+.layout-container header ul {
+    list-style: none;
+    display: flex;
+    padding: 0px;
+    margin: 0px;
+}
+
+.layout-container header ul li {
+    margin: 0px 18px;
+    padding: 5px;
+    border-radius: 8px;
+    text-wrap: nowrap;
+}
+
+.layout-container header ul li a {
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--color-accent);
+    text-decoration: none;
+}
+
+.layout-container header ul li:hover {
+    cursor: pointer;
+    scale: 1.1;
+}
+
+.layout-container header ul li a:hover {
+    color: var(--color-hover);
+    text-decoration: underline;
+}
+
+#login-btn {
+    color: var(--color-login);
+}
+
+#login-btn:hover {
+    color: var(--color-accent);
+}
+
+/* Menu Toggle Button */
+.image-button-menu-toggle {
+    display: none;
+    width: 64px;
+    height: 32px;
+    cursor: pointer;
+    background-image: url('/layout/icon-menu.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    background-color: transparent;
+    transition: transform 0.3s ease;
+}
+
+@media (max-width: 780px) {
+    .nav-bar {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        right: 0px;
+        background-color: var(--color-primary);
+        box-shadow: 0px 4px 6px var(--color-shadow);
+        border-radius: 8px;
+        z-index: 1000;
+    }
+
+    .nav-bar.open {
+        display: flex;
+    }
+
+    .nav-bar ul {
+        align-items: center;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        text-align: right;
+    }
+
+    .nav-bar.open ul li a {
+        padding: 5px 20px;
+        color: var(--color-accent);
+        font-size: 18px;
+    }
+
+    .nav-bar ul li:hover {
+        color: var(--color-hover);
+    }
+
+    .image-button-menu-toggle {
+        display: block;
+    }
+
+    .nav-bar {
+        display: none;
+    }
+
+    .nav-bar.open {
+        display: flex;
+    }
+
+    .nav-bar ul {
+        flex-direction: column;
+    }
+
+    .nav-bar ul li {
+        margin: 0;
+    }
+}
