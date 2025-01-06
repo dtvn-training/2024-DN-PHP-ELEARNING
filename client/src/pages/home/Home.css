@@ -1,0 +1,127 @@
+:root {
+    --primary-bg-color: rgba(0, 34, 68, 0.85);
+    --secondary-bg-color: #f0f8ff;
+    --card-bg-color: #ffffff;
+    --button-bg-color: #ffcc00;
+    --button-hover-bg-color: #d0ff00;
+    --text-primary: #002244;
+    --text-secondary: #004466;
+    --text-light: #bbbbbb;
+    --card-shadow: rgba(0, 0, 0, 0.1);
+    --card-hover-shadow: rgba(0, 0, 0, 0.2);
+}
+
+.home-container {
+    max-width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    background-color: var(--primary-bg-color);
+    color: var(--text-light);
+}
+
+.introduce-box {
+    width: 900px;
+    height: 450px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.introduce-box-left h4 {
+    padding: 0px;
+    margin: 0px;
+    font-size: 38px;
+    font-weight: 600;
+    line-height: 42px;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.introduce-box-left p {
+    padding: 0px;
+    margin: 0px;
+    font-size: 18px;
+    line-height: 20px;
+    margin-bottom: 20px;
+    color: var(--text-light);
+}
+
+.introduce-box-left button {
+    background-color: var(--button-bg-color);
+    font-weight: 600;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+}
+
+.introduce-box-left button:hover {
+    cursor: pointer;
+    text-decoration: underline;
+    background-color: var(--button-hover-bg-color);
+}
+
+.introduce-box-right img {
+    padding: 0px;
+    margin: 0px;
+    width: 300px;
+}
+
+.information-box {
+    width: 100%;
+    background-color: var(--secondary-bg-color);
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+}
+
+@media (max-width: 920px) {
+    .introduce-box {
+        width: 100%;
+        flex-direction: column;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        height: fit-content;
+    }
+
+    .introduce-box-left {
+        margin: 20px 10px;
+    }
+
+    .introduce-box-left h4 {
+        font-size: 26px;
+    }
+
+    .introduce-box-left p {
+        font-size: 16px;
+    }
+
+    .introduce-box-left button {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .introduce-box-right {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .introduce-box-left h4 {
+        font-size: 22px;
+    }
+
+    .introduce-box-left p {
+        font-size: 14px;
+    }
+
+    .introduce-box-left button {
+        font-size: 14px;
+        padding: 8px;
+    }
+}

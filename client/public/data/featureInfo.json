@@ -1,0 +1,38 @@
+[
+    {
+        "backgroundColor": "#e0ecff",
+        "iconSrc": "home/accessibility-icon.png",
+        "title": "Course Accessibility",
+        "description": "Select a suitable course from the vast area of other courses and access it anytime and from anywhere."
+    },
+    {
+        "backgroundColor": "#dce7f9",
+        "iconSrc": "home/scholarship-icon.png",
+        "title": "Scholarship",
+        "description": "To encourage talent, we give up to 100% aid to those young learners who have the ability to do something."
+    },
+    {
+        "backgroundColor": "#ffe4c2",
+        "iconSrc": "home/learning-icon.png",
+        "title": "Practical Learning",
+        "description": "Interact yourself with the real-world while doing real-world projects and other things to master your skills."
+    },
+    {
+        "backgroundColor": "#e9ffd8",
+        "iconSrc": "home/expert-icon.png",
+        "title": "Expert Instructions",
+        "description": "Hold the opportunity to learn from the industry's expert and learn how to execute things like them."
+    },
+    {
+        "backgroundColor": "#efebff",
+        "iconSrc": "home/schedule-icon.png",
+        "title": "Schedule Learning",
+        "description": "Learn at whatever and whenever at your suitable time and place. Get a part-time study degree."
+    },
+    {
+        "backgroundColor": "#ffd8df",
+        "iconSrc": "home/material-icon.png",
+        "title": "Multiple Learning Materials",
+        "description": "Enhance your learning with interactive exercises, and now, text transcriptions of video lectures."
+    }
+]
