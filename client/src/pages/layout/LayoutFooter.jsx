@@ -1,9 +1,6 @@
-import { useNavigate } from 'react-router-dom';
 import './LayoutFooter.css';
 
 const LayoutFooter = () => {
-    const navigate = useNavigate();
-
     return (
         <footer>
             <div className="footer-container">
@@ -11,20 +8,28 @@ const LayoutFooter = () => {
                     {/* Contact Section */}
                     <div className="footer-section">
                         <h4 className="footer-title">Contact Us</h4>
-                        <img
-                            className="footer-icon"
-                            src="/layout/icon-elearning-short.png"
-                            alt="E-learning short logo"
-                            onClick={() => navigate('/')}
-                        />
-                        <img
-                            className="footer-icon"
-                            src="/layout/dac.png"
-                            alt="DAC logo"
-                            onClick={() =>
-                                window.location.href = 'https://dac-datatech.vn/'
-                            }
-                        />
+                        <a
+                            href="/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <img
+                                className="footer-icon"
+                                src="/layout/icon-elearning-short.png"
+                                alt="E-learning short logo"
+                            />
+                        </a>
+                        <a
+                            href="https://dac-datatech.vn/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <img
+                                className="footer-icon"
+                                src="/layout/dac.png"
+                                alt="DAC logo"
+                            />
+                        </a>
                     </div>
 
                     {/* Contact Information Section */}

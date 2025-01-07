@@ -3,7 +3,7 @@
     width: 100%;
     padding: 0;
     margin: 0;
-    background-color: var(--color-primary);
+    background-color: var(--color-third-bg);
     display: flex;
     justify-content: center;
 }
@@ -13,7 +13,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: var(--color-primary);
+    background-color: var(--color-third-bg);
 }
 
 .image-button-homepage {
@@ -41,12 +41,13 @@
     margin: 0 18px;
     padding: 5px;
     border-radius: 8px;
+    text-wrap: nowrap;
 }
 
 .layout-container header ul li a {
     font-size: 20px;
     font-weight: 500;
-    color: var(--color-accent);
+    color: var(--color-text-dark-1);
     text-decoration: none;
 }
 
@@ -56,16 +57,16 @@
 }
 
 .layout-container header ul li a:hover {
-    color: var(--color-hover);
+    color: var(--color-text-hover-1);
     text-decoration: underline;
 }
 
 #login-btn {
-    color: var(--color-login);
+    color: #0004ff;
 }
 
 #login-btn:hover {
-    color: var(--color-accent);
+    color: #07f;
 }
 
 /* Menu Toggle Button */
@@ -83,15 +84,14 @@
     transition: transform 0.3s ease;
 }
 
-@media (max-width: 780px) {
+@media (width <= 780px) {
     .nav-bar {
         display: none;
         flex-direction: column;
         position: absolute;
         top: 70px;
-        right: 0px;
-        background-color: var(--color-primary);
-        box-shadow: 0px 4px 6px var(--color-shadow);
+        right: 0;
+        background-color: var(--color-primary-bg);
         border-radius: 8px;
         z-index: 1000;
     }
@@ -101,6 +101,7 @@
     }
 
     .nav-bar ul {
+        flex-direction: column;
         align-items: center;
         list-style: none;
         padding: 0;
@@ -110,28 +111,11 @@
 
     .nav-bar.open ul li a {
         padding: 5px 20px;
-        color: var(--color-accent);
         font-size: 18px;
-    }
-
-    .nav-bar ul li:hover {
-        color: var(--color-hover);
     }
 
     .image-button-menu-toggle {
         display: block;
-    }
-
-    .nav-bar {
-        display: none;
-    }
-
-    .nav-bar.open {
-        display: flex;
-    }
-
-    .nav-bar ul {
-        flex-direction: column;
     }
 
     .nav-bar ul li {

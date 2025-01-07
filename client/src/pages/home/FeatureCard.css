@@ -8,16 +8,15 @@
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 20px;
-    color: var(--text-primary);
+    color: var(--color-text-dark-1);
 }
 
 .info-description {
     font-size: 16px;
-    color: var(--text-secondary);
+    color: var(--color-text-dark-1);
     margin-bottom: 40px;
     line-height: 1.5;
-    padding: 0px 30px;
-    margin: 0px;
+    padding: 0 30px;
     text-align: center;
 }
 
@@ -28,9 +27,9 @@
 }
 
 .info-feature-card {
-    background: var(--card-bg-color);
+    background: var(--color-third-bg);
     border-radius: 10px;
-    box-shadow: 0 4px 10px var(--card-shadow);
+    box-shadow: 0 4px 10px #cae1f7;
     padding: 20px;
     margin: 5px;
     text-align: center;
@@ -39,7 +38,6 @@
 
 .info-feature-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 6px 15px var(--card-hover-shadow);
 }
 
 .info-icon {
@@ -71,7 +69,7 @@
     line-height: 1.5;
 }
 
-@media (max-width: 920px) {
+@media (width <= 920px) {
     .info-features-container {
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     }
@@ -82,7 +80,7 @@
 
     .info-description {
         font-size: 15px;
-        padding: 0px 20px;
+        padding: 0 20px;
     }
 
     .info-feature-title {
@@ -104,7 +102,7 @@
     }
 }
 
-@media (max-width: 480px) {
+@media (width <= 480px) {
     .info-features-container {
         grid-template-columns: 1fr;
         padding: 10px;
@@ -116,7 +114,7 @@
 
     .info-description {
         font-size: 14px;
-        padding: 0px 15px;
+        padding: 0 15px;
     }
 
     .info-feature-title {

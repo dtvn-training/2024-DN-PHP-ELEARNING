@@ -1,22 +1,29 @@
 :root {
-    --color-primary: #183263;
-    --color-accent: #00ff80;
-    --color-hover: #d0ff00;
-    --color-login: #fbff00;
-    --color-shadow: rgba(0, 0, 0, 0.1);
-    --color-text: #fff;
-    --color-background: #f6f6f6;
+    --color-primary-bg: #f7f7f7;
+    --color-secondary-bg: #024;
+    --color-third-bg: #fff;
+    --color-translucent-bg: rgb(51 72 129 / 75%);
+    --color-text-dark-1: #091b3d;
+    --color-text-dark-2: #00256b;
+    --color-text-dark-3: #5e5c5c;
+    --color-text-light-1: #f6fbff;
+    --color-text-light-2: #bdb8b8;
+    --color-text-hover-1: #095f0b;
+    --color-button-1: #fc0;
+    --color-button-1-hover: #d0ff00;
+    --color-facebook: #3b5998;
+    --color-linkedin: #0077b5;
 }
 
 body,
 html {
-    font-family: 'Poppins', system-ui, Avenir, Helvetica, Arial, sans-serif;
+    font-family: Poppins, system-ui, Avenir, Helvetica, Arial, sans-serif;
     padding: 0;
     margin: 0;
-    min-width: 250px;
-    background-image: url(/layout/bg.png);
+    background-image: url("/layout/bg.png");
     background-size: cover;
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
+    min-width: 250px;
 }
