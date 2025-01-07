@@ -3,18 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
-use App\Models\LoginModel;
-use Exception;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use App\Contracts\AuthenticationInterface;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class LoginController
 {
-    protected LoginModel $loginModel;
+    protected AuthenticationInterface $authentication;
 
-    public function __construct()
+    public function __construct(AuthenticationInterface $authentication)
     {
-        $this->loginModel = new LoginModel();
+        $this->authentication = $authentication;
     }
 
     /**
@@ -25,15 +25,22 @@ class LoginController
     public function login(Request $request)
     {
         try {
-            $request->validate([
-                'account' => 'required|string|max:1000',
-                'password' => 'required|string|max:1000',
+            $validator = Validator::make($request->all(), [
+                'account' => 'required|string|max:255',
+                'password' => 'required|string|min:6',
             ]);
 
-            $account = $request->string('account');
-            $password = $request->string('password');
+            if ($validator->fails()) {
+                return response()->json([
+                    'message' => 'Validation failed',
+                    'errors' => $validator->errors(),
+                ], 422);
+            }
 
-            $aid = $this->loginModel->authenticate($account, $password);
+            $account = $request->input('account');
+            $password = $request->input('password');
+            
+            $aid = $this->authentication->login($account, $password);
 
             if ($aid) {
                 session()->put('aid', $aid);
@@ -41,7 +48,7 @@ class LoginController
             }
 
             return response()->json(['message' => 'Invalid account or password'], 401);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             Log::error("Login error: " . $e->getMessage());
             return response()->json(['message' => 'An unexpected error occurred.'], 500);
         }
