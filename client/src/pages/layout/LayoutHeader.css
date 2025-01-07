@@ -47,7 +47,7 @@
 .layout-container header ul li a {
     font-size: 20px;
     font-weight: 500;
-    color: var(--color-text-dark-1);
+    color: var(--color-primary-text);
     text-decoration: none;
 }
 
@@ -57,7 +57,7 @@
 }
 
 .layout-container header ul li a:hover {
-    color: var(--color-text-hover-1);
+    color: var(--color-text-hover);
     text-decoration: underline;
 }
 
