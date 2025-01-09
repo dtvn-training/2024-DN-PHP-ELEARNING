@@ -41,7 +41,7 @@ const LayoutHeader = () => {
                         <li><Link to='/about'>About</Link></li>
                         <li><Link to='/contact'>Contact Us</Link></li>
                         {authenticated ? (
-                            <li><Link to='/auth/login' id='logout-btn'>Logout</Link></li>
+                            <li><Link to='/auth/logout' id='logout-btn'>Logout</Link></li>
                         ) : (
                             <li><Link to='/auth/login' id='login-btn'>Login</Link></li>
                         )}
