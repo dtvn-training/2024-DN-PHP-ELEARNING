@@ -32,7 +32,7 @@ const LayoutHeader = () => {
                     onClick={toggleMenu}
                 />
                 {menuOpen && <div className="overlay" onClick={toggleMenu}></div>}
-                <nav className={`nav-bar ${menuOpen ? 'open' : ''}`} onClick={toggleMenu}>
+                <nav className={`nav-bar ${menuOpen ? 'open' : ''}`} onClick={() => menuOpen ? toggleMenu() : null}>
                     <ul>
                         <li><Link to='/'>Home</Link></li>
                         <li><Link to='/courses'>Courses</Link></li>
