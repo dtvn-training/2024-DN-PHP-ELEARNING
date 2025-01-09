@@ -13,13 +13,16 @@ const NotFound = () => {
                         <a href='/feedback'>report for us</a>.
                     </span>
                     <p className='qoute'>
-                        "Education is the most powerful weapon which you can use to change the world."
+                        &quot;Education is the most powerful weapon which you can use to change the world.&quot;
                     </p>
                     <p className='great-man'>
                         &mdash; Nelson Mandela
                     </p>
                     <p className='joke'>
-                        &#40;But even education couldn&apos;t prepare us for this missing page. Let&apos;s regroup!&#41;
+                        <span>
+                            But even education couldn&apos;t prepare us for this missing page.
+                            &nbsp;<a href='/'>Let's do it again.</a>
+                        </span>
                     </p>
                 </div>
             </div>

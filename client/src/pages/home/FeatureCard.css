@@ -8,12 +8,12 @@
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 20px;
-    color: var(--color-text-dark-1);
+    color: var(--color-primary-text);
 }
 
 .info-description {
     font-size: 16px;
-    color: var(--color-text-dark-1);
+    color: var(--color-primary-text);
     margin-bottom: 40px;
     line-height: 1.5;
     padding: 0 30px;

@@ -16,7 +16,7 @@ function Home() {
                     <button type='button' aria-label='To courses' onClick={navigateToCourses}>View our courses</button>
                 </div>
                 <div className="introduce-box-right">
-                    <img src="/home/table.png" alt="image" />
+                    <img src="home/table.png" alt="image" />
                 </div>
             </div>
 

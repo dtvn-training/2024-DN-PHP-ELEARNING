@@ -5,7 +5,7 @@
     align-items: center;
     flex-direction: column;
     background-color: var(--color-translucent-bg);
-    color: var(--color-text-dark-1);
+    color: var(--color-primary-text);
 }
 
 .introduce-box {
@@ -23,7 +23,7 @@
     font-weight: 600;
     line-height: 42px;
     margin-bottom: 20px;
-    color: var(--color-text-light-1);
+    color: var(--color-light-text);
 }
 
 .introduce-box-left p {
@@ -32,11 +32,11 @@
     font-size: 18px;
     line-height: 20px;
     margin-bottom: 20px;
-    color: var(--color-text-light-2);
+    color: var(--color-muted-light-text);
 }
 
 .introduce-box-left button {
-    background-color: var(--color-button-1);
+    background-color: var(--color-primary-button);
     font-weight: 600;
     padding: 10px;
     font-size: 16px;
@@ -48,7 +48,7 @@
 .introduce-box-left button:hover {
     cursor: pointer;
     text-decoration: underline;
-    background-color: var(--color-button-1-hover);
+    background-color: var(--color-primary-button-hover);
     box-shadow: 0 4px 10px #156838;
 }
 

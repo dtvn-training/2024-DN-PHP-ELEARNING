@@ -5,7 +5,6 @@ const LayoutFooter = () => {
         <footer>
             <div className="footer-container">
                 <div className="section-container">
-                    {/* Contact Section */}
                     <div className="footer-section">
                         <h4 className="footer-title">Contact Us</h4>
                         <a
@@ -32,7 +31,6 @@ const LayoutFooter = () => {
                         </a>
                     </div>
 
-                    {/* Contact Information Section */}
                     <div className="footer-section">
                         <h4 className="footer-title">Contact Information</h4>
                         <ul className="footer-list">
@@ -62,7 +60,6 @@ const LayoutFooter = () => {
                         </ul>
                     </div>
 
-                    {/* Feature Links Section */}
                     <div className="footer-section">
                         <h4 className="footer-title">Feature Links</h4>
                         <ul className="footer-list">
@@ -73,7 +70,6 @@ const LayoutFooter = () => {
                         </ul>
                     </div>
 
-                    {/* Support Section */}
                     <div className="footer-section">
                         <h4 className="footer-title">Support</h4>
                         <ul className="footer-list">
@@ -83,7 +79,6 @@ const LayoutFooter = () => {
                     </div>
                 </div>
 
-                {/* Social Media Links */}
                 <div className="social-media">
                     <a
                         href="https://facebook.com/qthien1612"
@@ -103,7 +98,6 @@ const LayoutFooter = () => {
                     </a>
                 </div>
 
-                {/* Footer Bottom */}
                 <div className="footer-bottom">
                     <p>&copy; 2024 E-learning by Trinh Quy Thien. All rights reserved.</p>
                 </div>

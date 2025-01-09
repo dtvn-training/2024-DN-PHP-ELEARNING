@@ -6,8 +6,15 @@ const LayoutHeader = () => {
     const [menuOpen, setMenuOpen] = useState(false);
     const navigate = useNavigate();
 
-    const toggleMenu = () => setMenuOpen((prev) => !prev);
     const navigateToHome = () => navigate('/');
+
+    const toggleMenu = () => {
+        setMenuOpen((prev) => {
+            const isMenuOpen = !prev;
+            document.body.style.overflow = isMenuOpen ? "hidden" : "scroll";
+            return isMenuOpen;
+        });
+    };
 
     return (
         <header>
@@ -21,11 +28,11 @@ const LayoutHeader = () => {
                 <button
                     className='image-button-menu-toggle'
                     type='button'
-                    src='/layout/icon-menu.png'
                     aria-label='Menu toggle'
                     onClick={toggleMenu}
                 />
-                <nav className={`nav-bar ${menuOpen ? 'open' : ''}`}>
+                {menuOpen && <div className="overlay" onClick={toggleMenu}></div>}
+                <nav className={`nav-bar ${menuOpen ? 'open' : ''}`} onClick={() => menuOpen ? toggleMenu() : null}>
                     <ul>
                         <li><Link to='/'>Home</Link></li>
                         <li><Link to='/courses'>Courses</Link></li>
@@ -37,6 +44,6 @@ const LayoutHeader = () => {
             </div>
         </header>
     );
-}
+};
 
 export default LayoutHeader;

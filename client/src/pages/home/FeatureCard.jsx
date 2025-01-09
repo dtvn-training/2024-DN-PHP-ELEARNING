@@ -1,22 +1,18 @@
-import { useState, useEffect } from 'react';
+import getFeaturesData from '@Hooks/useFeaturesData';
+import LoadingScene from '@Utilities/LoadingScene.jsx';
+import ErrorScene from '@Utilities/ErrorScene.jsx';
 import './FeatureCard.css';
 
 function FeatureCard() {
-    const [features, setFeatures] = useState([]);
+    const { data: features, isLoading, isError } = getFeaturesData();
 
-    useEffect(() => {
-        const fetchFeatures = async () => {
-            try {
-                const response = await fetch('/data/featureInfo.json');
-                const data = await response.json();
-                setFeatures(data);
-            } catch {
-                setFeatures([]);
-            }
-        };
+    if (isLoading) {
+        return <LoadingScene />;
+    }
 
-        fetchFeatures();
-    }, []);
+    if (isError) {
+        return <ErrorScene />;
+    }
 
     return (
         <div className="info-features-container">

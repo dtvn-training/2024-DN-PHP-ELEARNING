@@ -6,7 +6,7 @@
     align-items: center;
     flex-direction: column;
     background-color: var(--color-third-bg);
-    color: var(--color-text-dark-1);
+    color: var(--color-primary-text);
 }
 
 .not-found-content {
@@ -26,8 +26,7 @@
 }
 
 .not-found-noti a {
-    color: var(--color-text-dark-2);
-    font-weight: bold;
+    color: var(--color-secondary-text);
     font-size: 18px;
     display: inline-block;
     margin-bottom: 10px;
@@ -36,12 +35,12 @@
 }
 
 .not-found-noti a:hover {
-    color: var(--color-text-hover-1);
+    color: var(--color-text-hover);
 }
 
 .qoute {
     font-size: 24px;
-    color: var(--color-text-dark-1);
+    color: var(--color-primary-text);
     margin-top: 15px;
     margin-bottom: 10px;
     font-weight: bold;
@@ -49,13 +48,13 @@
 
 .great-man {
     font-size: 18px;
-    color: var(--color-text-dark-2);
+    color: var(--color-secondary-text);
     font-style: italic;
 }
 
 .joke {
     font-size: 16px;
-    color: var(--color-text-dark-3);
+    color: var(--color-muted-text);
     margin-top: 10px;
     font-style: italic;
 }

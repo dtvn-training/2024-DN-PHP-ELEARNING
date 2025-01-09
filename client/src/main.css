@@ -3,14 +3,14 @@
     --color-secondary-bg: #024;
     --color-third-bg: #fff;
     --color-translucent-bg: rgb(51 72 129 / 75%);
-    --color-text-dark-1: #091b3d;
-    --color-text-dark-2: #00256b;
-    --color-text-dark-3: #5e5c5c;
-    --color-text-light-1: #f6fbff;
-    --color-text-light-2: #bdb8b8;
-    --color-text-hover-1: #095f0b;
-    --color-button-1: #fc0;
-    --color-button-1-hover: #d0ff00;
+    --color-primary-text: #091b3d;
+    --color-secondary-text: #00256b;
+    --color-muted-text: #5e5c5c;
+    --color-light-text: #f6fbff;
+    --color-muted-light-text: #bdb8b8;
+    --color-text-hover: #095f0b;
+    --color-primary-button: #fc0;
+    --color-primary-button-hover: #d0ff00;
     --color-facebook: #3b5998;
     --color-linkedin: #0077b5;
 }

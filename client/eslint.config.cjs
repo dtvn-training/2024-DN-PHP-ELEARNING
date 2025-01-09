@@ -12,7 +12,10 @@ module.exports = [
         languageOptions: {
             ecmaVersion: 'latest',
             sourceType: 'module',
-            globals: globals.browser,
+            globals: {
+                ...globals.browser,
+                __dirname: 'readonly',
+            },
             parserOptions: {
                 ecmaFeatures: { jsx: true },
             },
