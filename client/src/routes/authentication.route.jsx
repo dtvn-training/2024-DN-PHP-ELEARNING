@@ -1,7 +1,7 @@
 // src/routes/authentication.route.jsx
 import { Routes, Route } from 'react-router-dom';
 
-import Login from '../pages/authentication/Login';
+import Login from '@Pages/authentication/Login.jsx';
 
 const AuthenticationRouter = () => {
     return (

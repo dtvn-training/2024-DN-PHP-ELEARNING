@@ -1,17 +1,18 @@
-// src/main.route.jsx
 import { Routes, Route } from 'react-router-dom';
 
-import Layout from './pages/Layout.jsx';
-import Home from './pages/Home.jsx';
+import Layout from '@Pages/layout/Layout.jsx';
+import Home from '@Pages/home/Home.jsx';
 
-import AuthenticationRouter from './routes/authentication.route.jsx';
+import TestRouter from '@Routes/test.route';
+import AuthRouter from '@Routes/authentication.route';
 
 const Router = () => {
     return (
         <Routes>
             <Route path="/" element={<Layout />}>
                 <Route index element={<Home />} />
-                <Route path="auth/*" element={<AuthenticationRouter />} />
+                <Route path="test/*" element={<TestRouter />} />
+                <Route path="auth/*" element={<AuthRouter />} />
             </Route>
         </Routes>
     );
