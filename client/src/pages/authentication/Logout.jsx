@@ -1,34 +1,37 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import useLogoutAPI from "@Hooks/authentication/useLogoutAPI";
 import LoadingScene from "@Utilities/LoadingScene";
 import ErrorScene from "@Utilities/ErrorScene";
-import useAuthStore from '@Store/useAuthStore';
+import useLogoutAPI from "@Hooks/authentication/useLogoutAPI";
+import useAuthStore from "@Store/useAuthStore";
 
 const Logout = () => {
     const navigate = useNavigate();
     const { authenticated, setAuthenticated } = useAuthStore();
 
-    const { mutate: logout, isLoading: loadingLogout, error } = useLogoutAPI(
-        () => {
+    const { mutate: logout, error } = useLogoutAPI(
+        async () => {
             setAuthenticated(false);
-            navigate("/login");
+            navigate("/auth/login");
         },
-        (error) => {
-            console.error("Logout failed:", error.message);
+        async (error) => {
+            if (error === 401) {
+                setAuthenticated(false);
+                navigate("/auth/login");
+            }
         }
     );
-
+    
     useEffect(() => {
-        if (!authenticated) {
-            navigate("/");
-        } else {
+        if (authenticated) {
             logout();
+        } else {
+            navigate('/auth/login');
         }
-    }, [authenticated, logout, navigate]);
+    }, [navigate, authenticated, logout]);
 
     if (error) {
-        return <ErrorScene message="Logout failed, please try again." />;
+        return <ErrorScene />;
     }
 
     return <LoadingScene />;

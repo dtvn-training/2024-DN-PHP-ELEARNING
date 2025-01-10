@@ -8,14 +8,15 @@ const fetchLogin = async ({ account, password }) => {
             { account, password },
             { withCredentials: true }
         );
-        
-        if (response.status === 200) {
-            return response.data;
-        } else {
-            throw new Error("Login failed: Unexpected response");
-        }
+        return {
+            data: response.data,
+            status: response.status
+        };
     } catch (error) {
-        throw new Error(error.response?.data?.message || "Login failed");
+        return {
+            data: error.response?.data?.message || "Login failed",
+            status: error.response?.status || 500
+        };
     }
 };
 

@@ -17,7 +17,6 @@
     margin: 60px;
     border-radius: 10px;
     background-color: var(--color-third-bg);
-    box-shadow: 0 4px 15px rgba(18, 24, 30, 0.3);
     text-align: center;
 }
 

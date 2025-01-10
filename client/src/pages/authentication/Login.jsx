@@ -1,44 +1,38 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
-import useAuthStatusAPI from "@Hooks/authentication/useAuthStatusAPI";
 import useLoginAPI from "@Hooks/authentication/useLoginAPI";
 import LoadingScene from "@Utilities/LoadingScene";
 import useAuthStore from '@Store/useAuthStore';
 
 const Login = () => {
     const [form, setForm] = useState({ account: "", password: "" });
+    const { authenticated, setAuthenticated } = useAuthStore();
     const [errorMessage, setErrorMessage] = useState("");
     const navigate = useNavigate();
 
     const {
-        data: authStatus,
-        isLoading: loadingAuth,
-        refetch: refetchAuthStatus
-    } = useAuthStatusAPI();
-
-    const {
         mutate: login,
-        isLoading: loadingLogin
+        isLoading: loadingLogin,
     } = useLoginAPI(
-        async () => {
-            await refetchAuthStatus();
+        async (response) => {
+            if (response.status === 200) {
+                setAuthenticated(true);
+                navigate('/');
+            } else {
+                setErrorMessage("Login failed, please try again.");
+            }
         },
         (error) => {
             setErrorMessage(error.message);
         }
     );
 
-    const { setAuthenticated } = useAuthStore();
-
     useEffect(() => {
-        if (authStatus?.authenticated) {
-            setAuthenticated(true);
-            navigate(-1);
-        } else {
-            setAuthenticated(false);
+        if (authenticated) {
+            navigate('/');
         }
-    }, [authStatus, navigate, setAuthenticated]);
+    }, [authenticated, navigate]);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -51,7 +45,7 @@ const Login = () => {
         login(form);
     };
 
-    if (loadingAuth || loadingLogin) {
+    if (loadingLogin) {
         return <LoadingScene />;
     }
 
