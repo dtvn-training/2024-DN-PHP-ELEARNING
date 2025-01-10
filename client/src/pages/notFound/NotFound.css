@@ -5,7 +5,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: var(--color-third-bg);
+    background-color: var(--color-primary-bg);
     color: var(--color-primary-text);
 }
 
