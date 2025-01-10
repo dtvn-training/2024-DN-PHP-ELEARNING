@@ -35,13 +35,15 @@
     display: flex;
     padding: 0;
     margin: 0;
+    width: 100%;
 }
 
 .layout-container header ul li {
-    margin: 0 18px;
-    padding: 5px;
     border-radius: 8px;
     text-wrap: nowrap;
+    padding: 5px 20px;
+    margin: 0;
+    width: 100%;
 }
 
 .layout-container header ul li a {
@@ -49,14 +51,12 @@
     font-weight: 500;
     color: var(--color-primary-text);
     text-decoration: none;
+    display: block;
 }
 
 .layout-container header ul li:hover {
     cursor: pointer;
     scale: 1.1;
-}
-
-.layout-container header ul li a:hover {
     color: var(--color-text-hover);
     text-decoration: underline;
 }

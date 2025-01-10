@@ -9,7 +9,6 @@ const fetchFeatures = async () => {
     }
 };
 
-// Rename to useFeaturesData to follow React hook naming convention
 const useFeaturesData = () => {
     return useQuery('features', fetchFeatures);
 };
