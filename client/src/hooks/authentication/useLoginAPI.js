@@ -1,13 +1,9 @@
 import { useMutation } from "react-query";
-import axios from "axios";
+import serverAPI from "@Globals/serverAPI";
 
 const fetchLogin = async ({ account, password }) => {
     try {
-        const response = await axios.post(
-            `${import.meta.env.VITE_SERVER_DOMAIN}/api/auth/login`,
-            { account, password },
-            { withCredentials: true }
-        );
+        const response = await serverAPI.post('auth/login', { account, password });
         return {
             data: response.data,
             status: response.status

@@ -1,12 +1,9 @@
 import { useQuery } from "react-query";
-import axios from "axios";
+import serverAPI from "@Globals/serverAPI";
 
 const fetchAuthStatus = async () => {
     try {
-        const response = await axios.get(
-            `${import.meta.env.VITE_SERVER_DOMAIN}/api/auth/status`,
-            { withCredentials: true }
-        );
+        const response = await serverAPI.get('auth/status');
         return response.data;
     } catch (error) {
         throw new Error(error.response?.data?.message || "Failed to fetch authentication status");

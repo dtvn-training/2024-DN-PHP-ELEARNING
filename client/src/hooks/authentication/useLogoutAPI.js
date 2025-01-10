@@ -1,12 +1,8 @@
 import { useMutation } from "react-query";
-import axios from "axios";
+import serverAPI from "@Globals/serverAPI";
 
 const fetchLogout = async () => {
-    const response = await axios.post(
-        `${import.meta.env.VITE_SERVER_DOMAIN}/api/auth/logout`,
-        null,
-        { withCredentials: true }
-    );
+    const response = await serverAPI.post('auth/logout');
     return response;
 };
 
