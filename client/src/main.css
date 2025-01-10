@@ -1,3 +1,29 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    --color-primary-bg: #f7f7f7;
+    --color-secondary-bg: #024;
+    --color-third-bg: #fff;
+    --color-translucent-bg: rgb(51 72 129 / 75%);
+    --color-primary-text: #091b3d;
+    --color-secondary-text: #00256b;
+    --color-muted-text: #5e5c5c;
+    --color-light-text: #f6fbff;
+    --color-muted-light-text: #bdb8b8;
+    --color-text-hover: #095f0b;
+    --color-primary-button: #fc0;
+    --color-primary-button-hover: #d0ff00;
+    --color-facebook: #3b5998;
+    --color-linkedin: #0077b5;
+}
+
+body,
+html {
+    font-family: Poppins, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    padding: 0;
+    margin: 0;
+    background-image: url("/layout/bg.png");
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-width: 250px;
 }

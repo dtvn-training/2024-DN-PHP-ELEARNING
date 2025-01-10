@@ -1,25 +1,16 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { createRoot } from 'react-dom/client';
 import './main.css';
 
-import Layout from './Layout.jsx';
+import Router from './main.route.jsx';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
-// Import page here
-
-const Router = () => {
-    return (
-        <Routes>
-            <Route path="/" element={<Layout />}>
-
-                {/* Import page with route here */}
-
-            </Route>
-        </Routes>
-    );
-};
+const queryClient = new QueryClient();
 
 createRoot(document.getElementById('root')).render(
-    <BrowserRouter>
-        <Router />
-    </BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+            <Router />
+        </BrowserRouter>
+    </QueryClientProvider>
 );

@@ -1,0 +1,116 @@
+.home-container {
+    max-width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    background-color: var(--color-translucent-bg);
+    color: var(--color-primary-text);
+}
+
+.introduce-box {
+    width: 900px;
+    height: 450px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.introduce-box-left h4 {
+    padding: 0;
+    margin: 0;
+    font-size: 38px;
+    font-weight: 600;
+    line-height: 42px;
+    margin-bottom: 20px;
+    color: var(--color-light-text);
+}
+
+.introduce-box-left p {
+    padding: 0;
+    margin: 0;
+    font-size: 18px;
+    line-height: 20px;
+    margin-bottom: 20px;
+    color: var(--color-muted-light-text);
+}
+
+.introduce-box-left button {
+    background-color: var(--color-primary-button);
+    font-weight: 600;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    box-shadow: 0 4px 10px #0c2918;
+}
+
+.introduce-box-left button:hover {
+    cursor: pointer;
+    text-decoration: underline;
+    background-color: var(--color-primary-button-hover);
+    box-shadow: 0 4px 10px #156838;
+}
+
+.introduce-box-right img {
+    padding: 0;
+    margin: 0;
+    width: 300px;
+}
+
+.information-box {
+    width: 100%;
+    background-color: var(--color-primary-bg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+}
+
+@media (width <= 920px) {
+    .introduce-box {
+        width: 100%;
+        flex-direction: column;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        height: fit-content;
+    }
+
+    .introduce-box-left {
+        margin: 20px 10px;
+    }
+
+    .introduce-box-left h4 {
+        font-size: 26px;
+    }
+
+    .introduce-box-left p {
+        font-size: 16px;
+    }
+
+    .introduce-box-left button {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .introduce-box-right {
+        display: none;
+    }
+}
+
+@media (width <= 480px) {
+    .introduce-box-left h4 {
+        font-size: 22px;
+    }
+
+    .introduce-box-left p {
+        font-size: 14px;
+    }
+
+    .introduce-box-left button {
+        font-size: 14px;
+        padding: 8px;
+    }
+}
