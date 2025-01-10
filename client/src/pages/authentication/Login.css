@@ -105,8 +105,8 @@
 .error-message-auth {
     color: var(--color-error);
     font-size: 16px;
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
     text-align: center;
 }
 
@@ -124,13 +124,14 @@
     from {
         transform: rotate(0deg);
     }
+
     to {
         transform: rotate(360deg);
     }
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
+@media (width <= 768px) {
     .login-card {
         padding: 20px;
     }

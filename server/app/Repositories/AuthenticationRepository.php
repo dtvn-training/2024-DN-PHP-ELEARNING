@@ -7,7 +7,7 @@ use App\Models\LoginModel;
 
 class AuthenticationRepository implements AuthenticationInterface
 {
-    protected $loginModel;
+    protected LoginModel $loginModel;
 
     public function __construct(LoginModel $loginModel)
     {

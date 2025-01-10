@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 use App\Contracts\AuthenticationInterface;
@@ -39,7 +40,15 @@ class LoginController
 
             $account = $request->input('account');
             $password = $request->input('password');
+
+            if (!is_string($account)) {
+                return response()->json(['error' => 'Invalid account input.'], 400);
+            }
             
+            if (!is_string($password)) {
+                return response()->json(['error' => 'Invalid password input.'], 400);
+            }
+
             $aid = $this->authentication->login($account, $password);
 
             if ($aid) {
@@ -48,7 +57,7 @@ class LoginController
             }
 
             return response()->json(['message' => 'Invalid account or password'], 401);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             Log::error("Login error: " . $e->getMessage());
             return response()->json(['message' => 'An unexpected error occurred.'], 500);
         }

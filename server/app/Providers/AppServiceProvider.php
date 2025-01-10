@@ -8,12 +8,12 @@ use App\Repositories\AuthenticationRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
-    public function register()
+    public function register(): void
     {
         $this->app->bind(AuthenticationInterface::class, AuthenticationRepository::class);
     }
 
-    public function boot()
+    public function boot(): void
     {
 
     }

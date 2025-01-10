@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class LoginModel
@@ -11,14 +12,21 @@ class LoginModel
      */
     public function login(string $account, string $password): ?int
     {
-        $user = Authentication::where('account', $account)
+        $user = DB::table('authentications')
+            ->select(['authentication_id', 'password'])
+            ->where('account', $account)
             ->where('authentication_state', true)
             ->where('deleted_flag', false)
             ->first();
 
-        if ($user && Hash::check($password, $user->password)) {
-            $user->createToken('Login Token')->plainTextToken;
-            return $user->authentication_id;
+        if (
+            $user
+            && property_exists($user, 'password')
+            && property_exists($user, 'authentication_id')
+            && (is_string($user->password)
+                && Hash::check($password, $user->password))
+        ) {
+            return is_numeric($user->authentication_id) ? (int) $user->authentication_id : null;
         }
 
         return null;
