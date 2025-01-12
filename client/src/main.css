@@ -5,12 +5,15 @@
     --color-translucent-bg: rgb(51 72 129 / 75%);
     --color-primary-text: #091b3d;
     --color-secondary-text: #00256b;
+    --color-third-text: #095f0b;
     --color-muted-text: #5e5c5c;
     --color-light-text: #f6fbff;
     --color-muted-light-text: #bdb8b8;
     --color-text-hover: #095f0b;
     --color-primary-button: #fc0;
     --color-primary-button-hover: #d0ff00;
+    --color-secondary-button: #095f0b;
+    --color-secondary-button-hover: #0c8f0e;
     --color-facebook: #3b5998;
     --color-linkedin: #0077b5;
     --color-error: #e74c3c;

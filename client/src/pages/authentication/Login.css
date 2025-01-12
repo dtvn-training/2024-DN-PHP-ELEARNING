@@ -23,7 +23,7 @@
 .login-logo {
     font-size: 36px;
     font-weight: bold;
-    color: var(--color-text-hover);
+    color: var(--color-third-text);
     margin-bottom: 20px;
 }
 
@@ -68,8 +68,8 @@
     padding: 10px;
     font-size: 16px;
     font-weight: bold;
-    color: var(--color-primary-text);
-    background-color: var(--color-primary-button);
+    color: var(--color-light-text);
+    background-color: var(--color-secondary-button);
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -82,7 +82,7 @@
 }
 
 .login-button:hover:not(:disabled) {
-    background-color: var(--color-primary-button-hover);
+    background-color: var(--color-secondary-button-hover);
 }
 
 .login-footer {
