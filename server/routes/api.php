@@ -1,12 +1,11 @@
 <?php
 
+use App\Http\Controllers\CourseController;
 use App\Http\Middleware\EnsureLoggedOut;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Middleware\EnsureLoggedIn;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 Route::get('test', function () {
@@ -29,3 +28,5 @@ Route::middleware([EnsureLoggedOut::class])->group(function (): void {
 Route::middleware([EnsureLoggedIn::class])->group(function (): void {
     Route::post('auth/logout', [LogoutController::class, 'logout']);
 });
+
+Route::get('course/info/{course_id}', [CourseController::class, 'viewCourse']);
