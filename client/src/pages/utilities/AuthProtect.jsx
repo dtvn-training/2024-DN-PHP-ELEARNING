@@ -5,7 +5,7 @@ import useAuthStore from '@Store/useAuthStore';
 import LoadingScene from "@Utilities/LoadingScene";
 import ErrorScene from "@Utilities/ErrorScene";
 
-const AuthProtect = ({ isAuth = true, children }) => {
+const AuthProtect = ({ isAuth = true, destination = '/', children }) => {
     const { setAuthenticated } = useAuthStore();
     const navigate = useNavigate();
     const [authChecked, setAuthChecked] = useState(false);
@@ -19,13 +19,8 @@ const AuthProtect = ({ isAuth = true, children }) => {
 
     const checkAuth = async () => {
         await refetch();
-        if (authStatus?.authenticated) {
-            setAuthenticated(true);
-            if (!isAuth) navigate('/'); // Requires unauthenticated access
-        } else {
-            setAuthenticated(false);
-            if (isAuth) navigate('/'); // Requires authenticated access
-        }
+        setAuthenticated(authStatus?.authenticated);
+        navigate(isAuth !== authStatus?.authenticated ? destination : '');
         setAuthChecked(true);
     };
 
@@ -33,12 +28,12 @@ const AuthProtect = ({ isAuth = true, children }) => {
         if (!isLoading && !error && !authChecked) checkAuth();
     }, [isLoading, error, authChecked]);
 
-    if (isLoading || !authChecked) {
-        return <LoadingScene />;
-    }
-
     if (error) {
         return <ErrorScene />;
+    }
+
+    if (isLoading || !authChecked) {
+        return <LoadingScene />;
     }
 
     return <>{children}</>;

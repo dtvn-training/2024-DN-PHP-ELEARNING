@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Login.css";
 import useLoginAPI from "@Hooks/authentication/useLoginAPI";
 import LoadingScene from "@Utilities/LoadingScene";
@@ -42,14 +42,14 @@ const Login = () => {
 
     if (loadingLogin) {
         return (
-            <AuthProtect>
+            <AuthProtect isAuth={false} destination={'/'}>
                 <LoadingScene />
             </AuthProtect>
         );
     }
 
     return (
-        <AuthProtect isAuth={false}>
+        <AuthProtect isAuth={false} destination={'/'}>
             <div className="login-container">
                 <div className="login-card">
                     <form className="login-form" onSubmit={handleLogin}>
