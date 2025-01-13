@@ -33,15 +33,22 @@
 .layout-container header ul {
     list-style: none;
     display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 0;
     margin: 0;
+    width: 100%;
 }
 
 .layout-container header ul li {
-    margin: 0 18px;
-    padding: 5px;
     border-radius: 8px;
     text-wrap: nowrap;
+    padding: 5px 20px;
+    margin: 0;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
 }
 
 .layout-container header ul li a {
@@ -49,14 +56,11 @@
     font-weight: 500;
     color: var(--color-primary-text);
     text-decoration: none;
-}
-
-.layout-container header ul li:hover {
-    cursor: pointer;
-    scale: 1.1;
+    display: block;
 }
 
 .layout-container header ul li a:hover {
+    cursor: pointer;
     color: var(--color-text-hover);
     text-decoration: underline;
 }
@@ -95,13 +99,43 @@
     transition: transform 0.3s ease;
 }
 
+.highlight-this {
+    border-radius: 8px;
+    text-decoration: underline !important;
+    font-size: 22px !important;
+}
+
+.profile-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--color-primary-border);
+    transition: transform 0.2s ease;
+}
+
+.profile-button:hover .profile-image {
+    transform: scale(1.1);
+}
+
 @media (width <=780px) {
     .nav-bar {
         position: fixed;
         top: 0;
         padding-top: 20px;
         right: -200px;
-        height: 100%;
+        width: 200px;
+        height: 98%;
         background-color: var(--color-primary-bg);
         border-top-left-radius: 8px;
         border-bottom-left-radius: 8px;
@@ -110,9 +144,20 @@
         z-index: 1000;
         transition: right 0.3s ease-in-out;
     }
-
+    
     .nav-bar.open {
         right: 0;
+    }
+    
+    .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: var(--color-translucent-bg);
+        z-index: 999;
     }
 
     .overlay {

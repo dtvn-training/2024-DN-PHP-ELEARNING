@@ -10,6 +10,8 @@ export default defineConfig({
             '@Routes': path.resolve(__dirname, './src/routes'),
             '@Utilities': path.resolve(__dirname, './src/pages/utilities'),
             '@Hooks': path.resolve(__dirname, './src/hooks'),
+            '@Store': path.resolve(__dirname, './src/store'),
+            '@Globals' : path.resolve(__dirname, './src/globals'),
         },
     },
 });
