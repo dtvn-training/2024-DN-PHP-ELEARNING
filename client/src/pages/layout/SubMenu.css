@@ -1,0 +1,124 @@
+.sub-menu {
+    width: 100%;
+    height: 0;
+    padding: 0;
+    margin: 0;
+    background-color: var(--color-primary-bg);
+    display: flex;
+    justify-content: center;
+    transition: height 0.2s ease-in-out, visibility 0.2s ease-in-out;
+}
+
+.sub-menu a {
+    color: var(--color-primary-text);
+    opacity: 0;
+    transition: opacity 0.1s ease-in-out;
+}
+
+.sub-menu.open {
+    height: 60px;
+    visibility: visible;
+}
+
+.sub-menu.open a {
+    opacity: 1;
+}
+
+.sub-menu-nav {
+    width: 1200px;
+    padding: 0;
+    margin: 0;
+    background-color: var(--color-primary-bg);
+    display: flex;
+    justify-content: flex-end;
+    list-style: none;
+}
+
+.sub-menu li {
+    padding: 10px 20px;
+}
+
+.sub-menu li a {
+    font-size: 18px;
+    color: var(--color-primary-text);
+    text-decoration: none;
+    display: block;
+    padding: 5px 0;
+    text-align: center;
+}
+
+.sub-menu li a:hover {
+    background-color: var(--color-hover-bg);
+    color: var(--color-text-hover);
+    text-decoration: underline;
+}
+
+#back-btn {
+    display: none;
+}
+
+#logout-btn {
+    color: #e40909;
+}
+
+#logout-btn:hover {
+    color: rgb(241, 64, 64);
+}
+
+@media (width <=780px) {
+    .sub-menu {
+        position: fixed;
+        top: 0;
+        right: -200px;
+        width: 200px;
+        height: 100%;
+        background-color: var(--color-primary-bg);
+        z-index: 1000;
+        transition: right 0.3s ease-in-out;
+    }
+
+    .sub-menu.open {
+        right: 0;
+        height: 100%;
+        border-top-left-radius: 8px;
+        border-bottom-left-radius: 8px;
+    }
+
+    .sub-menu-nav {
+        list-style: none;
+        padding: 20px;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        height: fit-content;
+    }
+
+    .sub-menu-nav li a {
+        font-size: 20px;
+        font-weight: 500;
+        color: var(--color-primary-text);
+        text-decoration: none;
+        display: block;
+    }
+
+    .sub-menu-nav li a:hover {
+        color: var(--color-text-hover);
+        text-decoration: underline;
+    }
+
+    #back-btn {
+        display: block;
+        cursor: pointer;
+        background-color: var(--color-primary-button);
+        font-size: 20px;
+        text-align: center;
+        margin-top: 20px;
+        border-radius: 8px;
+    }
+
+    #back-btn:hover {
+        background-color: var(--color-primary-button-hover);
+    }
+}

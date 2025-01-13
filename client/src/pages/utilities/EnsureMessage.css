@@ -1,0 +1,72 @@
+.ensure-message-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--color-translucent-bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.ensure-message-box {
+    background: var(--color-third-bg);
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.ensure-message-text {
+    margin-bottom: 20px;
+    font-size: 16px;
+    color: var(--color-primary-text);
+}
+
+.ensure-message-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.ensure-message-yes {
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    background: #0004ff;
+    color: var(--color-third-bg);
+    transition: background-color 0.2s;
+}
+
+.ensure-message-yes:hover {
+    background: #07f;
+}
+
+.ensure-message-no {
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    background: #e40909;
+    color: var(--color-third-bg);
+    transition: background-color 0.2s;
+}
+
+.ensure-message-no:hover {
+    background: #ee4b4b;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
