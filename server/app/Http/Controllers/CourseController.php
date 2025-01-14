@@ -27,14 +27,8 @@ class CourseController
     {
         try {
             $aid = $request->session()->get('aid');
-
             $courses = $this->course->getAll($aid);
-
-            if ($courses) {
-                return response()->json(['courses' => $courses], 200);
-            }
-
-            return response()->json(['message' => 'Courses not found'], 404);
+            return response()->json(['courses' => $courses ?: []], 200);
         } catch (Exception $e) {
             Log::error("Error fetching course details: " . $e->getMessage());
             return response()->json(['message' => 'An unexpected error occurred.'], 500);

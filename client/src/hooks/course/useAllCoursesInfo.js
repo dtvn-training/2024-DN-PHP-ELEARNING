@@ -4,7 +4,7 @@ import serverAPI from "@Globals/serverAPI";
 const fetchAllCoursesInfo = async () => {
     try {
         const response = await serverAPI.get(`course/get-all`);
-        return response.data?.courses;
+        return response.data?.courses || [];
     } catch (error) {
         throw new Error(error.response?.data?.message || "Failed to fetch course information");
     }

@@ -15,11 +15,13 @@
     max-width: 1200px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     box-sizing: border-box;
 }
 
 .courses-dashboard-content h2 {
+    width: 100%;
+    text-align: center;
     font-size: 2rem;
     margin: 0px;
     padding: 0px;
@@ -120,19 +122,51 @@
 .course-edit-button {
     background-color: rgb(72, 158, 38);
     border: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .course-edit-button:hover {
     background-color: rgb(112, 223, 69);
+    transform: translateY(-2px);
 }
 
 .course-delete-button {
     background-color: rgb(150, 38, 38);
     border: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .course-delete-button:hover {
     background-color: rgb(255, 0, 0);
+    transform: translateY(-2px);
+}
+
+.course-add-button {
+    background-color: rgb(61, 72, 231);
+    color: rgb(255, 255, 255);
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 8px 12px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.course-add-button:hover {
+    background-color: rgb(94, 103, 233);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+.no-courses-message {
+    width: 100%;
+    text-align: center;
+    font-size: 1.2rem;
+    color: var(--color-error);
+    margin-top: 20px;
 }
 
 @media screen and (max-width: 1140px) {
