@@ -46,8 +46,10 @@ const ViewCourse = () => {
             <div className="course_information">
                 <div className="info-part">
                     <h1 className="course-title">{course_name}</h1>
-                    <div className="enroll">
-                        <button type="button" onClick={() => navigate(`/enroll/${course_id}`)}>Enroll now with {formattedPrice} VND</button>
+                    <div className="enroll head">
+                        <p><strong>Duration: </strong>{course_duration}</p>
+                        <p><strong>Price: </strong>{formattedPrice} VND</p>
+                        <button type="button" onClick={() => navigate(`/course/enroll/${course_id}`)}>Enroll now </button>
                     </div>
                     <div className="long-description">
                         <MarkdownRender content={long_description} />
@@ -69,7 +71,7 @@ const ViewCourse = () => {
                         </table>
                     </div>
                     <div className="enroll">
-                        <button type="button" onClick={() => navigate(`/enroll/${course_id}`)}>Enroll now</button>
+                        <button type="button" onClick={() => navigate(`/course/enroll/${course_id}`)}>Enroll now</button>
                     </div>
                 </div>
             </div>

@@ -111,6 +111,10 @@ p.course-description {
     background-color: #0056b3;
 }
 
+.enroll.head {
+    display: none;
+}
+
 /* Image Styling */
 .enroll-part {
     width: 300px;
@@ -161,5 +165,23 @@ p.course-description {
     .enroll-part img {
         max-width: 300px;
         height: auto;
+    }
+
+    .course-title {
+        margin: 5px;
+    }
+
+    .enroll.head {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        margin: 0;
+    }
+
+    .enroll.head p {
+        padding: 0;
+        margin: 0;
     }
 }
