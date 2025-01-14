@@ -1,0 +1,78 @@
+.markdown-render {
+    background-color: var(--color-background-light);
+}
+
+.markdown-render p {
+    color: var(--color-primary-text);
+}
+
+.markdown-render h1, .markdown-render h2, .markdown-render h3 {
+    color: var(--color-primary-text);
+}
+
+.markdown-render ul, .markdown-render ol {
+    margin: 10px 0;
+    padding-left: 20px;
+}
+
+.markdown-render code {
+    background-color: #f7f7f7;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+.markdown-render blockquote {
+    border-left: 4px solid #007BFF;
+    padding-left: 15px;
+    color: var(--color-secondary-text);
+    margin: 10px 0;
+}
+
+.markdown-render table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: var(--color-primary-bg-light);
+    border: 1px solid black;
+}
+
+.markdown-render table tr th {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: center;
+}
+
+.markdown-render table th,
+.markdown-render table td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+}
+
+.markdown-render table th {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+    font-weight: bold;
+}
+
+.markdown-render table tr:nth-child(even) {
+    background-color: var(--color-secondary-bg-light);
+}
+
+.markdown-render table tr:nth-child(odd) {
+    background-color: var(--color-primary-bg-light);
+}
+
+.markdown-render table tr:hover {
+    background-color: var(--color-highlight);
+}
+
+.markdown-render table pre {
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    overflow-x: auto;
+}

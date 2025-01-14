@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import useCourseInfo from "@Hooks/course/useCourseInfo";
 import LoadingScene from "@Utilities/LoadingScene";
 import ErrorScene from "@Utilities/ErrorScene";
+import MarkdownRender from "@Utilities/MarkdownRender";
 import './ViewCourse.css';
 
 const ViewCourse = () => {
     const { course_id } = useParams();
     const { data, error, isLoading } = useCourseInfo(course_id);
     const [isCourseFound, setIsCourseFound] = useState(true);
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (error?.message === "Course not found") {
@@ -26,8 +28,10 @@ const ViewCourse = () => {
 
     const {
         course_name,
-        course_description,
+        short_description,
+        long_description,
         course_price,
+        course_duration,
         user_first_name,
         user_last_name,
         user_email,
@@ -35,27 +39,37 @@ const ViewCourse = () => {
         user_address,
     } = data;
 
+    const formattedPrice = new Intl.NumberFormat('en-GB').format(course_price);
+
     return (
         <div className="course-container">
             <div className="course_information">
-                <div className="course-details">
-                    <div className="course-part">
-                        <div className="info-part">
-                        <h1>{course_name}</h1>
-                            <p>{course_description}</p>
-                        </div> 
-                        <img src="/home/table.png" />
+                <div className="info-part">
+                    <h1 className="course-title">{course_name}</h1>
+                    <div className="enroll">
+                        <button type="button" onClick={() => navigate(`/enroll/${course_id}`)}>Enroll now with {formattedPrice} VND</button>
                     </div>
-                    <div className="provider-info">
+                    <div className="long-description">
+                        <MarkdownRender content={long_description} />
+                    </div>
+                </div>
+                <div className="enroll-part">
+                    <img src="/home/table.png" alt="course" />
+                    <div className="provider-information">
+                        <h3 className="table-title">Information</h3>
                         <table>
                             <tbody>
-                                <tr><td><strong>Provider Information:</strong></td><td>{user_first_name} {user_last_name}</td></tr>
-                                <tr><td /><td>{user_email}</td></tr>
-                                <tr><td /><td>{user_phone_number}</td></tr>
-                                <tr><td /><td>{user_address}</td></tr>
+                                <tr><td><strong>Duration:</strong></td><td>{course_duration}</td></tr>
+                                <tr><td><strong>Price:</strong></td><td>{formattedPrice} VND</td></tr>
+                                <tr><td><strong>Provided by:</strong></td><td>{user_first_name} {user_last_name}</td></tr>
+                                <tr><td><strong>Contact:</strong></td><td>{user_email}</td></tr>
+                                <tr><td></td><td>{user_phone_number}</td></tr>
+                                <tr><td></td><td>{user_address}</td></tr>
                             </tbody>
                         </table>
-                        <p><strong>Price:</strong> ${course_price}</p>
+                    </div>
+                    <div className="enroll">
+                        <button type="button" onClick={() => navigate(`/enroll/${course_id}`)}>Enroll now</button>
                     </div>
                 </div>
             </div>

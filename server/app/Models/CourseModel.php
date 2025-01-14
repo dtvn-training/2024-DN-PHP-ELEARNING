@@ -12,8 +12,10 @@ class CourseModel
 
     protected $fillable = [
         'course_name',
-        'course_description',
+        'short_description',
+        'long_description',
         'course_price',
+        'course_duration',
         'course_state',
         'user_id',
     ];
@@ -28,8 +30,10 @@ class CourseModel
             ->select(
                 'courses.course_id',
                 'courses.course_name',
-                'courses.course_description',
+                'courses.short_description',
+                'courses.long_description',
                 'courses.course_price',
+                'courses.course_duration',
                 'courses.course_state',
                 'courses.created_at',
                 'courses.updated_at',

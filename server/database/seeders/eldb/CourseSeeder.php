@@ -12,74 +12,117 @@ class CourseSeeder extends Seeder
         DB::table('courses')->insert([
             [
                 'course_name' => 'Intro to Technology',
-                'course_description' => 'In this course, you will explore the foundational concepts of technology, starting with an understanding of computer hardware and software. You will learn about basic networking principles, the internet, and the evolution of modern technologies like artificial intelligence, machine learning, and the Internet of Things (IoT). Designed for beginners, this course will guide you step-by-step in understanding the role of technology in our daily lives, its impact on various industries, and its future trends.',
-                'course_price' => 100,
+                'short_description' => 'Step into the exciting realm of technology and uncover how computers, networks, and innovations shape the world we live in today and tomorrow.',
+                'long_description' => "
+# Introduction
+
+## Step into the exciting world of technology and embark on a journey to understand how it powers our modern lives.
+
+*This course introduces key concepts such as:*
+
+### 1. The inner workings of computer hardware and software
+
+Understanding the **hardware** components of computers and how software drives their operations.
+
+### 2. Basics of networking and the internet
+
+Learn about the fundamentals of computer networking and how the internet connects the world.
+
+### 3. Emerging trends
+
+- **Artificial Intelligence (AI)**: How AI is revolutionizing industries and everyday life.
+- **The Internet of Things (IoT)**: Connecting devices and systems for smarter living.
+
+## What You’ll Learn
+
+- How technology drives modern industries and economies.
+- How to stay up to date with the rapid advancements in tech.
+- A strong foundation in the basics of computer science, networking, and innovation.
+
+### Example of Code Usage
+
+```python
+def greet_user(name):
+    return f\"Hello, {name}!\"
+```
+
+> \"The future belongs to those who understand technology today.\" – **Jane Smith**, Instructor
+
+[Learn More](https://www.example.com)
+
+### Course Information
+
+| **Key Aspect**     | **Details**                                                                 |
+|--------------------|-----------------------------------------------------------------------------|
+| **Course Duration**| **6 weeks** - An intensive and immersive course with hands-on projects.      |
+| **Course Price**   | **500,000 VND** - Affordable tech education tailored for beginners.          |
+| **Instructor**     | **Jane Smith** - A seasoned technology expert with over 10 years of experience. |
+| **Contact**        | **jane@example.com** - Feel free to reach out for queries or assistance.    |
+| **Course Location**| **Online** - Learn from anywhere, at your own pace.                         |
+| **Certification**  | Receive a **Certificate of Completion** to showcase your achievement.       |
+| **Special Feature**| **Hands-on labs** and a **final project** to solidify learning and skills.  |
+
+---
+
+Ready to dive in? Join today!
+                ",
+                'course_duration' => '6 weeks',
+                'course_price' => 500000,
                 'course_state' => true,
                 'user_id' => 2,
             ],
             [
                 'course_name' => 'Advanced Science',
-                'course_description' => 'This course dives deep into complex scientific concepts across various fields such as quantum mechanics, general relativity, molecular biology, and environmental science. We will explore advanced theories in physics, examine the complexities of human biology and genetics, and investigate cutting-edge scientific research that is shaping the future of healthcare, energy production, and climate change mitigation. The course also highlights the interdisciplinary connections between science and its practical applications in industries like medicine, technology, and engineering.',
-                'course_price' => 200,
+                'short_description' => 'Explore the frontiers of modern science, diving deep into physics, biology, and the groundbreaking discoveries shaping the future of humanity.',
+                'long_description' => "This course is designed for those ready to dive deep into the wonders of science:\n"
+                    . "- Explore quantum mechanics and its impact on modern technology.\n"
+                    . "- Understand the complexities of molecular biology and genetic research.\n"
+                    . "- Investigate general relativity and its application in astrophysics.\n\n"
+                    . "Throughout this course, you'll engage with real-world case studies, collaborative projects, and discussions about how scientific innovations transform industries and our daily lives.",
+                'course_duration' => '10 weeks',
+                'course_price' => 1200000,
                 'course_state' => true,
                 'user_id' => 2,
             ],
             [
                 'course_name' => 'Health and Wellness',
-                'course_description' => 'This comprehensive course covers various aspects of health and wellness, providing you with evidence-based tips for maintaining a balanced lifestyle. You will learn about proper nutrition, effective exercise regimens, mental health strategies, stress management, and sleep hygiene. The course will also discuss the science behind these practices, how they impact the body, and why they are essential for long-term health. Special attention is given to mental and emotional well-being, teaching you how to overcome stress, boost productivity, and develop healthy habits for a more fulfilling life.',
-                'course_price' => 300,
+                'short_description' => 'Unlock the secrets to living a healthier life with expert guidance on nutrition, effective exercise routines, and stress management techniques.',
+                'long_description' => "Your health journey starts here. This course covers:\n"
+                    . "- Building balanced and sustainable meal plans to suit your lifestyle.\n"
+                    . "- Developing effective exercise routines for all fitness levels.\n"
+                    . "- Mastering stress management and mindfulness techniques.\n\n"
+                    . "Each session is packed with practical advice and actionable steps to help you prioritize your well-being and achieve your health goals.",
+                'course_duration' => '8 weeks',
+                'course_price' => 2000000,
                 'course_state' => true,
                 'user_id' => 2,
             ],
             [
                 'course_name' => 'Web Development Basics',
-                'course_description' => 'Learn the basics of web development, starting with an introduction to HTML, CSS, and JavaScript. The course will cover how web pages are structured, styled, and made interactive. You will build your first fully functional website from scratch, gaining hands-on experience with responsive design, user-friendly interfaces, and essential programming concepts. Additionally, we will discuss web accessibility, search engine optimization (SEO) basics, and the principles of front-end development, preparing you for the next steps in creating professional websites.',
-                'course_price' => 150,
-                'course_state' => true,
-                'user_id' => 2,
-            ],
-            [
-                'course_name' => 'Data Science and Analytics',
-                'course_description' => 'This course will introduce you to the world of data science, from collecting and cleaning data to performing complex data analysis using Python and R. You will explore various methods of data visualization, statistical modeling, and machine learning algorithms that help solve real-world problems. Through practical exercises, you will learn how to apply these techniques to large datasets, uncover insights, and make data-driven decisions. The course will also cover ethical issues in data analysis and teach you the importance of data privacy and security.',
-                'course_price' => 250,
+                'short_description' => 'Learn how to build beautiful and functional websites using HTML, CSS, and JavaScript, even if you have no prior coding experience.',
+                'long_description' => "Discover the art of web development in this beginner-friendly course:\n"
+                    . "- Learn to craft elegant and functional web pages using HTML and CSS.\n"
+                    . "- Make your websites interactive with JavaScript fundamentals.\n"
+                    . "- Dive into responsive design principles to ensure your site looks great on any device.\n\n"
+                    . "Through practical projects, you'll gain confidence in creating professional, user-friendly websites that stand out.",
+                'course_duration' => '5 weeks',
+                'course_price' => 800000,
                 'course_state' => true,
                 'user_id' => 2,
             ],
             [
                 'course_name' => 'Digital Marketing Strategies',
-                'course_description' => 'This course is designed to help you understand the fundamentals of digital marketing and its role in the modern business landscape. You will learn about content marketing, social media strategies, search engine optimization (SEO), email campaigns, and paid advertising. Through case studies and practical examples, we will explore how to build and execute digital marketing campaigns that increase brand visibility, attract customers, and drive conversions. The course also covers analytics and tracking tools to measure the success of your campaigns and optimize them for better performance.',
-                'course_price' => 180,
+                'short_description' => 'Master the art of digital marketing with hands-on strategies in SEO, social media, email campaigns, and content creation.',
+                'long_description' => "Take your marketing skills to the next level with this in-depth course:\n"
+                    . "- Understand how to optimize content for search engines (SEO).\n"
+                    . "- Build effective social media strategies to engage your audience.\n"
+                    . "- Create and analyze email campaigns that drive conversions.\n\n"
+                    . "Whether you're an entrepreneur or marketing professional, this course will equip you with the tools and knowledge to succeed in the ever-changing digital landscape.",
+                'course_duration' => '7 weeks',
+                'course_price' => 1500000,
                 'course_state' => true,
                 'user_id' => 2,
             ],
-            [
-                'course_name' => 'Photography and Image Editing',
-                'course_description' => 'This course will guide you through the fundamentals of photography, including camera settings, composition, and lighting techniques. You will learn how to capture high-quality photos in various environments, from indoor portraiture to outdoor landscapes. In addition, we will dive into image editing using tools like Adobe Photoshop and Lightroom, teaching you how to enhance your photos, remove imperfections, and create stunning visual effects. Whether you are a beginner or looking to refine your skills, this course will help you develop both technical and creative photography skills.',
-                'course_price' => 220,
-                'course_state' => true,
-                'user_id' => 2,
-            ],
-            [
-                'course_name' => 'Financial Management for Beginners',
-                'course_description' => 'This course will teach you the basics of financial management, focusing on budgeting, saving, investing, and managing debt. You will gain a clear understanding of how personal finances work and learn practical strategies to make informed financial decisions. The course also includes an introduction to financial planning, retirement savings, and tax strategies. By the end of the course, you will have the knowledge and tools to take control of your financial future and make decisions that contribute to long-term financial stability and growth.',
-                'course_price' => 120,
-                'course_state' => true,
-                'user_id' => 2,
-            ],
-            [
-                'course_name' => 'Introduction to Artificial Intelligence',
-                'course_description' => 'In this introductory course, you will explore the fundamentals of artificial intelligence (AI), including machine learning, neural networks, and deep learning. You will learn about the key concepts behind AI algorithms, and how these algorithms are used to solve complex problems in areas such as healthcare, robotics, and natural language processing. The course will also cover ethical considerations in AI, such as bias in algorithms and the potential impact of AI on employment and privacy. This is the perfect starting point for anyone interested in the field of AI.',
-                'course_price' => 300,
-                'course_state' => true,
-                'user_id' => 2,
-            ],
-            [
-                'course_name' => 'Business Leadership and Management',
-                'course_description' => 'This course is aimed at developing leadership and management skills that are essential for running successful businesses. You will learn how to lead teams, make effective decisions, resolve conflicts, and create a culture of innovation. Topics such as strategic planning, organizational behavior, project management, and change management will be covered in-depth, along with practical tools for managing day-to-day operations. The course will also highlight real-life case studies of successful leaders and businesses, giving you insights into effective leadership strategies.',
-                'course_price' => 350,
-                'course_state' => true,
-                'user_id' => 2,
-            ]
         ]);
     }
 }
