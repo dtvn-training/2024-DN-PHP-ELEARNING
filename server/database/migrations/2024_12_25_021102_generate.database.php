@@ -83,9 +83,11 @@ return new class extends Migration
         Schema::create('courses', function (Blueprint $table) {
             $table->unsignedBigInteger('course_id', true);
             $table->string('course_name', 100);
-            $table->text('course_description');
+            $table->string('short_description', 1000);
+            $table->text('long_description');
             $table->integer('course_price')->check('course_price > 0 AND course_price < 100000000');
             $table->boolean('course_state')->default(true);
+            $table->string('course_duration', 100);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
             $table->boolean('deleted_flag')->default(false);

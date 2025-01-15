@@ -1,0 +1,29 @@
+.modify-course-container {
+    width: 100%;
+    background-color: var(--color-primary-bg);
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.modify-course-content {
+    width: 100%;
+    max-width: 1200px;
+    background-color: var(--color-primary-bg);
+    padding: 0;
+    margin: 0;
+}
+
+.modify-course-header {
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+
+.modify-course-link {
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    margin-left: 20px;
+}
