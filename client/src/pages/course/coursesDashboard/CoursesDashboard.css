@@ -107,43 +107,49 @@
 .course-edit-button,
 .course-delete-button {
     padding: 8px 12px;
-    border-radius: 3px;
+    border-radius: 50%;
     font-size: 1rem;
     font-weight: 500;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    width: 90px;
-    height: 30px;
-    color: rgb(255, 255, 255);
-    text-align: center;
+    width: 42px;
+    height: 42px;
     font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .course-edit-button {
-    background-color: rgb(72, 158, 38);
+    background-color: rgb(58, 204, 0);
     border: none;
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .course-edit-button:hover {
-    background-color: rgb(112, 223, 69);
+    background-color: rgb(121, 255, 68);
     transform: translateY(-2px);
 }
 
 .course-delete-button {
-    background-color: rgb(150, 38, 38);
+    background-color: rgb(255, 0, 0);
     border: none;
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .course-delete-button:hover {
-    background-color: rgb(255, 0, 0);
+    background-color: rgb(255, 120, 120);
     transform: translateY(-2px);
 }
 
+.course-icon {
+    width: 32px;
+    height: auto;
+}
+
 .course-add-button {
-    background-color: rgb(61, 72, 231);
-    color: rgb(255, 255, 255);
+    background-color: rgb(0, 204, 255);
+    color: rgb(0, 0, 0);
     font-size: 1rem;
     font-weight: 500;
     padding: 8px 12px;
@@ -153,10 +159,14 @@
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
 }
 
 .course-add-button:hover {
-    background-color: rgb(94, 103, 233);
+    background-color: rgb(0, 174, 255);
     transform: translateY(-2px);
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
 }

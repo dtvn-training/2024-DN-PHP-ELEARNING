@@ -42,12 +42,20 @@ const CoursesDashboard = () => {
         setCourseToDelete(null);
     };
 
-    if (isLoading || loadingDelete) {
-        return <LoadingScene />;
+    if (error) {
+        return (
+            <DashboardLayout>
+                <ErrorScene />;
+            </DashboardLayout>
+        );
     }
 
-    if (error) {
-        return <ErrorScene />;
+    if (isLoading || loadingDelete) {
+        return (
+            <DashboardLayout>
+                <LoadingScene />
+            </DashboardLayout>
+        );
     }
 
     return (
@@ -58,6 +66,7 @@ const CoursesDashboard = () => {
                         className="course-add-button"
                         onClick={() => navigate(`/course/add`)}
                     >
+                        <img className="course-icon" src="/course/icon-add.png" />
                         Add Course
                     </button>
                     {message && (
@@ -91,15 +100,15 @@ const CoursesDashboard = () => {
                                         <div className="course-actions">
                                             <button
                                                 className="course-edit-button"
-                                                onClick={() => navigate(`/course/edit/${course.course_id}`)}
+                                                onClick={() => navigate(`/course/modify/${course.course_id}`)}
                                             >
-                                                Edit
+                                                <img className="course-icon" src="/course/icon-edit.png" />
                                             </button>
                                             <button
                                                 className="course-delete-button"
                                                 onClick={() => handleDelete(course.course_id)}
                                             >
-                                                Delete
+                                                <img className="course-icon" src="/course/icon-delete.png" />
                                             </button>
                                         </div>
                                     </li>
