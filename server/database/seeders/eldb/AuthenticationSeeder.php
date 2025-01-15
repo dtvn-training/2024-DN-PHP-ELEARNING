@@ -32,6 +32,13 @@ class AuthenticationSeeder extends Seeder
                 'authentication_state' => true,
                 'authorization_id' => 3,
             ],
+            [
+                'account' => 'teacher_account_2',
+                'password' => Hash::make('teacher_password'),
+                'indentifer_email' => 'teacher2@example.com',
+                'authentication_state' => true,
+                'authorization_id' => 2,
+            ],
         ]);
     }
 }
