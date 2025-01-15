@@ -1,19 +1,48 @@
-import { Link, useNavigate } from 'react-router-dom';
-import DashboardLayout from './DashboardLayout';
-import useAllCoursesInfo from '@Hooks/course/useAllCoursesInfo';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import DashboardLayout from "./DashboardLayout";
+import useAllCoursesInfo from "@Hooks/course/useAllCoursesInfo";
+import useDeleteCourse from "@Hooks/course/useDeleteCourse";
 import LoadingScene from "@Utilities/LoadingScene";
 import ErrorScene from "@Utilities/ErrorScene";
-import './CoursesDashboard.css';
+import EnsureMessage from "@Utilities/EnsureMessage";
+import "./CoursesDashboard.css";
 
 const CoursesDashboard = () => {
     const navigate = useNavigate();
-    const { data: courses, isLoading, error } = useAllCoursesInfo();
+    const { data: courses, isLoading, error, refetch } = useAllCoursesInfo();
+    const { mutate: deleteCourse, isLoading: loadingDelete } = useDeleteCourse();
+    const [courseToDelete, setCourseToDelete] = useState(null);
+    const [message, setMessage] = useState(null);
 
     const handleDelete = (courseId) => {
-        console.log(`Deleting course with ID: ${courseId}`);
+        setCourseToDelete(courseId);
     };
 
-    if (isLoading) {
+    const confirmDelete = () => {
+        if (courseToDelete) {
+            deleteCourse(
+                { course_id: courseToDelete },
+                {
+                    onSuccess: () => {
+                        setMessage({ type: "success", text: "Course deleted successfully!" });
+                        setCourseToDelete(null);
+                        refetch();
+                    },
+                    onError: () => {
+                        setMessage({ type: "error", text: "Failed to delete course. Please try again." });
+                        setCourseToDelete(null);
+                    },
+                }
+            );
+        }
+    };
+
+    const cancelDelete = () => {
+        setCourseToDelete(null);
+    };
+
+    if (isLoading || loadingDelete) {
         return <LoadingScene />;
     }
 
@@ -31,19 +60,26 @@ const CoursesDashboard = () => {
                     >
                         Add Course
                     </button>
+                    {message && (
+                        <div className={`message ${message.type}`}>
+                            {message.text}
+                        </div>
+                    )}
                     {(!courses || courses.length === 0) ? (
-                        <p className="no-courses-message">You have no courses available! Click "Add Course" button above to adding your first course.</p>
+                        <p className="no-courses-message">
+                            You have no courses available! Click "Add Course" button above to adding your first course.
+                        </p>
                     ) : (
                         <ul className="courses-list">
-                            {courses?.map(course => (
+                            {courses?.map((course) => (
                                 course.course_state === 1 && (
                                     <li key={course.course_id} className="course-item">
                                         <div className="course-info" onClick={() => navigate(`/course/info/${course.course_id}`)}>
-                                            <div className='name-price-part'>
+                                            <div className="name-price-part">
                                                 <p className="course-name">{course.course_name}</p>
                                                 <p className="course-price">{`${course.course_price.toLocaleString()} VND`}</p>
                                             </div>
-                                            <div className='date-part'>
+                                            <div className="date-part">
                                                 <p className="course-created-at">
                                                     Created date: {new Date(course.created_at).toLocaleDateString()}
                                                 </p>
@@ -73,6 +109,13 @@ const CoursesDashboard = () => {
                     )}
                 </div>
             </div>
+            {courseToDelete && (
+                <EnsureMessage
+                    message="Are you sure you want to delete this course?"
+                    onConfirm={confirmDelete}
+                    onCancel={cancelDelete}
+                />
+            )}
         </DashboardLayout>
     );
 };
