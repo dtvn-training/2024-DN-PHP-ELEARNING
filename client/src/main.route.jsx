@@ -6,7 +6,6 @@ import NotFound from '@Pages/notFound/NotFound.jsx';
 
 import AuthRouter from '@Routes/authentication.route';
 import CourseRouter from '@Routes/course.route';
-import NotFound from "./pages/notfound/NotFound.jsx";
 
 const Router = () => {
     return (

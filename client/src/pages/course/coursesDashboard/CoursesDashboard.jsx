@@ -91,7 +91,7 @@ const CoursesDashboard = () => {
                                         <div className="course-actions">
                                             <button
                                                 className="course-edit-button"
-                                                onClick={() => navigate(`/course/edit/${course.course_id}`)}
+                                                onClick={() => navigate(`/course/modify/${course.course_id}`)}
                                             >
                                                 Edit
                                             </button>

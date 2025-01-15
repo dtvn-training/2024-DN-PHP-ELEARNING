@@ -41,7 +41,7 @@ const ModifyCourse = () => {
             <div className="modify-course-container">
                 <div className="modify-course-content">
                     <h1 className="modify-course-header">Modify Course</h1>
-                    <Link to='/course/manage' className="modify-course-link">Back to Dashboard</Link>
+                    <Link to='/course/dashboard' className="modify-course-link">Back to Dashboard</Link>
                     <Link to={`/course/info/${data.course_id}`} className="modify-course-link">Go to Course <strong>{data.course_name}</strong></Link>
                     <CourseForm
                         courseData={{
