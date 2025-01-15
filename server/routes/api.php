@@ -1,16 +1,15 @@
 <?php
 
+use App\Http\Controllers\CourseController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Log;
-
-use App\Http\Middleware\EnsureLoggedOut;
-use App\Http\Middleware\EnsureLoggedIn;
-use App\Http\Middleware\EnsureRoleTeacher;
 
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 
-use App\Http\Controllers\CourseController;
+use App\Http\Middleware\EnsureLoggedIn;
+use App\Http\Middleware\EnsureLoggedOut;
+use App\Http\Middleware\EnsureRoleTeacher;
 
 Route::get('test', function () {
     return response()->json(['message' => 'API is working']);
@@ -36,3 +35,5 @@ Route::middleware([EnsureLoggedIn::class])->group(function (): void {
     Route::post('course/delete', [CourseController::class, 'deleteCourse'])
         ->middleware([EnsureRoleTeacher::class]);
 });
+
+Route::get('course/info/{course_id}', [CourseController::class, 'viewCourse']);

@@ -16,8 +16,5 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(CourseInterface::class, CourseRepository::class);
     }
 
-    public function boot(): void
-    {
-
-    }
+    public function boot(): void {}
 }

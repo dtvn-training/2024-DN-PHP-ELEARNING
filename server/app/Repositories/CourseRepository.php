@@ -4,17 +4,20 @@ namespace App\Repositories;
 
 use App\Contracts\CourseInterface;
 use App\Models\AllCourseModel;
+use App\Models\CourseModel;
 use App\Models\DeleteCourseModel;
 
 class CourseRepository implements CourseInterface
 {
     protected AllCourseModel $allCourseModel;
+    protected CourseModel $courseModel;
     protected DeleteCourseModel $deleteCourseModel;
 
-    public function __construct(AllCourseModel $allCourseModel, DeleteCourseModel $deleteCourseModel)
+    public function __construct(CourseModel $courseModel, AllCourseModel $allCourseModel, DeleteCourseModel $deleteCourseModel)
     {
         $this->allCourseModel = $allCourseModel;
         $this->deleteCourseModel = $deleteCourseModel;
+        $this->courseModel = $courseModel;
     }
 
     /**
@@ -30,5 +33,9 @@ class CourseRepository implements CourseInterface
     public function delete(int $aid, $course_id): ?bool
     {
         return $this->deleteCourseModel->deleteCourseByAuthIdAndCourseId($aid, $course_id);
+    }
+    public function view(int $course_id): ?array
+    {
+        return $this->courseModel->getCourseById($course_id);
     }
 }
