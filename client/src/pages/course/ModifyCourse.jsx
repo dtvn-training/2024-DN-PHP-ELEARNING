@@ -6,6 +6,7 @@ import LoadingScene from "@Utilities/LoadingScene";
 import ErrorScene from "@Utilities/ErrorScene";
 import AuthProtect from "@Utilities/AuthProtect";
 import CourseForm from './forms/CourseForm';
+import ViewAllLesson from "@Pages/lesson/ViewAllLesson";
 import './ModifyCourse.css'
 
 const ModifyCourse = () => {
@@ -59,6 +60,7 @@ const ModifyCourse = () => {
                         isError={isError}
                         saveError={saveError}
                     />
+                    <ViewAllLesson course_id={course_id} />
                 </div>
             </div>
         </AuthProtect>

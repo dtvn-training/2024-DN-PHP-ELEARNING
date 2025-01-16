@@ -8,9 +8,9 @@ import CreateCourse from '@Pages/course/CreateCourse.jsx';
 const CourseRouter = () => {
     return (
         <Routes>
-            <Route path="/view/:course_id" element={<ViewCourse />} />
+            <Route path="/:course_id/view" element={<ViewCourse />} />
             <Route path="/dashboard" element={<CoursesDashboard />} />
-            <Route path="/modify/:course_id" element={<ModifyCourse />} />
+            <Route path="/:course_id/modify" element={<ModifyCourse />} />
             <Route path="/create" element={<CreateCourse />} />
         </Routes>
     );

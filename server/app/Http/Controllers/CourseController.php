@@ -139,9 +139,6 @@ class CourseController
             $aid = $request->session()->get('aid');
             $isModified = $this->course->modify($aid, $validator->validated());
 
-            $aid = $request->session()->get('aid');
-            $course_id = $this->course->create($aid, $validator->validated());
-
             if ($isModified) {
                 return response()->json(['message' => 'Course modified successfully'], 200);
             }

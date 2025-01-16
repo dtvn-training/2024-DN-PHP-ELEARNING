@@ -8,8 +8,7 @@ import ErrorScene from "@Utilities/ErrorScene";
 import EnsureMessage from "@Utilities/EnsureMessage";
 import "./ViewAllLesson.css";
 
-const ViewAllLesson = () => {
-    const { course_id } = useParams();
+const ViewAllLesson = ({ course_id }) => {
     const navigate = useNavigate();
     const { data: lessons, isLoading, error, refetch } = useReadAllLesson(course_id);
     const { mutate: deleteLesson, isLoading: loadingDelete } = useDeleteLesson();

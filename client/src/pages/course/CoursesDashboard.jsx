@@ -83,7 +83,7 @@ const CoursesDashboard = () => {
                             {courses?.map((course) => (
                                 course.course_state === 1 && (
                                     <li key={course.course_id} className="course-item">
-                                        <div className="course-info" onClick={() => navigate(`/course/view/${course.course_id}`)}>
+                                        <div className="course-info" onClick={() => navigate(`/course/${course.course_id}/view`)}>
                                             <div className="name-price-part">
                                                 <p className="course-name">{course.course_name}</p>
                                                 <p className="course-price">{`${course.course_price.toLocaleString()} VND`}</p>
@@ -100,7 +100,7 @@ const CoursesDashboard = () => {
                                         <div className="course-actions">
                                             <button
                                                 className="course-edit-button"
-                                                onClick={() => navigate(`/course/modify/${course.course_id}`)}
+                                                onClick={() => navigate(`/course/${course.course_id}/modify`)}
                                             >
                                                 <img className="course-icon" src="/course/icon-edit.png" />
                                             </button>
