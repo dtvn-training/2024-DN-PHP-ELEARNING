@@ -11,8 +11,8 @@ class MaterialTypeSeeder extends Seeder
     {
         DB::table('material_types')->insert([
             ['m_type_description' => 'Video'],
+            ['m_type_description' => 'Image'],
             ['m_type_description' => 'Text'],
-            ['m_type_description' => 'PDF'],
         ]);
     }
 }
