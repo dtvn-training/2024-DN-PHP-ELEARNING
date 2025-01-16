@@ -1,19 +1,21 @@
 <?php
 
-use App\Http\Middleware\EnsureLoggedOut;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Log;
+
+use App\Http\Middleware\EnsureLoggedOut;
+use App\Http\Middleware\EnsureRoleTeacher;
+use App\Http\Middleware\EnsureLoggedIn;
+
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
-use App\Http\Middleware\EnsureLoggedIn;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\CourseController;
 
 Route::get('test', function () {
     return response()->json(['message' => 'API is working']);
 });
 
-Route::get('auth/status',  function (){
+Route::get('auth/status',  function () {
     try {
         return response()->json(['authenticated' => session()->has('aid')], 200);
     } catch (Exception $e) {
@@ -28,4 +30,6 @@ Route::middleware([EnsureLoggedOut::class])->group(function (): void {
 
 Route::middleware([EnsureLoggedIn::class])->group(function (): void {
     Route::post('auth/logout', [LogoutController::class, 'logout']);
+    Route::post('course/create', [CourseController::class, 'create'])
+        ->middleware([EnsureRoleTeacher::class]);
 });
