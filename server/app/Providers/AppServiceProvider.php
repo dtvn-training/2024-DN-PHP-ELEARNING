@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Contracts\LessonInterface;
+use App\Repositories\LessonRepository;
 use Illuminate\Support\ServiceProvider;
 
 use App\Contracts\CourseInterface;
@@ -17,6 +19,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind(AuthenticationInterface::class, AuthenticationRepository::class);
         $this->app->bind(CourseInterface::class, CourseRepository::class);
+        $this->app->bind(LessonInterface::class, LessonRepository::class);
     }
 
     public function boot(): void

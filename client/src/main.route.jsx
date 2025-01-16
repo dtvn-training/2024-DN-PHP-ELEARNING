@@ -5,7 +5,7 @@ import Home from '@Pages/home/Home';
 
 import AuthRouter from '@Routes/authentication.route';
 import CourseRouter from '@Routes/course.route';
-import NotFound from "./pages/notfound/NotFound";
+import LessonRouter from '@Routes/lesson.route';
 
 const Router = () => {
     return (
@@ -14,6 +14,7 @@ const Router = () => {
                 <Route index element={<Home />} />
                 <Route path="course/*" element={<CourseRouter />} />
                 <Route path="auth/*" element={<AuthRouter />} />
+                <Route path="course/:course_id/lesson/*" element={<LessonRouter />} />
                 <Route path="*" element={<NotFound />} />
             </Route>
         </Routes>
