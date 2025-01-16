@@ -1,0 +1,37 @@
+.markdown-toolbar {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-bottom: 10px;
+    padding: 5px;
+    background-color: var(--color-primary-bg);
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    flex-wrap: wrap;
+}
+
+.markdown-toolbar button {
+    background-color: rgb(72, 96, 173) !important;
+    border: 1px solid var(--color-muted-light-text);
+    border-radius: 4px;
+    padding: 5px 5px;
+    font-size: 14px !important;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 40px;
+    height: 25px;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}
+
+.markdown-toolbar button:hover {
+    background-color: rgb(106, 112, 129) !important;
+    border-color: var(--color-primary-button-hover);
+}
+
+@media (max-width: 768px) {
+    .markdown-toolbar {
+        justify-content: center;
+    }
+}
