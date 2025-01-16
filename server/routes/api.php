@@ -15,7 +15,7 @@ Route::get('test', function () {
     return response()->json(['message' => 'API is working']);
 });
 
-Route::get('auth/status',  function (){
+Route::get('auth/status',  function () {
     try {
         return response()->json(['authenticated' => session()->has('aid')], 200);
     } catch (Exception $e) {
@@ -30,9 +30,12 @@ Route::middleware([EnsureLoggedOut::class])->group(function (): void {
 
 Route::middleware([EnsureLoggedIn::class])->group(function (): void {
     Route::post('auth/logout', [LogoutController::class, 'logout']);
-    Route::get('course/get-all', [CourseController::class, 'getAllCourse']);
-    Route::post('course/modify', [CourseController::class, 'modifyCourse'])
+    Route::get('course/get-all', [CourseController::class, 'getAll'])
+    ->middleware([EnsureRoleTeacher::class]);
+    Route::post('course/modify', [CourseController::class, 'modify'])
+    ->middleware([EnsureRoleTeacher::class]);
+    Route::post('course/create', [CourseController::class, 'create'])
         ->middleware([EnsureRoleTeacher::class]);
 });
 
-Route::get('course/view', [CourseController::class, 'viewCourse']);
+Route::get('course/view', [CourseController::class, 'view']);

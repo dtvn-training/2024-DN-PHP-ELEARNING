@@ -10,6 +10,7 @@ use App\Contracts\AuthenticationInterface;
 use App\Repositories\AuthenticationRepository;
 use App\Repositories\CourseRepository;
 
+
 class AppServiceProvider extends ServiceProvider
 {
     public function register(): void

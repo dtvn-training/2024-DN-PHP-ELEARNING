@@ -8,6 +8,7 @@ use App\Models\AllCourseModel;
 use App\Models\CourseBelongModel;
 use App\Models\ModifyCourseModel;
 use App\Models\GetUserIDModel;
+use App\Models\CreateCourseModel;
 use Illuminate\Support\Facades\Log;
 
 class CourseRepository implements CourseInterface
@@ -17,6 +18,7 @@ class CourseRepository implements CourseInterface
     protected GetUserIDModel $getUserIDModel;
     protected CourseBelongModel $courseBelongModel;
     protected ModifyCourseModel $modifyCourseModel;
+    protected CreateCourseModel $createCourseModel;
 
     public function __construct(
         ViewCourseModel $viewCourseModel,
@@ -24,12 +26,14 @@ class CourseRepository implements CourseInterface
         GetUserIDModel $getUserIDModel,
         CourseBelongModel $courseBelongModel,
         ModifyCourseModel $modifyCourseModel,
+        CreateCourseModel $createCourseModel,
     ) {
         $this->viewCourseModel = $viewCourseModel;
         $this->allCourseModel = $allCourseModel;
         $this->getUserIDModel = $getUserIDModel;
         $this->courseBelongModel = $courseBelongModel;
         $this->modifyCourseModel = $modifyCourseModel;
+        $this->createCourseModel = $createCourseModel;
     }
 
     /**
@@ -63,6 +67,24 @@ class CourseRepository implements CourseInterface
         } catch (\Exception $e) {
             Log::error('Error modifying course: ' . $e->getMessage());
             return false;
+        }
+    }
+
+    /**
+     * Add a new course for the authenticated user.
+     *
+     * @param  int  $aid - Authentication ID (user's ID).
+     * @param  array  $course_information - Array containing the course details.
+     * @return int|null - The ID of the newly added course, or null on failure.
+     */
+    public function create(int $aid, array $course_information): ?int
+    {
+        try {
+            $user_id = $this->getUserIDModel->getUserID($aid);
+            return $this->createCourseModel->execute($user_id, $course_information);
+        } catch (\Exception $e) {
+            Log::error('Error adding course: ' . $e->getMessage());
+            return null;
         }
     }
 }

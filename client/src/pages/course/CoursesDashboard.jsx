@@ -33,7 +33,7 @@ const CoursesDashboard = () => {
                 <div className="courses-dashboard-content">
                     <button
                         className="course-add-button"
-                        onClick={() => navigate(`/course/add`)}
+                        onClick={() => navigate(`/course/create`)}
                     >
                         <img className="course-icon" src="/course/icon-add.png" />
                         Add Course
