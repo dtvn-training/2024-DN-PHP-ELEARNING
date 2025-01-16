@@ -2,8 +2,6 @@
 
 namespace App\Providers;
 
-use App\Contracts\CourseInterface;
-use App\Repositories\CourseRepository;
 use Illuminate\Support\ServiceProvider;
 
 use App\Contracts\CourseInterface;

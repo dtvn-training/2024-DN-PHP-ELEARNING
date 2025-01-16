@@ -158,7 +158,7 @@ class CourseController
      * @param Request $request
      * @return JsonResponse
      */
-    public function deleteCourse(Request $request)
+    public function delete(Request $request)
     {
         try {
             $aid = $request->session()->get('aid');

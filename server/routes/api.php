@@ -37,7 +37,7 @@ Route::middleware([EnsureLoggedIn::class])->group(function (): void {
         ->middleware([EnsureRoleTeacher::class]);
     Route::post('course/create', [CourseController::class, 'create'])
         ->middleware([EnsureRoleTeacher::class]);
-    Route::post('course/delete', [CourseController::class, 'deleteCourse'])
+    Route::post('course/delete', [CourseController::class, 'delete'])
         ->middleware([EnsureRoleTeacher::class]);
 });
 
