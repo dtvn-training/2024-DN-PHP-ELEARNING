@@ -1,0 +1,28 @@
+.dashboard-layout-container {
+    width: 100%;
+    min-height: 60vh;
+    background-color: var(--color-primary-bg);
+    color: var(--color-primary-text);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.dashboard-layout-content {
+    max-width: 1200px;
+    width: 100%;
+    margin-top: 10px !important;
+    border-radius: 8px;
+}
+
+@media screen and (max-width: 410px) {
+    .course-manage-nav {
+        flex-direction: column;
+    }
+
+    .course-manage-nav li a {
+        font-size: 16px !important;
+    }
+}
