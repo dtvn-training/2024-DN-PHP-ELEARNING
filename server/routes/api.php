@@ -9,6 +9,7 @@ use App\Http\Middleware\EnsureRoleTeacher;
 
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
+
 use App\Http\Controllers\CourseController;
 
 Route::get('test', function () {
@@ -31,10 +32,12 @@ Route::middleware([EnsureLoggedOut::class])->group(function (): void {
 Route::middleware([EnsureLoggedIn::class])->group(function (): void {
     Route::post('auth/logout', [LogoutController::class, 'logout']);
     Route::get('course/get-all', [CourseController::class, 'getAll'])
-    ->middleware([EnsureRoleTeacher::class]);
+        ->middleware([EnsureRoleTeacher::class]);
     Route::post('course/modify', [CourseController::class, 'modify'])
-    ->middleware([EnsureRoleTeacher::class]);
+        ->middleware([EnsureRoleTeacher::class]);
     Route::post('course/create', [CourseController::class, 'create'])
+        ->middleware([EnsureRoleTeacher::class]);
+    Route::post('course/delete', [CourseController::class, 'deleteCourse'])
         ->middleware([EnsureRoleTeacher::class]);
 });
 

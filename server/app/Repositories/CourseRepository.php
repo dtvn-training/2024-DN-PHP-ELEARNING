@@ -9,6 +9,7 @@ use App\Models\CourseBelongModel;
 use App\Models\ModifyCourseModel;
 use App\Models\GetUserIDModel;
 use App\Models\CreateCourseModel;
+use App\Models\DeleteCourseModel;
 use Illuminate\Support\Facades\Log;
 
 class CourseRepository implements CourseInterface
@@ -19,6 +20,7 @@ class CourseRepository implements CourseInterface
     protected CourseBelongModel $courseBelongModel;
     protected ModifyCourseModel $modifyCourseModel;
     protected CreateCourseModel $createCourseModel;
+    protected DeleteCourseModel $deleteCourseModel;
 
     public function __construct(
         ViewCourseModel $viewCourseModel,
@@ -27,6 +29,7 @@ class CourseRepository implements CourseInterface
         CourseBelongModel $courseBelongModel,
         ModifyCourseModel $modifyCourseModel,
         CreateCourseModel $createCourseModel,
+        DeleteCourseModel $deleteCourseModel
     ) {
         $this->viewCourseModel = $viewCourseModel;
         $this->allCourseModel = $allCourseModel;
@@ -34,6 +37,7 @@ class CourseRepository implements CourseInterface
         $this->courseBelongModel = $courseBelongModel;
         $this->modifyCourseModel = $modifyCourseModel;
         $this->createCourseModel = $createCourseModel;
+        $this->deleteCourseModel = $deleteCourseModel;
     }
 
     /**
@@ -82,6 +86,26 @@ class CourseRepository implements CourseInterface
         try {
             $user_id = $this->getUserIDModel->getUserID($aid);
             return $this->createCourseModel->execute($user_id, $course_information);
+        } catch (\Exception $e) {
+            Log::error('Error adding course: ' . $e->getMessage());
+            return null;
+        }
+    }
+
+    /**
+     * Delete course by course ID.
+     *
+     * @param  int  $course_id
+     * @return bool|null
+     */
+    public function delete(int $aid, $course_id): ?bool
+    {
+        try {
+            $user_id = $this->courseBelongModel->doesCourseBelongToUser($aid, $course_id);
+            if (!$user_id) {
+                return null;
+            }
+            return $this->deleteCourseModel->execute($aid, $course_id);
         } catch (\Exception $e) {
             Log::error('Error adding course: ' . $e->getMessage());
             return null;
