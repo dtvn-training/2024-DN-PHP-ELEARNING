@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 
 class CourseBelongModel
 {
@@ -18,8 +17,7 @@ class CourseBelongModel
      */
     public function doesCourseBelongToUser(int $aid, int $course_id): ?int
     {
-        Log::info("belong aid, cid: $aid, $course_id");
-        $userId = DB::table('courses as c')
+        return DB::table('courses as c')
             ->join('users as u', 'u.user_id', '=', 'c.user_id')
             ->join('authentications as a', 'a.authentication_id', '=', 'u.authentication_id')
             ->where('a.authentication_id', $aid)
@@ -27,8 +25,5 @@ class CourseBelongModel
             ->where('u.deleted_flag', false)
             ->where('c.deleted_flag', false)
             ->value('u.user_id');
-            
-        Log::info("belong uid: $userId");
-        return $userId ?: null;
     }
 }
