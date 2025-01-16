@@ -30,7 +30,8 @@ Route::middleware([EnsureLoggedOut::class])->group(function (): void {
 
 Route::middleware([EnsureLoggedIn::class])->group(function (): void {
     Route::post('auth/logout', [LogoutController::class, 'logout']);
-    Route::get('course/get-all', [CourseController::class, 'getAllCourse'])
+    Route::get('course/get-all', [CourseController::class, 'getAllCourse']);
+    Route::post('course/modify', [CourseController::class, 'modifyCourse'])
         ->middleware([EnsureRoleTeacher::class]);
 });
 

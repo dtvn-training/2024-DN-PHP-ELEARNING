@@ -6,4 +6,5 @@ interface CourseInterface
 {
     public function view(int $course_id): ?array;
     public function getAll(int $aid): ?array;
+    public function modify(int $aid, array $course_information): ?bool;
 }
