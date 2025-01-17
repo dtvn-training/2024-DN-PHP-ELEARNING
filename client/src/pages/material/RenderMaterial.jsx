@@ -5,17 +5,23 @@ import MarkdownEditor from "@Utilities/MarkdownEditor";
 import useModifyMaterial from "@Hooks/material/useModifyMaterial";
 import useUploadImage from "@Hooks/material/useUploadImage";
 import useUploadVideo from "@Hooks/material/useUploadVideo";
+import useGenerateTranscript from "@Hooks/material/useGenerateTranscript";
 import DeleteMaterial from "./DeleteMaterial";
 import './RenderMaterial.css';
 
 const RenderMaterial = ({ material_id, type_id, course_id, lesson_id, material_content, refetch }) => {
     const [editedContent, setEditedContent] = useState(material_content);
-    const [message, setMessage] = useState(null); // State for the message
+    const [message, setMessage] = useState(null);
     const fileInputRef = useRef(null);
 
     const { mutate: modifyMaterial } = useModifyMaterial({ onSuccess: refetch });
     const { mutate: uploadImage } = useUploadImage();
     const { mutate: uploadVideo } = useUploadVideo();
+
+    const { mutate: generateTranscript, isLoading: isGeneratingTranscript } = useGenerateTranscript(
+        (data) => setMessage(`Transcript generated successfully! Material ID: ${data.material_id}`),
+        (error) => setMessage(`Error generating transcript: ${error.message}`)
+    );
 
     const { data: mediaUrl, isLoading, isError, refetch: mediaRefetch } =
         type_id === 1 ? useGetVideo(course_id, lesson_id, editedContent) :
@@ -69,6 +75,15 @@ const RenderMaterial = ({ material_id, type_id, course_id, lesson_id, material_c
         }
     };
 
+    const handleGenerateTranscript = () => {
+        setMessage(null);
+        generateTranscript({
+            course_id: course_id,
+            lesson_id: lesson_id,
+            video_name: editedContent,
+        });
+    };
+
     const renderMedia = (type) => {
         if (isLoading) return <p>Loading...</p>;
         if (isError) return <p>Not Found.</p>;
@@ -104,6 +119,15 @@ const RenderMaterial = ({ material_id, type_id, course_id, lesson_id, material_c
                     <img className="redner-material-icon" src="/material/icon-save.png" alt="Save" />
                 </button>
                 <input ref={fileInputRef} type="file" accept={type_id === 1 ? "video/*" : "image/*"} onChange={handleFileChange} style={{ display: 'none' }} />
+                {type_id === 1 && (
+                    <button
+                        onClick={handleGenerateTranscript}
+                        disabled={isGeneratingTranscript}
+                        className="transcript-button"
+                    >
+                        {isGeneratingTranscript ? "Generating..." : "Transcript"}
+                    </button>
+                )}
                 <DeleteMaterial materialId={material_id} refetch={refetch} />
             </div>
         </div>

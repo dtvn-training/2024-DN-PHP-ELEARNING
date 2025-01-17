@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TranscriptController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Log;
 
@@ -31,9 +32,9 @@ Route::get('auth/status',  function () {
     }
 });
 
-Route::post('media/upload', [UploadMediaController::class, 'uploadVideo']);
-Route::get('transcript', [GenerateTranscriptController::class, 'generateTranscript']);
-Route::get('transcript/improve', [ImproveTranscriptController::class, 'improve']);
+//Route::post('media/upload', [UploadMediaController::class, 'uploadVideo']);
+//Route::get('transcript', [GenerateTranscriptController::class, 'generateTranscript']);
+//Route::get('transcript/improve', [ImproveTranscriptController::class, 'improve']);
 
 Route::middleware([EnsureLoggedOut::class])->group(function (): void {
     Route::post('auth/login', [LoginController::class, 'login']);
@@ -68,17 +69,20 @@ Route::middleware([EnsureLoggedIn::class])->group(function (): void {
 
     Route::post('lesson/modify', [LessonController::class, 'modifyLesson'])
         ->middleware([EnsureRoleTeacher::class]);
-        
+
     Route::get('material/get-all', [MaterialController::class, 'getAll'])
         ->middleware([EnsureRoleTeacher::class]);
 
     Route::post('material/add', [MaterialController::class, 'add'])
         ->middleware([EnsureRoleTeacher::class]);
-        
+
     Route::post('material/modify', [MaterialController::class, 'modify'])
         ->middleware([EnsureRoleTeacher::class]);
 
     Route::post('material/delete', [MaterialController::class, 'delete'])
+        ->middleware([EnsureRoleTeacher::class]);
+
+    Route::post('material/media/transcript', [TranscriptController::class, 'generate'])
         ->middleware([EnsureRoleTeacher::class]);
 
     Route::get('material/media/get/image', [MaterialController::class, 'getImage']);
