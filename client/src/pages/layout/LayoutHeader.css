@@ -1,0 +1,188 @@
+/* Header Section */
+.layout-container header {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    background-color: var(--color-third-bg);
+    display: flex;
+    justify-content: center;
+}
+
+.header-content {
+    width: 1200px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--color-third-bg);
+}
+
+.image-button-homepage {
+    width: 150px;
+    height: 64px;
+    padding: 5px 0;
+    cursor: pointer;
+    background-image: url('/layout/icon-elearning-full.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    background-color: transparent;
+    transition: transform 0.3s ease;
+}
+
+.layout-container header ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.layout-container header ul li {
+    border-radius: 8px;
+    text-wrap: nowrap;
+    padding: 5px 20px;
+    margin: 0;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+.layout-container header ul li a {
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--color-primary-text);
+    text-decoration: none;
+    display: block;
+}
+
+.layout-container header ul li a:hover {
+    cursor: pointer;
+    color: var(--color-text-hover);
+    text-decoration: underline;
+}
+
+#login-btn {
+    color: #0004ff;
+}
+
+#login-btn:hover {
+    color: #07f;
+}
+
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-translucent-bg);
+    z-index: 999;
+}
+
+/* Menu Toggle Button */
+.image-button-menu-toggle {
+    display: none;
+    width: 64px;
+    height: 32px;
+    cursor: pointer;
+    background-image: url('/layout/icon-menu.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    background-color: transparent;
+    transition: transform 0.3s ease;
+}
+
+.highlight-this {
+    border-radius: 8px;
+    text-decoration: underline !important;
+    font-size: 22px !important;
+}
+
+.profile-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--color-primary-border);
+    transition: transform 0.2s ease;
+}
+
+.profile-button:hover .profile-image {
+    transform: scale(1.1);
+}
+
+@media (width <=780px) {
+    .nav-bar {
+        position: fixed;
+        top: 0;
+        padding-top: 20px;
+        right: -200px;
+        width: 200px;
+        height: 98%;
+        background-color: var(--color-primary-bg);
+        border-top-left-radius: 8px;
+        border-bottom-left-radius: 8px;
+        display: flex;
+        flex-direction: column;
+        z-index: 1000;
+        transition: right 0.3s ease-in-out;
+    }
+    
+    .nav-bar.open {
+        right: 0;
+    }
+    
+    .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: var(--color-translucent-bg);
+        z-index: 999;
+    }
+
+    .overlay {
+        display: block;
+    }
+
+    .nav-bar ul {
+        flex-direction: column;
+        align-items: center;
+        list-style: none;
+        padding: 20px 0;
+        margin: 0;
+    }
+
+    .nav-bar ul li a {
+        padding: 10px 20px;
+        font-size: 18px;
+        text-align: center;
+    }
+
+    .image-button-menu-toggle {
+        display: block;
+    }
+
+    .nav-bar ul li {
+        margin: 10px 0;
+    }
+}

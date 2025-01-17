@@ -1,0 +1,257 @@
+.courses-dashboard-container {
+    width: 100%;
+    min-height: 60vh;
+    background-color: var(--color-primary-bg);
+    color: var(--color-primary-text);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.courses-dashboard-content {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    box-sizing: border-box;
+}
+
+.courses-dashboard-content h2 {
+    width: 100%;
+    text-align: center;
+    font-size: 2rem;
+    margin: 0px;
+    padding: 0px;
+    margin-bottom: 10px;
+    color: var(--color-primary-text);
+}
+
+.courses-list {
+    width: 100%;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.course-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--color-third-bg);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px 50px;
+    margin-bottom: 1px;
+    transition: all 0.2s ease-in-out;
+    border-radius: 2px;
+}
+
+.course-item:hover {
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.5);
+    transform: translate(-5px);
+    cursor: pointer;
+    background-color: var(--color-primary-bg);
+}
+
+.course-info {
+    width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 30px;
+}
+
+.name-price-part {
+    margin-right: 20px;
+}
+
+.course-name {
+    font-weight: bold;
+    padding: 0;
+    margin: 0;
+}
+
+.course-price {
+    padding: 0;
+    margin: 0;
+}
+
+.date-part {
+    display: flex;
+    min-width: 190px;
+}
+
+.course-created-at {
+    padding: 0;
+    margin: 0;
+    margin-right: 20px;
+    font-size: 1rem;
+}
+
+.course-updated-at {
+    padding: 0;
+    margin: 0;
+    font-size: 1rem;
+}
+
+.course-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.course-edit-button,
+.course-delete-button {
+    padding: 8px 12px;
+    border-radius: 50%;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 42px;
+    height: 42px;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.course-edit-button {
+    background-color: rgb(58, 204, 0);
+    border: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.course-edit-button:hover {
+    background-color: rgb(121, 255, 68);
+    transform: translateY(-2px);
+}
+
+.course-delete-button {
+    background-color: rgb(255, 0, 0);
+    border: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.course-delete-button:hover {
+    background-color: rgb(255, 120, 120);
+    transform: translateY(-2px);
+}
+
+.course-icon {
+    width: 32px;
+    height: auto;
+}
+
+.course-add-button {
+    background-color: rgb(0, 204, 255);
+    color: rgb(0, 0, 0);
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 8px 12px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.course-add-button:hover {
+    background-color: rgb(0, 174, 255);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+.no-courses-message {
+    width: 100%;
+    text-align: center;
+    font-size: 1.2rem;
+    color: var(--color-error);
+    margin-top: 20px;
+}
+
+@media screen and (max-width: 1140px) {
+    .date-part {
+        flex-direction: column;
+    }
+
+    .courses-dashboard-content h2 {
+        font-size: 1.8rem;
+    }
+
+    .course-created-at,
+    .course-updated-at {
+        padding: 0;
+        margin: 0;
+        font-size: 0.9rem;
+    }
+
+    .course-name {
+        font-size: 1rem;
+    }
+
+    .course-price {
+        font-size: 0.9rem;
+    }
+}
+
+@media screen and (max-width: 780px) {
+    .course-item {
+        padding: 10px 30px;
+    }
+
+    .name-price-part {
+        min-width: 190px;
+        margin: 0px;
+        padding-bottom: 5px;
+    }
+
+    .course-actions{
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .course-item {
+        padding: 10px 20px;
+    }
+
+    .course-info {
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+}
+
+@media screen and (max-width: 410px) {
+    .course-item {
+        padding: 10px 10px;
+        flex-direction: column;
+    }
+
+    .courses-dashboard-content h2 {
+        font-size: 1.5rem;
+    }
+
+    .course-info {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+    }
+
+    .course-actions{
+        flex-direction: row;
+    }
+}

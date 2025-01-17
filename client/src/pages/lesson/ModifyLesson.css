@@ -1,0 +1,28 @@
+.modify-lesson-container {
+    width: 100%;
+    background-color: var(--color-primary-bg);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 60vh;
+}
+
+.modify-lesson-content {
+    width: 100%;
+    height: 100%;
+    max-width: 1100px;
+}
+
+.modify-lesson-label {
+    margin-right: 20px;
+}
+
+.modify-lesson-input {
+    padding: 2px;
+    font-size: 16px;
+}
+
+.modify-lesson-button {
+    height: 24px;
+    font-size: 12px;
+}

@@ -1,0 +1,137 @@
+.info-wrapper {
+    margin: 0 auto;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.info-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: var(--color-primary-text);
+}
+
+.info-description {
+    font-size: 16px;
+    color: var(--color-primary-text);
+    margin-bottom: 40px;
+    line-height: 1.5;
+    padding: 0 30px;
+    text-align: center;
+}
+
+.info-features-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    padding: 20px;
+}
+
+.info-feature-card {
+    background: var(--color-third-bg);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px #cae1f7;
+    padding: 20px;
+    margin: 5px;
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.info-feature-card:hover {
+    transform: translateY(-5px);
+}
+
+.info-icon {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.info-icon img {
+    width: 40px;
+    height: 40px;
+}
+
+.info-feature-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 10px 0;
+    color: var(--text-primary);
+}
+
+.info-feature-description {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.5;
+}
+
+@media (width <= 920px) {
+    .info-features-container {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+    
+    .info-title {
+        font-size: 22px;
+    }
+
+    .info-description {
+        font-size: 15px;
+        padding: 0 20px;
+    }
+
+    .info-feature-title {
+        font-size: 16px;
+    }
+
+    .info-feature-description {
+        font-size: 13px;
+    }
+
+    .info-icon {
+        width: 60px;
+        height: 60px;
+    }
+
+    .info-icon img {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+@media (width <= 480px) {
+    .info-features-container {
+        grid-template-columns: 1fr;
+        padding: 10px;
+    }
+
+    .info-title {
+        font-size: 20px;
+    }
+
+    .info-description {
+        font-size: 14px;
+        padding: 0 15px;
+    }
+
+    .info-feature-title {
+        font-size: 15px;
+    }
+
+    .info-feature-description {
+        font-size: 12px;
+    }
+
+    .info-icon {
+        width: 50px;
+        height: 50px;
+    }
+
+    .info-icon img {
+        width: 25px;
+        height: 25px;
+    }
+}

@@ -1,0 +1,49 @@
+.markdown-preview,
+.markdown-editor {
+    width: 60vw;
+    max-width: 1000px;
+    min-height: 60vh;
+}
+
+.material-actions {
+    width: 100%;
+    justify-content: flex-end;
+    align-items: flex-end;
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.material-save-button,
+.material-delete-button {
+    padding: 8px 12px;
+    border-radius: 50%;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.material-save-button {
+    background-color: rgb(58, 204, 0);
+}
+
+.material-save-button:hover {
+    background-color: rgb(121, 255, 68);
+}
+
+.material-delete-button {
+    background-color: rgb(255, 0, 0);
+}
+
+.material-delete-button:hover {
+    background-color: rgb(255, 120, 120);
+}
+
+.redner-material-icon {
+    width: 32px;
+}

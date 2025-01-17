@@ -1,0 +1,182 @@
+.markdown-render {
+    background-color: var(--color-background-light) !important;
+    padding: 20px !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.markdown-render p {
+    color: var(--color-secondary-text) !important;
+    font-size: 1rem !important;
+    text-align: left !important;
+}
+
+.markdown-render h1 {
+    color: var(--color-secondary-text) !important;
+    font-size: 1.5rem !important;
+    text-align: left !important;
+}
+
+.markdown-render h2 {
+    color: var(--color-secondary-text) !important;
+    font-size: 1.3rem !important;
+    text-align: left !important;
+}
+
+.markdown-render h3 {
+    color: var(--color-secondary-text) !important;
+    font-size: 1.1rem !important;
+    text-align: left !important;
+}
+
+.markdown-render ul,
+.markdown-render ol {
+    margin: 10px 0 !important;
+    padding-left: 20px !important;
+    font-size: 0.9rem !important;
+    text-align: left !important;
+}
+
+.markdown-render pre {
+    background-color: var(--color-secondary-bg) !important;
+    color: var(--color-light-text) !important;
+    padding: 10px !important;
+    border-radius: 8px !important;
+    font-size: 0.85rem !important;
+    overflow-x: auto !important;
+    word-wrap: break-word !important;
+    text-align: left !important;
+}
+
+.markdown-render code {
+    color: var(--color-light-text) !important;
+    font-size: 0.85rem !important;
+    text-align: left !important;
+}
+
+.markdown-render blockquote {
+    border-left: 4px solid #007BFF !important;
+    padding-left: 15px !important;
+    color: var(--color-secondary-text) !important;
+    margin: 10px 0 !important;
+    font-size: 0.9rem !important;
+    text-align: left !important;
+}
+
+.markdown-render table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    margin-top: 20px !important;
+    background-color: var(--color-primary-bg-light) !important;
+    border: 1px solid black !important;
+    font-size: 0.85rem !important;
+    text-align: left !important;
+}
+
+.markdown-render table th,
+.markdown-render table td {
+    border: 1px solid black !important;
+    padding: 8px !important;
+    text-align: left !important;
+}
+
+.markdown-render table tr:nth-child(even) {
+    background-color: var(--color-secondary-bg-light) !important;
+}
+
+.markdown-render table tr:nth-child(odd) {
+    background-color: var(--color-primary-bg-light) !important;
+}
+
+.markdown-render table tr:hover {
+    background-color: var(--color-highlight) !important;
+}
+
+.custom-alert {
+    background-color: #4caf50 !important;
+    color: white !important;
+    padding: 10px 20px !important;
+    border-radius: 5px !important;
+    border: 2px solid #388e3c !important;
+    font-size: 14px !important;
+    font-weight: bold !important;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2) !important;
+    z-index: 1000 !important;
+    position: fixed !important;
+    top: 10px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    max-width: 300px !important;
+    width: 90% !important;
+    text-align: center !important;
+    margin: 0 auto !important;
+    text-align: left !important;
+}
+
+@media (max-width: 768px) {
+    .markdown-render {
+        padding: 10px !important;
+        font-size: 0.9rem !important;
+    }
+
+    .markdown-render h1 {
+        font-size: 1.3rem !important;
+    }
+
+    .markdown-render h2 {
+        font-size: 1.1rem !important;
+    }
+
+    .markdown-render h3 {
+        font-size: 1rem !important;
+    }
+
+    .markdown-render pre {
+        font-size: 0.8rem !important;
+    }
+
+    .markdown-render table th,
+    .markdown-render table td {
+        font-size: 0.8rem !important;
+        padding: 6px !important;
+    }
+
+    .custom-alert {
+        font-size: 12px !important;
+        padding: 8px 16px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .markdown-render {
+        padding: 5px !important;
+        font-size: 0.85rem !important;
+    }
+
+    .markdown-render h1 {
+        font-size: 1.2rem !important;
+    }
+
+    .markdown-render h2 {
+        font-size: 1rem !important;
+    }
+
+    .markdown-render h3 {
+        font-size: 0.9rem !important;
+    }
+
+    .markdown-render pre {
+        font-size: 0.75rem !important;
+    }
+
+    .markdown-render table th,
+    .markdown-render table td {
+        font-size: 0.75rem !important;
+        padding: 5px !important;
+    }
+
+    .custom-alert {
+        font-size: 12px !important;
+        padding: 6px 12px !important;
+    }
+}
