@@ -47,7 +47,7 @@ class CourseModifyController
             $aid = $request->session()->get('aid');
             $modified = $this->course->modify($aid, $validator->validated());
 
-            if ($modified !== null && $modified > 0) {
+            if ($modified) {
                 return response()->json(['message' => 'Course modified successfully'], 200);
             }
 

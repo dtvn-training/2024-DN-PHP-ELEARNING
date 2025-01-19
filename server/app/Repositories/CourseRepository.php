@@ -8,6 +8,7 @@ use App\Contracts\CourseInterface;
 
 use App\Models\GetUserIDModel;
 use App\Models\CourseCreateModel;
+use App\Models\CourseDeleteModel;
 use App\Models\CourseModifyModel;
 use App\Models\CourseViewModel;
 
@@ -48,7 +49,7 @@ class CourseRepository implements CourseInterface
      * @param  array  $course_information - Array containing the course details.
      * @return bool - True if the course was successfully modified, False otherwise.
      */
-    public function modify(int $aid, array $course_information): ?int
+    public function modify(int $aid, array $course_information): ?bool
     {
         $user_id = GetUserIDModel::execute($aid);
         if ($user_id === null) {
@@ -56,5 +57,21 @@ class CourseRepository implements CourseInterface
             return null;
         }
         return CourseModifyModel::execute($user_id, $course_information);
+    }
+
+    /**
+     * Delete course by course ID.
+     *
+     * @param  int  $course_id
+     * @return bool|null
+     */
+    public function delete(int $aid, $course_id): ?bool
+    {
+        $user_id = GetUserIDModel::execute($aid);
+        if ($user_id === null) {
+            Log::error('User ID not found for authentication ID: ' . $aid);
+            return null;
+        }
+        return CourseDeleteModel::execute($user_id, $course_id);
     }
 }

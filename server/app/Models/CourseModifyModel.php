@@ -13,9 +13,9 @@ class CourseModifyModel extends Model
      *
      * @param int $aid - Authentication ID (user's ID).
      * @param array $course_information - Array containing course details.
-     * @return int|null - Number if modification was successful, null otherwise.
+     * @return bool - Number if modification was successful, null otherwise.
      */
-    public static function execute(int $user_id, array $course_information): ?int
+    public static function execute(int $user_id, array $course_information): ?bool
     {
         return self::where('course_id', $course_information['course_id'])
             ->where('user_id', $user_id)
