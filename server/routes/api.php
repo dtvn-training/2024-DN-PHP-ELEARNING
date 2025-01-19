@@ -31,3 +31,7 @@ Route::middleware([EnsureLoggedIn::class])->group(function (): void {
 Route::prefix('course')->group(function () {
     require base_path('routes/course.php');
 });
+
+Route::prefix('lesson')->group(function () {
+    require base_path('routes/lesson.php');
+});

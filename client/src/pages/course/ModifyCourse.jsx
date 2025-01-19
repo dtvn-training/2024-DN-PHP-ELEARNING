@@ -7,6 +7,7 @@ import ErrorScene from "@Utilities/ErrorScene";
 import AuthProtect from "@Utilities/AuthProtect";
 import CourseForm from './CourseForm';
 import DashboardLayout from "./DashboardLayout";
+import ViewAllLesson from "@Pages/lesson/ViewAllLesson";
 import './ModifyCourse.css'
 
 const ModifyCourse = () => {
@@ -14,7 +15,6 @@ const ModifyCourse = () => {
     const { data, error, isLoading, refetch } = useCourseInfo(course_id);
     const { mutate: modifyCourse, isLoading: isSaving, isError, error: saveError } = useModifyCourse();
     const [isSuccess, setIsSuccess] = useState(false);
-    const navigate = useNavigate();
 
     const handleSubmit = (formData) => {
         modifyCourse(formData, {
@@ -60,6 +60,7 @@ const ModifyCourse = () => {
                             isError={isError}
                             saveError={saveError}
                         />
+                        <ViewAllLesson course_id={course_id} />
                     </div>
                 </div>
             </AuthProtect>
