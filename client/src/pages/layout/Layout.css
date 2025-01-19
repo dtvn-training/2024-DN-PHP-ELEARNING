@@ -1,0 +1,14 @@
+/* General Layout */
+.layout-container {
+    min-height: 98vh;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.layout-container main {
+    width: 100%;
+}

@@ -1,0 +1,97 @@
+.material-dashboard-container {
+    width: 100%;
+    min-height: 60vh;
+    background-color: var(--color-primary-bg);
+    color: var(--color-primary-text);
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.material-dashboard-content {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    box-sizing: border-box;
+}
+
+.material-dashboard-content h2 {
+    width: 100%;
+    text-align: center;
+    font-size: 2rem;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 10px;
+    color: var(--color-primary-text);
+}
+
+.material-list {
+    width: 100%;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.material-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--color-third-bg);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px 50px;
+    margin-bottom: 1px;
+    transition: all 0.2s ease-in-out;
+    border-radius: 2px;
+}
+
+.material-info {
+    width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 30px;
+}
+
+.add-material-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.material-add-button {
+    background-color: rgb(0, 204, 255);
+    color: rgb(0, 0, 0);
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 8px 12px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.material-add-button:hover {
+    background-color: rgb(0, 174, 255);
+}
+
+.no-materials-message {
+    width: 100%;
+    text-align: center;
+    font-size: 1.2rem;
+    color: var(--color-error);
+    margin-top: 20px;
+}
+
+.material-icon {
+    width: 16px;
+}

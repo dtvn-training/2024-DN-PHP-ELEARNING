@@ -1,0 +1,123 @@
+/* Footer Section */
+.layout-container footer {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    background-color: var(--color-third-bg);
+    display: flex;
+    justify-content: center;
+}
+
+.footer-container {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: var(--color-third-bg);
+}
+
+.section-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    margin-bottom: 30px;
+    width: 100%;
+}
+
+.footer-section {
+    text-align: center;
+    margin: 0 10px;
+}
+
+.footer-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: var(--color-muted-text);
+    position: relative;
+}
+
+.footer-title::after {
+    content: "";
+    display: block;
+    height: 3px;
+    background-color: var(--color-muted-text);
+    margin-top: 5px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.footer-icon {
+    width: 90px;
+}
+
+.footer-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-list li a,
+.footer-icon {
+    margin: 5px;
+    padding: 5px;
+    font-size: 14px;
+    color: var(--color-muted-text);
+    text-decoration: none;
+}
+
+.footer-list li a:hover,
+.footer-icon:hover {
+    cursor: pointer;
+    color: var(--color-text-hover);
+    border-radius: 8px;
+}
+
+/* Social Media */
+.social-media {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.social-btn {
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: var(--color-light-text);
+    text-decoration: none;
+    display: inline-block;
+}
+
+.social-btn.facebook {
+    background-color: var(--color-facebook);
+}
+
+.social-btn.linkedin {
+    background-color: var(--color-linkedin);
+}
+
+.footer-bottom {
+    text-align: center;
+    font-size: 14px;
+    color: var(--color-primary-text);
+}
+
+/* Responsive Design */
+@media (width <= 780px) {
+    .footer-title {
+        font-size: 16px;
+    }
+
+    .footer-list li {
+        font-size: 12px;
+    }
+
+    .social-btn {
+        font-size: 12px;
+    }
+}

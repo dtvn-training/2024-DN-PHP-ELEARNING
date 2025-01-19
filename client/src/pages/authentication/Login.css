@@ -1,0 +1,150 @@
+:root {
+    --color-error: #e74c3c;
+}
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    background-color: var(--color-translucent-bg);
+    background-size: cover;
+    min-height: 60vh;
+}
+
+.login-card {
+    width: 300px;
+    height: fit-content;
+    padding: 20px 40px;
+    margin: 60px;
+    border-radius: 10px;
+    background-color: var(--color-third-bg);
+    text-align: center;
+}
+
+.login-logo {
+    font-size: 36px;
+    font-weight: bold;
+    color: var(--color-third-text);
+    margin-bottom: 20px;
+}
+
+.login-subtitle {
+    font-size: 14px;
+    color: var(--color-primary-text);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.login-input-group {
+    margin-bottom: 10px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login-label {
+    align-self: flex-start;
+    font-size: 14px;
+    color: var(--color-primary-text);
+}
+
+.login-input {
+    width: 93%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid var(--color-muted-light-text);
+    border-radius: 5px;
+    transition: border-color 0.3s ease;
+}
+
+.login-input:focus {
+    border-color: var(--color-text-hover);
+    outline: none;
+}
+
+.login-button {
+    width: 100%;
+    margin-top: 20px;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--color-light-text);
+    background-color: var(--color-secondary-button);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-button:disabled {
+    background-color: var(--color-muted-light-text);
+    cursor: not-allowed;
+}
+
+.login-button:hover:not(:disabled) {
+    background-color: var(--color-secondary-button-hover);
+}
+
+.login-footer {
+    margin-top: 20px;
+    font-size: 14px;
+    color: var(--color-primary-text);
+}
+
+.login-footer a {
+    color: var(--color-text-hover);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login-footer a:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.error-message-auth {
+    color: var(--color-error);
+    font-size: 16px;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid var(--color-muted-light-text);
+    border-top-color: var(--color-text-hover);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Responsive Design */
+@media (width <= 768px) {
+    .login-card {
+        padding: 20px;
+    }
+
+    .login-title {
+        font-size: 20px;
+    }
+
+    .login-input {
+        font-size: 13px;
+    }
+
+    .login-button {
+        font-size: 13px;
+    }
+}
