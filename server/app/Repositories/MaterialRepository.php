@@ -2,11 +2,9 @@
 
 namespace App\Repositories;
 
-use Symfony\Component\HttpFoundation\StreamedResponse;
-use Illuminate\Support\Facades\Log;
-
 use App\Contracts\MaterialInterface;
 
+use App\Models\MaterialCreateModel;
 use App\Models\MaterialListModel;
 
 class MaterialRepository implements MaterialInterface
@@ -20,5 +18,10 @@ class MaterialRepository implements MaterialInterface
     {
         $filePath = resource_path("materials/$material_id/$name");
         return !file_exists($filePath) ? null : $filePath;
+    }
+
+    public function create(array $material_data): ?int
+    {
+        return MaterialCreateModel::execute( $material_data);
     }
 }

@@ -3,6 +3,7 @@ import useListMaterial from "@Hooks/material/useListMaterial";
 import RenderMaterial from "./RenderMaterial";
 import LoadingScene from "@Utilities/LoadingScene";
 import ErrorScene from "@Utilities/ErrorScene";
+import AddMaterial from "./AddMaterial";
 import "./MaterialDashboard.css";
 
 const MaterialDashboard = ({ lesson_id }) => {
@@ -19,6 +20,8 @@ const MaterialDashboard = ({ lesson_id }) => {
     return (
         <div className="material-dashboard-container">
             <div className="material-dashboard-content">
+            <AddMaterial refetch={refetch} />
+
                 {materials?.length === 0 ? (
                     <p className="no-materials-message">
                         No materials available! Add your first material by clicking the "Add Material" button above.
