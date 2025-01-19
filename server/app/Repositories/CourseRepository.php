@@ -8,6 +8,7 @@ use App\Contracts\CourseInterface;
 
 use App\Models\GetUserIDModel;
 use App\Models\CourseCreateModel;
+use App\Models\CourseModifyModel;
 use App\Models\CourseViewModel;
 
 class CourseRepository implements CourseInterface
@@ -22,7 +23,6 @@ class CourseRepository implements CourseInterface
     {
         return CourseViewModel::execute($course_id);
     }
-
 
     /**
      * Add a new course for the authenticated user.
@@ -39,5 +39,22 @@ class CourseRepository implements CourseInterface
             return null;
         }
         return CourseCreateModel::execute(GetUserIDModel::execute($aid), $course_information);
+    }
+
+    /**
+     * Modify the course if it belongs to the authenticated user.
+     *
+     * @param  int  $aid - Authentication ID (user's ID).
+     * @param  array  $course_information - Array containing the course details.
+     * @return bool - True if the course was successfully modified, False otherwise.
+     */
+    public function modify(int $aid, array $course_information): ?int
+    {
+        $user_id = GetUserIDModel::execute($aid);
+        if ($user_id === null) {
+            Log::error('User ID not found for authentication ID: ' . $aid);
+            return null;
+        }
+        return CourseModifyModel::execute($user_id, $course_information);
     }
 }
