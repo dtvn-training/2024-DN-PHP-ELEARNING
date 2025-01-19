@@ -9,6 +9,7 @@ use App\Contracts\CourseInterface;
 use App\Models\GetUserIDModel;
 use App\Models\CourseCreateModel;
 use App\Models\CourseDeleteModel;
+use App\Models\CourseListModel;
 use App\Models\CourseModifyModel;
 use App\Models\CourseViewModel;
 
@@ -73,5 +74,21 @@ class CourseRepository implements CourseInterface
             return null;
         }
         return CourseDeleteModel::execute($user_id, $course_id);
+    }
+
+    /**
+     * Get all course teht belong to user via aid.
+     *
+     * @param  int  $aid
+     * @return array|null
+     */
+    public function list(int $aid): ?array
+    {
+        $user_id = GetUserIDModel::execute($aid);
+        if ($user_id === null) {
+            Log::error('User ID not found for authentication ID: ' . $aid);
+            return null;
+        }
+        return CourseListModel::execute($user_id);
     }
 }

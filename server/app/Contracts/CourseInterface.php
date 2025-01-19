@@ -8,4 +8,5 @@ interface CourseInterface
     public function create(int $aid, array $course_information): ?int;
     public function modify(int $aid, array $course_information): ?bool;
     public function delete(int $aid, int $course_id): ?bool;
+    public function list(int $aid): ?array;
 }

@@ -6,6 +6,7 @@ import LoadingScene from "@Utilities/LoadingScene";
 import ErrorScene from "@Utilities/ErrorScene";
 import AuthProtect from "@Utilities/AuthProtect";
 import CourseForm from './CourseForm';
+import DashboardLayout from "./DashboardLayout";
 import './ModifyCourse.css'
 
 const ModifyCourse = () => {
@@ -37,31 +38,32 @@ const ModifyCourse = () => {
     }
 
     return (
-        <AuthProtect isAuth={true} destination={'/auth/login'}>
-            <div className="modify-course-container">
-                <div className="modify-course-content">
-                    <h1 className="modify-course-header">Modify Course</h1>
-                    <Link to='/course/dashboard' className="modify-course-link">Back to Dashboard</Link>
-                    <Link to={`/course/${course_id}/view`} className="modify-course-link">Go to Course <strong>{data.course_name}</strong></Link>
-                    <CourseForm
-                        courseData={{
-                            course_id: Number.parseInt(course_id),
-                            course_name: data.course_name,
-                            short_description: data.short_description,
-                            long_description: data.long_description,
-                            course_price: data.course_price,
-                            course_duration: data.course_duration,
-                            course_state: data.course_state,
-                        }}
-                        onSubmit={handleSubmit}
-                        isSaving={isSaving}
-                        isSuccess={isSuccess}
-                        isError={isError}
-                        saveError={saveError}
-                    />
+        <DashboardLayout>
+            <AuthProtect isAuth={true} destination={'/auth/login'}>
+                <div className="modify-course-container">
+                    <div className="modify-course-content">
+                        <h1 className="modify-course-header">Modify Course</h1>
+                        <Link to={`/course/${course_id}/view`} className="modify-course-link">Go to Course <strong>{data.course_name}</strong></Link>
+                        <CourseForm
+                            courseData={{
+                                course_id: Number.parseInt(course_id),
+                                course_name: data.course_name,
+                                short_description: data.short_description,
+                                long_description: data.long_description,
+                                course_price: data.course_price,
+                                course_duration: data.course_duration,
+                                course_state: data.course_state,
+                            }}
+                            onSubmit={handleSubmit}
+                            isSaving={isSaving}
+                            isSuccess={isSuccess}
+                            isError={isError}
+                            saveError={saveError}
+                        />
+                    </div>
                 </div>
-            </div>
-        </AuthProtect>
+            </AuthProtect>
+        </DashboardLayout>
     );
 };
 
