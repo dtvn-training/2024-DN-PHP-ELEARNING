@@ -2,12 +2,15 @@
 
 namespace App\Repositories;
 
-use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Http\UploadedFile;
+
 use App\Contracts\MaterialInterface;
+
 use App\Models\MaterialListModel;
 use App\Models\MaterialCreateModel;
 use App\Models\MaterialModifyModel;
+use App\Models\MaterialDeleteModel;
 
 class MaterialRepository implements MaterialInterface
 {
@@ -42,6 +45,17 @@ class MaterialRepository implements MaterialInterface
     public function modify(array $material_data): ?bool
     {
         return MaterialModifyModel::execute($material_data);
+    }
+
+    /**
+     * Delete a material.
+     *
+     * @param int $material_id
+     * @return bool|null
+     */
+    public function delete(int $material_id): ?bool
+    {
+        return MaterialDeleteModel::execute($material_id);
     }
 
     /**
@@ -84,7 +98,7 @@ class MaterialRepository implements MaterialInterface
         }
 
         $isSaved = $file->move($targetPath, $fileName) ? true : false;
-        
+
         $isModified = MaterialModifyModel::execute([
             'material_id' => $material_id,
             'material_content' => $fileName,
