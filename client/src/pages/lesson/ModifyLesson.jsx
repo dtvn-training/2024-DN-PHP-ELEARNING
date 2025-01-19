@@ -4,8 +4,8 @@ import useViewLesson from "@Hooks/lesson/useViewLesson";
 import useModifyLesson from "@Hooks/lesson/useModifyLesson";
 import LoadingScene from "@Utilities/LoadingScene";
 import ErrorScene from "@Utilities/ErrorScene";
-import AuthProtect from "@Utilities/AuthProtect";
 import DashboardLayout from "@Pages/course/DashboardLayout";
+import MaterialDashboard from '@Pages/material/MaterialDashboard.jsx';
 import './ModifyLesson.css';
 
 const ModifyLesson = () => {
@@ -81,6 +81,7 @@ const ModifyLesson = () => {
                             </div>
                         )}
                     </form>
+                    <MaterialDashboard lesson_id={lesson_id} />
                 </div>
             </div>
         </DashboardLayout>

@@ -6,6 +6,7 @@ import useDeleteLesson from "@Hooks/lesson/useDeleteLesson";
 import LoadingScene from "@Utilities/LoadingScene";
 import ErrorScene from "@Utilities/ErrorScene";
 import EnsureMessage from "@Utilities/EnsureMessage";
+import AuthProtect  from "@Utilities/AuthProtect";
 import "./ViewAllLesson.css";
 
 const ViewAllLesson = ({ course_id }) => {
@@ -64,7 +65,6 @@ const ViewAllLesson = ({ course_id }) => {
 
     return (
         <AuthProtect isAuth={true} destination={'/auth/login'}>
-
             <div className="lessons-dashboard-container">
                 <div className="lessons-dashboard-content">
                     <button
