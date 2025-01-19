@@ -1,15 +1,15 @@
 .markdown-preview,
 .markdown-editor {
-    width: 60vw;
-    max-width: 1000px;
+    min-width: 100%;
+    max-width: 100%;
     min-height: 60vh;
 }
 
 .material-actions {
     width: 100%;
-    justify-content: flex-end;
-    align-items: flex-end;
     display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
     gap: 10px;
     margin-bottom: 20px;
 }

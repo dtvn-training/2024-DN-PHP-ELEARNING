@@ -5,6 +5,7 @@ import LoadingScene from "@Utilities/LoadingScene";
 import ErrorScene from "@Utilities/ErrorScene";
 import AddMaterial from "./AddMaterial";
 import ModifyMaterial from "./ModifyMaterial";
+import GenerateTranscript from "./GenerateTranscript";
 import "./MaterialDashboard.css";
 
 const MaterialDashboard = ({ lesson_id }) => {
@@ -57,6 +58,7 @@ const MaterialDashboard = ({ lesson_id }) => {
                                             : null
                                     }
                                 />
+                                {material.type_id === 1 && (<GenerateTranscript materialId={material.material_id} materialContent={material.material_content} />)}
                                 <ModifyMaterial
                                     material={material}
                                     editedContents={editedContents[material.material_id]}

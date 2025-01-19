@@ -4,9 +4,11 @@ namespace App\Repositories;
 
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\File;
 
 use App\Contracts\MaterialInterface;
 
+use App\Models\GetLessonIdModel;
 use App\Models\MaterialListModel;
 use App\Models\MaterialCreateModel;
 use App\Models\MaterialModifyModel;
@@ -105,5 +107,55 @@ class MaterialRepository implements MaterialInterface
         ]);
 
         return $isSaved && $isModified;
+    }
+
+    public function generate(int $material_id, string $material_content): ?bool
+    {
+        set_time_limit(0);
+
+        $videoPath = resource_path("materials/$material_id/$material_content");
+
+        $baseName = pathinfo($material_content, PATHINFO_FILENAME);
+        $timestamp = now()->format('Ymd-His');
+        $language = "en-US";
+        $outputFolderName = "{$timestamp}-{$baseName}";
+
+        $pythonScriptPath = base_path('../service/generate-transcript/generate.py');
+        $outputFolderPath = resource_path("materials/$material_id/$outputFolderName");
+        $outputFilePath = "$outputFolderPath/raw_transcript.txt";
+
+        Log::info("$outputFilePath");
+
+        if (!File::exists($outputFolderPath)) {
+            File::makeDirectory($outputFolderPath, 0755, true);
+        }
+
+        if (!File::exists($outputFilePath)) {
+            File::put($outputFilePath, '');
+        }
+
+        $command = "python \"$pythonScriptPath\" \"$videoPath\" \"$outputFilePath\" \"$language\"";
+
+        Log::info("Executing Python command: $command");
+
+        $output = shell_exec($command);
+
+        if ($output) {
+            $transcriptContent = file_get_contents($outputFilePath);
+
+            return MaterialCreateModel::execute([
+                'material_id' => $material_id,
+                'material_content' => $transcriptContent,
+                'type_id' => 3,
+                'lesson_id' => GetLessonIdModel::viaMaterialId($material_id),
+            ]) ? true : false;
+        }
+
+        return false;
+    }
+
+    public function improve(int $material_id, string $material_content): ?bool
+    {
+        return true;
     }
 }
