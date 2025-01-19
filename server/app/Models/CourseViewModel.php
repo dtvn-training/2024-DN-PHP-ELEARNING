@@ -13,7 +13,7 @@ class CourseViewModel extends Model
     /**
      * Retrieve a single active course by ID with user information.
      */
-    public function execute($course_id): array
+    public static function execute($course_id): array
     {
         return self::select(
             'courses.course_name',
