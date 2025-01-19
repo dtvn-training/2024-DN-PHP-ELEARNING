@@ -39,8 +39,7 @@ class LessonCreateController
                 ], 422);
             }
 
-            $aid = $request->session()->get('aid');
-            $lesson_id = $this->lesson->create($aid, $validator->validated());
+            $lesson_id = $this->lesson->create($validator->validated());
 
             if ($lesson_id) {
                 return response()->json([

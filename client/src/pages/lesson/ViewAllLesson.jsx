@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useListLesson from "@Hooks/lesson/useListLesson";
-import LoadingScene from "@Utilities/LoadingScene";
 import useCreateLesson from "@Hooks/lesson/useCreateLesson";
+import useDeleteLesson from "@Hooks/lesson/useDeleteLesson";
+import LoadingScene from "@Utilities/LoadingScene";
 import ErrorScene from "@Utilities/ErrorScene";
 import EnsureMessage from "@Utilities/EnsureMessage";
 import "./ViewAllLesson.css";
@@ -11,6 +12,7 @@ const ViewAllLesson = ({ course_id }) => {
     const navigate = useNavigate();
     const { data: lessons, isLoading, error, refetch } = useListLesson(course_id);
     const { mutate: createLesson, isLoading: loadingAdd } = useCreateLesson();
+    const { mutate: deleteLesson, isLoading: loadingDelete } = useDeleteLesson();
 
     const [lessonToDelete, setLessonToDelete] = useState(null);
     const [message, setMessage] = useState(null);
@@ -36,6 +38,21 @@ const ViewAllLesson = ({ course_id }) => {
 
     const confirmDelete = () => {
         if (!lessonToDelete) return;
+
+        deleteLesson(
+            { lesson_id: lessonToDelete },
+            {
+                onSuccess: () => {
+                    setMessage({ type: "success", text: "Lesson deleted successfully!" });
+                    setLessonToDelete(null);
+                    refetch();
+                },
+                onError: (error) => {
+                    setMessage({ type: "error", text: error?.message || "Failed to delete lesson. Please try again." });
+                    setLessonToDelete(null);
+                },
+            }
+        );
     };
 
     const cancelDelete = () => {
@@ -43,7 +60,7 @@ const ViewAllLesson = ({ course_id }) => {
     };
 
     if (error) return <ErrorScene />;
-    if (isLoading || loadingAdd) return <LoadingScene />;
+    if (isLoading || loadingAdd || loadingDelete) return <LoadingScene />;
 
     return (
         <div className="lessons-dashboard-container">

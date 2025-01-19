@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class LessonListController
+class LessonDeleteController
 {
     protected LessonInterface $lesson;
 
@@ -19,33 +19,36 @@ class LessonListController
     }
 
     /**
-     * Handle view course requests.
+     * Handle delete lesson requests.
      *
      * @param Request $request
      * @return JsonResponse
      */
-    public function list(Request $request)
+    public function delete(Request $request)
     {
         try {
             $validator = Validator::make($request->all(), [
-                'course_id' => 'required|int',
+                'lesson_id' => 'required|integer',
             ]);
-    
+
             if ($validator->fails()) {
                 return response()->json([
-                    'status' => 'error',
                     'message' => 'Validation failed',
                     'errors' => $validator->errors(),
                 ], 422);
             }
-            
-            $course_id = $validator->validated()['course_id'];
-            
-            $lessons = $this->lesson->list($course_id);
 
-            return response()->json(['lessons' => $lessons ?: []], 200);
+            $lesson_id = $validator->validated()['lesson_id'];
+
+            $deleted = $this->lesson->delete( $lesson_id);
+
+            if ($deleted) {
+                return response()->json(['message' => 'Lesson deleted successfully.'], 200);
+            } else {
+                return response()->json(['message' => 'Failed to delete lesson.'], 400);
+            }
         } catch (Exception $e) {
-            Log::error("Error fetching lesson details: " . $e->getMessage());
+            Log::error("Error deleting lesson: " . $e->getMessage());
             return response()->json(['message' => 'An unexpected error occurred.'], 500);
         }
     }

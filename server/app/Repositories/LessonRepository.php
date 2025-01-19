@@ -2,12 +2,10 @@
 
 namespace App\Repositories;
 
-use Illuminate\Support\Facades\Log;
-
 use App\Contracts\LessonInterface;
 
-use App\Models\GetUserIDModel;
 use App\Models\LessonCreateModel;
+use App\Models\LessonDeleteModel;
 use App\Models\LessonListModel;
 
 class LessonRepository implements LessonInterface
@@ -19,13 +17,8 @@ class LessonRepository implements LessonInterface
      * @param  int  $course_id
      * @return array|null
      */
-    public function list(int $aid, int $course_id): ?array
+    public function list(int $course_id): ?array
     {
-        $user_id = GetUserIDModel::execute($aid);
-        if ($user_id === null) {
-            Log::error('User ID not found for authentication ID: ' . $aid);
-            return null;
-        }
         return LessonListModel::execute($course_id);
     }
 
@@ -36,13 +29,21 @@ class LessonRepository implements LessonInterface
      * @param  array  $lesson_data
      * @return int|null
      */
-    public function create(int $aid, array $lesson_data): ?int
+    public function create(array $lesson_data): ?int
     {
-        $user_id = GetUserIDModel::execute($aid);
-        if ($user_id === null) {
-            Log::error('User ID not found for authentication ID: ' . $aid);
-            return null;
-        }
         return LessonCreateModel::execute($lesson_data);
+    }
+
+    /**
+     * Delete a lesson from the course.
+     *
+     * @param  int  $aid
+     * @param  int  $course_id
+     * @param  int  $lesson_id
+     * @return bool
+     */
+    public function delete(int $lesson_id): bool
+    {
+        return LessonDeleteModel::execute($lesson_id);
     }
 }

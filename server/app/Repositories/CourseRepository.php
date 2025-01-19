@@ -2,8 +2,6 @@
 
 namespace App\Repositories;
 
-use Illuminate\Support\Facades\Log;
-
 use App\Contracts\CourseInterface;
 
 use App\Models\GetUserIDModel;
@@ -35,12 +33,10 @@ class CourseRepository implements CourseInterface
      */
     public function create(int $aid, array $course_information): ?int
     {
-        $user_id = GetUserIDModel::execute($aid);
-        if ($user_id === null) {
-            Log::error('User ID not found for authentication ID: ' . $aid);
-            return null;
-        }
-        return CourseCreateModel::execute(GetUserIDModel::execute($aid), $course_information);
+        return CourseCreateModel::execute(
+            GetUserIDModel::execute($aid), 
+            $course_information
+        );
     }
 
     /**
@@ -52,12 +48,10 @@ class CourseRepository implements CourseInterface
      */
     public function modify(int $aid, array $course_information): ?bool
     {
-        $user_id = GetUserIDModel::execute($aid);
-        if ($user_id === null) {
-            Log::error('User ID not found for authentication ID: ' . $aid);
-            return null;
-        }
-        return CourseModifyModel::execute($user_id, $course_information);
+        return CourseModifyModel::execute(
+            GetUserIDModel::execute($aid), 
+            $course_information
+        );
     }
 
     /**
@@ -68,12 +62,10 @@ class CourseRepository implements CourseInterface
      */
     public function delete(int $aid, $course_id): ?bool
     {
-        $user_id = GetUserIDModel::execute($aid);
-        if ($user_id === null) {
-            Log::error('User ID not found for authentication ID: ' . $aid);
-            return null;
-        }
-        return CourseDeleteModel::execute($user_id, $course_id);
+        return CourseDeleteModel::execute(
+            GetUserIDModel::execute($aid), 
+            $course_id
+        );
     }
 
     /**
@@ -84,11 +76,6 @@ class CourseRepository implements CourseInterface
      */
     public function list(int $aid): ?array
     {
-        $user_id = GetUserIDModel::execute($aid);
-        if ($user_id === null) {
-            Log::error('User ID not found for authentication ID: ' . $aid);
-            return null;
-        }
-        return CourseListModel::execute($user_id);
+        return CourseListModel::execute(GetUserIDModel::execute($aid));
     }
 }
