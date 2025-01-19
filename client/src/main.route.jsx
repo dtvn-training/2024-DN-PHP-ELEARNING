@@ -6,6 +6,7 @@ import NotFound from '@Pages/notFound/NotFound.jsx';
 
 import AuthRouter from '@Routes/authentication.route';
 import CourseRouter from '@Routes/course.route';
+import LessonRouter from '@Routes/lesson.route';
 
 const Router = () => {
     return (
@@ -14,6 +15,7 @@ const Router = () => {
                 <Route index element={<Home />} />
                 <Route path="auth/*" element={<AuthRouter />} />
                 <Route path="course/*" element={<CourseRouter />} />
+                <Route path="lesson/*" element={<LessonRouter />} />
                 <Route path="*" element={<NotFound />} />
             </Route>
         </Routes>

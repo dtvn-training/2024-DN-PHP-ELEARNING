@@ -63,68 +63,71 @@ const ViewAllLesson = ({ course_id }) => {
     if (isLoading || loadingAdd || loadingDelete) return <LoadingScene />;
 
     return (
-        <div className="lessons-dashboard-container">
-            <div className="lessons-dashboard-content">
-                <button
-                    type="button"
-                    className="lesson-add-button"
-                    onClick={handleCreateLesson}
-                >
-                    <img className="lesson-icon" src="/course/icon-add.png" alt="Add Lesson" />
-                    Add Lesson
-                </button>
+        <AuthProtect isAuth={true} destination={'/auth/login'}>
 
-                {message && (
-                    <div className={`message ${message.type}`}>
-                        {message.text}
-                    </div>
+            <div className="lessons-dashboard-container">
+                <div className="lessons-dashboard-content">
+                    <button
+                        type="button"
+                        className="lesson-add-button"
+                        onClick={handleCreateLesson}
+                    >
+                        <img className="lesson-icon" src="/course/icon-add.png" alt="Add Lesson" />
+                        Add Lesson
+                    </button>
+
+                    {message && (
+                        <div className={`message ${message.type}`}>
+                            {message.text}
+                        </div>
+                    )}
+
+                    <ul className="lessons-list">
+                        {lessons.map((lesson) => (
+                            <li key={lesson.lesson_id} className="lesson-item">
+                                <div className="lesson-info">
+                                    <div className="name-part">
+                                        <p className="lesson-name">{lesson.lesson_name}</p>
+                                    </div>
+                                    <div className="date-part">
+                                        <p className="lesson-created-at">
+                                            Created date: {new Date(lesson.created_at).toLocaleDateString()}
+                                        </p>
+                                        <p className="lesson-updated-at">
+                                            Last Updated: {new Date(lesson.updated_at).toLocaleDateString()}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div className="lesson-actions">
+                                    <button
+                                        type="button"
+                                        className="lesson-edit-button"
+                                        onClick={() => navigate(`/lesson/${lesson.lesson_id}/modify`)}
+                                    >
+                                        <img className="lesson-icon" src="/course/icon-edit.png" alt="Edit" />
+                                    </button>
+                                    <button
+                                        type="button"
+                                        className="lesson-delete-button"
+                                        onClick={() => handleDelete(lesson.lesson_id)}
+                                    >
+                                        <img className="lesson-icon" src="/course/icon-delete.png" alt="Delete" />
+                                    </button>
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+
+                {lessonToDelete && (
+                    <EnsureMessage
+                        message="Are you sure you want to delete this lesson?"
+                        onConfirm={confirmDelete}
+                        onCancel={cancelDelete}
+                    />
                 )}
-
-                <ul className="lessons-list">
-                    {lessons.map((lesson) => (
-                        <li key={lesson.lesson_id} className="lesson-item">
-                            <div className="lesson-info">
-                                <div className="name-part">
-                                    <p className="lesson-name">{lesson.lesson_name}</p>
-                                </div>
-                                <div className="date-part">
-                                    <p className="lesson-created-at">
-                                        Created date: {new Date(lesson.created_at).toLocaleDateString()}
-                                    </p>
-                                    <p className="lesson-updated-at">
-                                        Last Updated: {new Date(lesson.updated_at).toLocaleDateString()}
-                                    </p>
-                                </div>
-                            </div>
-                            <div className="lesson-actions">
-                                <button
-                                    type="button"
-                                    className="lesson-edit-button"
-                                    onClick={() => navigate(`/lesson/${lesson.lesson_id}/modify`)}
-                                >
-                                    <img className="lesson-icon" src="/course/icon-edit.png" alt="Edit" />
-                                </button>
-                                <button
-                                    type="button"
-                                    className="lesson-delete-button"
-                                    onClick={() => handleDelete(lesson.lesson_id)}
-                                >
-                                    <img className="lesson-icon" src="/course/icon-delete.png" alt="Delete" />
-                                </button>
-                            </div>
-                        </li>
-                    ))}
-                </ul>
             </div>
-
-            {lessonToDelete && (
-                <EnsureMessage
-                    message="Are you sure you want to delete this lesson?"
-                    onConfirm={confirmDelete}
-                    onCancel={cancelDelete}
-                />
-            )}
-        </div>
+        </AuthProtect>
     );
 };
 
