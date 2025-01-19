@@ -1,15 +1,21 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import MarkdownEditor from "@Utilities/MarkdownEditor";
 import useGetMaterial from "@Hooks/material/useGetMaterial";
 import './RenderMaterial.css';
 
-const RenderMaterial = ({ material_id, type_id, material_content, refetch }) => {
+const RenderMaterial = ({ material_id, type_id, material_content, onChange }) => {
     const [editedContent, setEditedContent] = useState(material_content);
-    const fileInputRef = useRef(null);
 
-    const { data: mediaUrl, isLoading, isError, refetch: mediaRefetch } =
-        type_id === 3 ? { data: null, isLoading: false, isError: false }
-            : useGetMaterial(material_id, editedContent);
+    const { data: mediaUrl, isLoading, isError } =
+        (type_id === 3) ? { data: null, isLoading: false, isError: false }
+            : useGetMaterial(material_id, material_content);
+
+    const handleContentChange = (newContent) => {
+        setEditedContent(newContent);
+        if (onChange) {
+            onChange(newContent, material_id);
+        }
+    };
 
     const renderMedia = (type) => {
         if (isLoading) return <p>Loading...</p>;
@@ -29,7 +35,7 @@ const RenderMaterial = ({ material_id, type_id, material_content, refetch }) => 
             className="markdown-editor"
             name="markdown-content"
             content={editedContent}
-            setContent={setEditedContent}
+            setContent={handleContentChange}
         />
     );
 
