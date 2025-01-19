@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useListLesson from "@Hooks/lesson/useListLesson";
 import LoadingScene from "@Utilities/LoadingScene";
+import useCreateLesson from "@Hooks/lesson/useCreateLesson";
 import ErrorScene from "@Utilities/ErrorScene";
 import EnsureMessage from "@Utilities/EnsureMessage";
 import "./ViewAllLesson.css";
@@ -9,12 +10,24 @@ import "./ViewAllLesson.css";
 const ViewAllLesson = ({ course_id }) => {
     const navigate = useNavigate();
     const { data: lessons, isLoading, error, refetch } = useListLesson(course_id);
+    const { mutate: createLesson, isLoading: loadingAdd } = useCreateLesson();
 
     const [lessonToDelete, setLessonToDelete] = useState(null);
     const [message, setMessage] = useState(null);
 
-    const handleAddLesson = () => {
-
+    const handleCreateLesson = () => {
+        createLesson(
+            { course_id, lesson_name: "New Lesson" },
+            {
+                onSuccess: () => {
+                    setMessage({ type: "success", text: "Lesson added successfully!" });
+                    refetch();
+                },
+                onError: (error) => {
+                    setMessage({ type: "error", text: error?.message || "Failed to add lesson. Please try again." });
+                },
+            }
+        );
     };
 
     const handleDelete = (lessonId) => {
@@ -30,7 +43,7 @@ const ViewAllLesson = ({ course_id }) => {
     };
 
     if (error) return <ErrorScene />;
-    if (isLoading) return <LoadingScene />;
+    if (isLoading || loadingAdd) return <LoadingScene />;
 
     return (
         <div className="lessons-dashboard-container">
@@ -38,7 +51,7 @@ const ViewAllLesson = ({ course_id }) => {
                 <button
                     type="button"
                     className="lesson-add-button"
-                    onClick={handleAddLesson}
+                    onClick={handleCreateLesson}
                 >
                     <img className="lesson-icon" src="/course/icon-add.png" alt="Add Lesson" />
                     Add Lesson
