@@ -95,3 +95,16 @@
 .material-icon {
     width: 16px;
 }
+
+.generate-transcript-button {
+    width: 100%;
+    font-size: 16px;
+    margin-top: 5px;
+    background-color: rgb(122, 255, 140);
+    border-radius: 4px;
+}
+
+.generate-transcript-button:hover {
+    cursor: pointer;
+    background-color: rgb(220, 253, 224);
+}

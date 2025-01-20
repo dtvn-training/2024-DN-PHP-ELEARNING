@@ -40,11 +40,11 @@ const RenderMaterial = ({ material_id, type_id, material_content, onChange }) =>
     );
 
     return (
-        <div>
+        <>
             {type_id === 1 && renderMedia("video")}
             {type_id === 2 && renderMedia("image")}
             {type_id === 3 && renderText()}
-        </div>
+        </>
     );
 };
 
