@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import useImproveTranscript from "@Hooks/material/useImproveTranscript";
 
 const ImproveTranscript = ({ materialId, materialContent }) => {

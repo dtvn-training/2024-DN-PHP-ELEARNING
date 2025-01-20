@@ -87,16 +87,13 @@
     margin-top: -10px;
 }
 
-body,
-html {
-    font-family: Poppins, system-ui, Avenir, Helvetica, Arial, sans-serif;
-    padding: 0;
-    margin: 0;
-    background-image: url("/layout/bg.png");
-    background-size: cover;
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    min-width: 250px;
-    color: var(--color-primary-text);
+.price-duration {
+    display: flex;
+    width: 100%;
+    gap: 20px;
+}
+
+.price-duration label {
+    display: flex;
+    width: 100%;
 }

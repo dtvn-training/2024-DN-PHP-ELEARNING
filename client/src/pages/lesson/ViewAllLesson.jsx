@@ -6,7 +6,7 @@ import useDeleteLesson from "@Hooks/lesson/useDeleteLesson";
 import LoadingScene from "@Utilities/LoadingScene";
 import ErrorScene from "@Utilities/ErrorScene";
 import EnsureMessage from "@Utilities/EnsureMessage";
-import AuthProtect  from "@Utilities/AuthProtect";
+import AuthProtect from "@Utilities/AuthProtect";
 import "./ViewAllLesson.css";
 
 const ViewAllLesson = ({ course_id }) => {
@@ -82,41 +82,47 @@ const ViewAllLesson = ({ course_id }) => {
                         </div>
                     )}
 
-                    <ul className="lessons-list">
-                        {lessons.map((lesson) => (
-                            <li key={lesson.lesson_id} className="lesson-item">
-                                <div className="lesson-info">
-                                    <div className="name-part">
-                                        <p className="lesson-name">{lesson.lesson_name}</p>
+                    {lessons?.length === 0 ? (
+                        <p className="no-lessons-message">
+                            No lessons available! Add your first lesson by clicking the "Add Lesson" button above.
+                        </p>
+                    ) : (
+                        <ul className="lessons-list">
+                            {lessons.map((lesson) => (
+                                <li key={lesson.lesson_id} className="lesson-item">
+                                    <div className="lesson-info">
+                                        <div className="name-part">
+                                            <p className="lesson-name">{lesson.lesson_name}</p>
+                                        </div>
+                                        <div className="date-part">
+                                            <p className="lesson-created-at">
+                                                Created date: {new Date(lesson.created_at).toLocaleDateString()}
+                                            </p>
+                                            <p className="lesson-updated-at">
+                                                Last Updated: {new Date(lesson.updated_at).toLocaleDateString()}
+                                            </p>
+                                        </div>
                                     </div>
-                                    <div className="date-part">
-                                        <p className="lesson-created-at">
-                                            Created date: {new Date(lesson.created_at).toLocaleDateString()}
-                                        </p>
-                                        <p className="lesson-updated-at">
-                                            Last Updated: {new Date(lesson.updated_at).toLocaleDateString()}
-                                        </p>
+                                    <div className="lesson-actions">
+                                        <button
+                                            type="button"
+                                            className="lesson-edit-button"
+                                            onClick={() => navigate(`/lesson/${lesson.lesson_id}/modify`)}
+                                        >
+                                            <img className="lesson-icon" src="/course/icon-edit.png" alt="Edit" />
+                                        </button>
+                                        <button
+                                            type="button"
+                                            className="lesson-delete-button"
+                                            onClick={() => handleDelete(lesson.lesson_id)}
+                                        >
+                                            <img className="lesson-icon" src="/course/icon-delete.png" alt="Delete" />
+                                        </button>
                                     </div>
-                                </div>
-                                <div className="lesson-actions">
-                                    <button
-                                        type="button"
-                                        className="lesson-edit-button"
-                                        onClick={() => navigate(`/lesson/${lesson.lesson_id}/modify`)}
-                                    >
-                                        <img className="lesson-icon" src="/course/icon-edit.png" alt="Edit" />
-                                    </button>
-                                    <button
-                                        type="button"
-                                        className="lesson-delete-button"
-                                        onClick={() => handleDelete(lesson.lesson_id)}
-                                    >
-                                        <img className="lesson-icon" src="/course/icon-delete.png" alt="Delete" />
-                                    </button>
-                                </div>
-                            </li>
-                        ))}
-                    </ul>
+                                </li>
+                            ))}
+                        </ul>
+                        )}
                 </div>
 
                 {lessonToDelete && (

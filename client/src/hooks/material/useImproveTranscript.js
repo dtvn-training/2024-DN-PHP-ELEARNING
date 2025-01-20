@@ -19,7 +19,7 @@ const useImproveTranscript = () => {
 
     return useMutation(improveTranscript, {
         onSuccess: () => {
-            queryClient.invalidateQueries(['materials']);
+            window.location.reload();
         },
     });
 };

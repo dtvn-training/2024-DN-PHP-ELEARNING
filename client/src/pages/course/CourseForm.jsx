@@ -55,26 +55,28 @@ const CourseForm = ({ courseData = {}, onSubmit, isSaving, isSuccess, isError, s
                         required
                     />
                 </label>
-                <label>
-                    Price (VND):
-                    <input
-                        type="number"
-                        name="course_price"
-                        value={formData.course_price}
-                        onChange={handleInputChange}
-                        required
-                    />
-                </label>
-                <label>
-                    Duration:
-                    <input
-                        type="text"
-                        name="course_duration"
-                        value={formData.course_duration}
-                        onChange={handleInputChange}
-                        required
-                    />
-                </label>
+                <div className="price-duration">
+                    <label>
+                        Price (VND):
+                        <input
+                            type="number"
+                            name="course_price"
+                            value={formData.course_price}
+                            onChange={handleInputChange}
+                            required
+                        />
+                    </label>
+                    <label>
+                        Duration:
+                        <input
+                            type="text"
+                            name="course_duration"
+                            value={formData.course_duration}
+                            onChange={handleInputChange}
+                            required
+                        />
+                    </label>
+                </div>
                 <label>
                     Short Description:
                     <textarea
