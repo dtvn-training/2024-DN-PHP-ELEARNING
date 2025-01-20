@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MaterialTranscriptGenerateController;
+use App\Http\Controllers\MaterialTranscriptImproveController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Middleware\EnsureRoleTeacher;
@@ -35,5 +36,5 @@ Route::post('/delete', [MaterialDeleteController::class, 'delete'])
 Route::post('/generate', [MaterialTranscriptGenerateController::class, 'generate'])
     ->middleware([EnsureRoleTeacher::class, EnsureMaterialBelong::class]);
 
-Route::post('/improve', [MaterialDeleteController::class, 'delete'])
+Route::post('/improve', [MaterialTranscriptImproveController::class, 'improve'])
     ->middleware([EnsureRoleTeacher::class, EnsureMaterialBelong::class]);

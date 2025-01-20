@@ -50,6 +50,7 @@
 }
 
 .markdown-render code {
+    background-color: var(--color-secondary-bg) !important;
     color: var(--color-light-text) !important;
     font-size: 0.85rem !important;
     text-align: left !important;

@@ -9,7 +9,7 @@ const GenerateTranscript = ({ materialId, materialContent }) => {
     };
 
     return (
-        <div>
+        <div className="improve-transcript-container">
             <button
                 type="button"
                 className="generate-transcript-button"

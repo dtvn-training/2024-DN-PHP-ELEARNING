@@ -13,5 +13,5 @@ interface MaterialInterface
     public function get(int $material_id, string $name): ?string;
     public function set(int $material_id, UploadedFile $file): ?bool;
     public function generate(int $material_id, string $material_content): ?bool;
-    public function improve(int $material_id, string $material_content): ?bool;
+    public function improve(int $material_id, string $material_content, string $prompt): ?bool;
 }

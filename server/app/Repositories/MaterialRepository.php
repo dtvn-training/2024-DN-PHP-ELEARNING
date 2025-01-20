@@ -5,6 +5,7 @@ namespace App\Repositories;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Http;
 
 use App\Contracts\MaterialInterface;
 
@@ -154,8 +155,53 @@ class MaterialRepository implements MaterialInterface
         return false;
     }
 
-    public function improve(int $material_id, string $material_content): ?bool
+    public function improve(int $material_id, string $material_content, string $prompt): ?bool
     {
+        set_time_limit(0);
+
+        $prePrompt = "Improve the following text while maintaining the same length and depth as the original content. Avoiding any addition or omission.";
+        $currentPrompt = isset($prompt) && trim($prompt) !== '' ? $prompt : $prePrompt;
+
+        $apiKey = env('GERMINI_API_KEY');
+        $geminiApiUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent';
+
+        $payload = [
+            'contents' => [
+                [
+                    'parts' => [
+                        ['text' => "$currentPrompt
+                        Structure the text professionally in Markdown format with h1, h2, h3.
+                        Using code, qoute(> c), bold(** c **), italic(* content *) style if it's needed.
+                        For code should use:
+                        ```bash
+                        code content 
+                        ```
+                        Front end render will use DOMPurify.sanitize(content, { USE_PROFILES: { html: true } }), so it's code, try to avoid code line that could be reomove by it, better use html special char like &123;
+                        Avoid adding introductions, conclusions, or extra commentary.
+                        Here is the text:\n\n\"{$material_content}\""]
+                    ]
+                ]
+            ]
+        ];
+
+        $response = Http::withHeaders([
+            'Content-Type' => 'application/json',
+        ])->timeout(3600)
+            ->post("$geminiApiUrl?key=$apiKey", $payload);
+
+        if ($response->failed()) {
+            throw new \Exception('Gemini API failed: ' . $response->body());
+        }
+
+        $improved_content = $response->json()['candidates'][0]['content']['parts'][0]['text'];
+
+        if ($improved_content) {
+            return MaterialModifyModel::execute([
+                'material_id' => $material_id,
+                'material_content' => $improved_content,
+            ]) ? true : false;
+        }
+
         return true;
     }
 }

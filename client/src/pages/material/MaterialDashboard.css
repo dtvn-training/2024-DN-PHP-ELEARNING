@@ -97,7 +97,7 @@
 }
 
 .generate-transcript-button {
-    width: 100%;
+    width: fit-content;
     font-size: 16px;
     margin-top: 5px;
     background-color: rgb(122, 255, 140);
@@ -105,6 +105,41 @@
 }
 
 .generate-transcript-button:hover {
+    cursor: pointer;
+    background-color: rgb(220, 253, 224);
+}
+
+.improve-transcript-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.optional-prompt {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.prompt-input {
+    margin-top: 10px;
+    padding: 10px;
+    width: 95%;
+}
+
+.improve-transcript-button {
+    width: fit-content;
+    font-size: 16px;
+    margin-top: 5px;
+    background-color: rgb(122, 255, 140);
+    border-radius: 4px;
+}
+
+.improve-transcript-button:hover {
     cursor: pointer;
     background-color: rgb(220, 253, 224);
 }
